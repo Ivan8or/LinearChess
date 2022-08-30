@@ -7,7 +7,7 @@ import chess.eval.NumPiecesEval;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class NumPiecesTest {
+public class NumPiecesEvalTest {
 
     @Test
     public void totalCountAllPieces() {
@@ -15,7 +15,7 @@ public class NumPiecesTest {
         NumPiecesEval numTotal = new NumPiecesEval(LPieceType.values(), LSide.values());
 
         double utility = numTotal.utility(board);
-        Assert.assertSame(32, utility);
+        Assert.assertEquals(32, utility, 0.0);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class NumPiecesTest {
 
         board.loadFromFen("8/8/8/8/8/8/8/8 b - - 0 1");
         double utility = numTotal.utility(board);
-        Assert.assertSame(0, utility);
+        Assert.assertEquals(0, utility, 0.0);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class NumPiecesTest {
         );
 
         double utility = numWhite.utility(board);
-        Assert.assertSame(16, utility);
+        Assert.assertEquals(16, utility, 0.0);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class NumPiecesTest {
         );
 
         double utility = numWhite.utility(board);
-        Assert.assertSame(8, utility);
+        Assert.assertEquals(8, utility, 0.0);
     }
 
     @Test
@@ -61,6 +61,6 @@ public class NumPiecesTest {
         );
 
         double utility = numWhite.utility(board);
-        Assert.assertSame(8, utility);
+        Assert.assertEquals(8, utility, 0.0);
     }
 }

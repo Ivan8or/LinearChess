@@ -15,12 +15,12 @@ public class ChessGameTest {
     public void simpleGame() {
 
         NumPiecesEval numWhite = new NumPiecesEval(
-                LPieceType.values(),
-                new LSide[]{LSide.WHITE}
+                new LPieceType[]{LPieceType.KNIGHT},
+                new LSide[]{LSide.BLACK}
         );
         NumPiecesEval numBlack = new NumPiecesEval(
-                LPieceType.values(),
-                new LSide[]{LSide.BLACK}
+                new LPieceType[]{LPieceType.ROOK},
+                new LSide[]{LSide.WHITE}
         );
         RandomEval rand = new RandomEval(new Random(422));
 
@@ -30,27 +30,25 @@ public class ChessGameTest {
         GameDrawsEval draws = new GameDrawsEval();
 
         CumulativeEval w = new CumulativeEval(
-                //numWhite,
-                new WeightedEval(numBlack, -1),
                 whiteEnds,
-//                new WeightedEval(draws, -10),
+                new WeightedEval(draws, -5),
+                new WeightedEval(numWhite, -1),
                 rand
         );
         CumulativeEval b = new CumulativeEval(
-                numBlack,
-                //new WeightedEval(numWhite, -1),
+                new WeightedEval(numBlack, -1),
+                new WeightedEval(draws, -5),
                 blackEnds,
-                //new WeightedEval(draws, -10),
                 rand
         );
 
         MiniMaxAgent white = new MiniMaxAgent(w);
         MiniMaxAgent black = new MiniMaxAgent(b);
 
-        white.setDepth(2);
-        black.setDepth(2);
+        white.setDepth(0);
+        black.setDepth(0);
 
-        double total = 50;
+        double total = 1;
         int tied = 0;
         int blackWins = 0;
         int whiteWins = 0;
@@ -67,22 +65,22 @@ public class ChessGameTest {
             //System.out.println(game.getBoard() + "\n");
 
             if (game.getBoard().isDraw()) {
-                System.out.println("tied");
+                //System.out.println("tied");
                 tied++;
             } else {
                 LSide winner = game.getBoard().getSideToMove().flip();
-                System.out.println(winner + " won");
+                //System.out.println(winner + " won");
                 if (winner == LSide.WHITE)
                     whiteWins++;
                 else
                     blackWins++;
             }
         }
-        System.out.println("STATS");
-        System.out.println("count: " + total + " (1.00)");
-        System.out.println("black: " + blackWins + " (" + (blackWins / total) + ")");
-        System.out.println("white: " + whiteWins + " (" + (whiteWins / total) + ")");
-        System.out.println("tied games: " + tied + " (" + (tied / total) + ")");
+//        System.out.println("STATS");
+//        System.out.println("count: " + total + " (1.00)");
+//        System.out.println("black: " + blackWins + " (" + (blackWins / total) + ")");
+//        System.out.println("white: " + whiteWins + " (" + (whiteWins / total) + ")");
+//        System.out.println("tied games: " + tied + " (" + (tied / total) + ")");
 
     }
 
