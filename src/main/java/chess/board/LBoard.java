@@ -48,6 +48,9 @@ public class LBoard {
     public void loadFromFen(String fen) {
         boardImp.loadFromFen(fen);
     }
+    public String getFen() {
+        return boardImp.getFen();
+    }
     public LBoard clone() {
         return new LBoard(boardImp.clone());
     }

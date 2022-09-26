@@ -1,6 +1,8 @@
-package tests;
+package tests.agent;
 
 import chess.ChessGame;
+import chess.agent.AlphaBetaAgent;
+import chess.agent.ChessAgent;
 import chess.agent.MiniMaxAgent;
 import chess.board.LPieceType;
 import chess.board.LSide;
@@ -9,7 +11,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-public class ChessGameTest {
+public class AlphaBetaAgentTest {
 
     @Test
     public void simpleGame() {
@@ -22,6 +24,13 @@ public class ChessGameTest {
                 new LPieceType[]{LPieceType.ROOK},
                 new LSide[]{LSide.WHITE}
         );
+
+        DistanceAcrossEval blackDist =
+                new DistanceAcrossEval(LPieceType.values(), new LSide[]{LSide.BLACK});
+
+        DistanceAcrossEval whiteDist =
+                new DistanceAcrossEval(LPieceType.values(), new LSide[]{LSide.WHITE});
+
         RandomEval rand = new RandomEval(new Random(422));
 
         GameEndsEval whiteEnds = new GameEndsEval(LSide.WHITE);
@@ -33,58 +42,28 @@ public class ChessGameTest {
                 whiteEnds,
                 new WeightedEval(draws, -5),
                 new WeightedEval(numWhite, -1),
+                new WeightedEval(blackDist, 0.5),
                 rand
         );
         CumulativeEval b = new CumulativeEval(
                 new WeightedEval(numBlack, -1),
                 new WeightedEval(draws, -5),
                 blackEnds,
+                new WeightedEval(whiteDist, 0.5),
                 rand
         );
 
-        MiniMaxAgent white = new MiniMaxAgent(w);
-        MiniMaxAgent black = new MiniMaxAgent(b);
-
-        white.setDepth(0);
-        black.setDepth(0);
+        ChessAgent white = new AlphaBetaAgent(w, 1);
+        ChessAgent black = new AlphaBetaAgent(b, 1);
 
         double total = 1;
-        int tied = 0;
-        int blackWins = 0;
-        int whiteWins = 0;
 
         for (int numGames = 0; numGames < total; numGames++) {
             ChessGame game = new ChessGame();
             game.setWhiteAgent(white);
             game.setBlackAgent(black);
 
-            do {
-                //System.out.println(game.getBoard() + "\n");
-            } while (!game.increment());
-
-            //System.out.println(game.getBoard() + "\n");
-
-            if (game.getBoard().isDraw()) {
-                //System.out.println("tied");
-                tied++;
-            } else {
-                LSide winner = game.getBoard().getSideToMove().flip();
-                //System.out.println(winner + " won");
-                if (winner == LSide.WHITE)
-                    whiteWins++;
-                else
-                    blackWins++;
-            }
+            while(!game.increment());
         }
-//        System.out.println("STATS");
-//        System.out.println("count: " + total + " (1.00)");
-//        System.out.println("black: " + blackWins + " (" + (blackWins / total) + ")");
-//        System.out.println("white: " + whiteWins + " (" + (whiteWins / total) + ")");
-//        System.out.println("tied games: " + tied + " (" + (tied / total) + ")");
-
-    }
-
-    public static void main(String[] args) {
-        new ChessGameTest().simpleGame();
     }
 }

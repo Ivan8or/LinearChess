@@ -7,18 +7,18 @@ import chess.board.LSquare;
 
 import java.util.Arrays;
 
-public class DistanceAcrossEval extends DiscriminatingChessEval {
+public class DistanceToMidEval extends DiscriminatingChessEval {
 
-    public DistanceAcrossEval(LPieceType[] validTypes, LSide[] validSides) {
+    public DistanceToMidEval(LPieceType[] validTypes, LSide[] validSides) {
         super(validTypes, validSides);
     }
-    public DistanceAcrossEval(LPieceType validTypes, LSide[] validSides) {
+    public DistanceToMidEval(LPieceType validTypes, LSide[] validSides) {
         super(validTypes, validSides);
     }
-    public DistanceAcrossEval(LPieceType[] validTypes, LSide validSides) {
+    public DistanceToMidEval(LPieceType[] validTypes, LSide validSides) {
         super(validTypes, validSides);
     }
-    public DistanceAcrossEval(LPieceType validTypes, LSide validSides) {
+    public DistanceToMidEval(LPieceType validTypes, LSide validSides) {
         super(validTypes, validSides);
     }
 
@@ -35,10 +35,9 @@ public class DistanceAcrossEval extends DiscriminatingChessEval {
                 .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
                 .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
                 .mapToInt(square -> {
-                    int row = square.toString().charAt(1) - '1';
-                    if(board.getPiece(square).getPieceSide() == LSide.BLACK)
-                        return 7 - row;
-                    return row;
+                    double col = Math.abs((square.toString().charAt(0) - 'D') - 0.5);
+                    double row = Math.abs((square.toString().charAt(1) - '4') - 0.5);
+                    return Math.max((int)col, (int)row);
                 })
                 .sum();
     }

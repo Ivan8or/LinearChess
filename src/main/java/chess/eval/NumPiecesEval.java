@@ -8,13 +8,19 @@ import chess.board.LSquare;
 import java.util.Arrays;
 import java.util.List;
 
-public class NumPiecesEval implements ChessEval {
+public class NumPiecesEval extends DiscriminatingChessEval {
 
-    final private List<LPieceType> validTypes;
-    final private List<LSide> validSides;
     public NumPiecesEval(LPieceType[] validTypes, LSide[] validSides) {
-        this.validTypes = List.of(validTypes);
-        this.validSides = List.of(validSides);
+        super(validTypes, validSides);
+    }
+    public NumPiecesEval(LPieceType validTypes, LSide[] validSides) {
+        super(validTypes, validSides);
+    }
+    public NumPiecesEval(LPieceType[] validTypes, LSide validSides) {
+        super(validTypes, validSides);
+    }
+    public NumPiecesEval(LPieceType validTypes, LSide validSides) {
+        super(validTypes, validSides);
     }
     @Override
     public double utility(LBoard board) {
@@ -25,7 +31,7 @@ public class NumPiecesEval implements ChessEval {
 
         return (int) Arrays.stream(LSquare.values())
                 .filter(square -> square != LSquare.NONE)
-                .filter(square -> board.getPiece(square).getPieceSide() != null)
+                .filter(square -> board.getPiece(square).exists())
                 .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
                 .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
                 .count();

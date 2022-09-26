@@ -17,6 +17,9 @@ public class LPiece {
         return LPieceType.wrap(pieceImp.getPieceType());
     }
 
+    public boolean exists() {
+        return pieceImp.getPieceSide() != null;
+    }
     public String toString() {
         return pieceImp.toString();
     }

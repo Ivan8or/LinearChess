@@ -17,7 +17,7 @@ public class GameEndsEval implements ChessEval {
             return 0;
 
         LSide turn = board.getSideToMove();
-        return (turn == mySide) ? -1000 : 1000;
+        return (turn == mySide) ? -1 : 1;
     }
 
     private boolean isGameOver(LBoard board) {
