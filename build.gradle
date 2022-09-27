@@ -14,16 +14,6 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 repositories {
     mavenLocal()
     maven {
-        credentials {
-            username = "$usr"
-            password = "$pwd"
-        }
-        url = uri('https://nexus.umbcraft.online/repository/umbcraft-repo/')
-    }
-    maven {
-        url = uri('https://nexus.umbcraft.online/repository/proxies/')
-    }
-    maven {
         url = uri('https://repo.maven.apache.org/maven2/')
     }
 }
