@@ -34,3 +34,10 @@ dependencies {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+jar {
+  manifest {
+     attributes "Main-Class": "rest.chess.GameBackend"
+     attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
+  }
+}

@@ -6,6 +6,7 @@ import com.github.bhlangonijr.chesslib.Side;
 import com.github.bhlangonijr.chesslib.Square;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LBoard {
 
@@ -43,7 +44,7 @@ public class LBoard {
     }
 
     public List<LMove> legalMoves() {
-        return boardImp.legalMoves().stream().map(LMove::new).toList();
+        return boardImp.legalMoves().stream().map(LMove::new).collect(Collectors.toList());
     }
     public void loadFromFen(String fen) {
         boardImp.loadFromFen(fen);

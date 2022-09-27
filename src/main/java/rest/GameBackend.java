@@ -13,10 +13,10 @@ import java.util.Random;
 public class GameBackend {
 
     public static void main(String[] args) {
-        Spark.port(8080);
+        Spark.port(3100);
         ChessGame game = new ChessGame();
         game.setWhiteAgent(simpleAgent(LSide.WHITE));
-        game.setBlackAgent(new AlphaBetaAgent(new RandomEval(new Random()), 0));
+        game.setBlackAgent(simpleAgent(LSide.BLACK));
 
         Spark.get("/api/v1/fen", "GET",
                 (request, response) -> game.getBoard().getFen());
