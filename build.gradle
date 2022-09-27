@@ -40,6 +40,5 @@ tasks.withType(JavaCompile) {
 jar {
   manifest {
      attributes "Main-Class": "rest.GameBackend"
-     attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
   }
 }
