@@ -1,9 +1,8 @@
 package tests.eval;
 
 import chess.board.LBoard;
-import chess.eval.ChessEval;
-import chess.eval.ConstantEval;
-import chess.eval.CumulativeEval;
+import chess.eval.impl.ConstantEval;
+import chess.eval.impl.CumulativeEval;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,7 +1,8 @@
-package chess.eval;
+package chess.eval.impl;
 
 import chess.board.LBoard;
 import chess.board.LSide;
+import chess.eval.ChessEval;
 
 import java.util.Arrays;
 

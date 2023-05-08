@@ -2,7 +2,7 @@ package tests.eval;
 
 import chess.board.LBoard;
 import chess.board.LSide;
-import chess.eval.GameEndsEval;
+import chess.eval.impl.GameEndsEval;
 import org.junit.Assert;
 import org.junit.Test;
 

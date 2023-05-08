@@ -1,4 +1,4 @@
-package chess.eval;
+package chess.eval.impl;
 
 import chess.board.LBoard;
 import chess.board.LPieceType;
@@ -6,7 +6,6 @@ import chess.board.LSide;
 import chess.board.LSquare;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class NumPiecesEval extends DiscriminatingChessEval {
 

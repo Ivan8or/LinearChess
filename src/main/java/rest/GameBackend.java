@@ -1,11 +1,12 @@
 package rest;
 
 import chess.ChessGame;
-import chess.agent.AlphaBetaAgent;
+import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
 import chess.board.LPieceType;
 import chess.board.LSide;
 import chess.eval.*;
+import chess.eval.impl.*;
 import spark.Spark;
 
 import java.util.Random;

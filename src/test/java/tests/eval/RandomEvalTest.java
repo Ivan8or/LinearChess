@@ -1,7 +1,7 @@
 package tests.eval;
 
 import chess.board.LBoard;
-import chess.eval.RandomEval;
+import chess.eval.impl.RandomEval;
 import org.junit.Assert;
 import org.junit.Test;
 

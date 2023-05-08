@@ -3,7 +3,7 @@ package tests.eval;
 import chess.board.LBoard;
 import chess.board.LPieceType;
 import chess.board.LSide;
-import chess.eval.DistanceAcrossEval;
+import chess.eval.impl.DistanceAcrossEval;
 import org.junit.Assert;
 import org.junit.Test;
 

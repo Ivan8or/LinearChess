@@ -1,16 +1,17 @@
-package chess.agent;
+package chess.agent.impl;
 
+import chess.agent.ChessAgent;
 import chess.board.LBoard;
 import chess.board.LMove;
 import chess.eval.ChessEval;
 
 import java.util.*;
 
-public class MiniMaxAgent extends ChessAgent {
+public class AlphaBetaAgent extends ChessAgent {
 
     private int depth;
 
-    public MiniMaxAgent(ChessEval evaluation, int depth) {
+    public AlphaBetaAgent(ChessEval evaluation, int depth) {
         setEvaluation(evaluation);
         setDepth(depth);
     }
@@ -28,19 +29,19 @@ public class MiniMaxAgent extends ChessAgent {
 
         for(LMove nextMove: allMoves) {
             board.doMove(nextMove);
-            double nextUtility = miniMax(board, depth, false);
+            double nextUtility = miniMax(board, depth, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             board.undoMove();
             rankedMoves.put(nextMove, nextUtility);
         }
         return rankedMoves;
     }
 
-    private double miniMax(LBoard board, int depth, boolean myTurn) {
+    private double miniMax(LBoard board, int depth, boolean isMaximizingPlayer, double alpha, double beta) {
 
         if (depth == 0)
             return evaluationFunction.utility(board);
 
-        double moveUtility = myTurn ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        double moveUtility = isMaximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         List<LMove> legalMoves = board.legalMoves();
 
         if(legalMoves.isEmpty())
@@ -48,11 +49,20 @@ public class MiniMaxAgent extends ChessAgent {
 
         for (LMove choice : legalMoves) {
             board.doMove(choice);
-            double nextMoveVal = miniMax(board, depth - 1, !myTurn);
+            double nextMoveVal = miniMax(board, depth - 1, !isMaximizingPlayer, alpha, beta);
             board.undoMove();
-            if (myTurn ^ (nextMoveVal < moveUtility)) {
-                moveUtility = nextMoveVal;
+
+            if(isMaximizingPlayer) {
+                moveUtility = Math.max(nextMoveVal, moveUtility);
+                alpha = Math.max(alpha, moveUtility);
             }
+            else {
+                moveUtility = Math.min(nextMoveVal, moveUtility);
+                beta = Math.min(beta, moveUtility);
+            }
+
+            if(beta <= alpha)
+                return moveUtility;
         }
 
         return moveUtility;

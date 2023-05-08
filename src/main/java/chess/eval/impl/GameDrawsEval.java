@@ -1,6 +1,7 @@
-package chess.eval;
+package chess.eval.impl;
 
 import chess.board.LBoard;
+import chess.eval.ChessEval;
 
 public class GameDrawsEval implements ChessEval {
 

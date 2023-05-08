@@ -1,12 +1,13 @@
 package tests.agent;
 
 import chess.ChessGame;
-import chess.agent.AlphaBetaAgent;
+import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
-import chess.agent.MiniMaxAgent;
+import chess.agent.impl.MiniMaxAgent;
 import chess.board.LPieceType;
 import chess.board.LSide;
 import chess.eval.*;
+import chess.eval.impl.*;
 import org.junit.Assert;
 import org.junit.Test;
 
