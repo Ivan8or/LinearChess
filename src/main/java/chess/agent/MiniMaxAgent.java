@@ -8,10 +8,7 @@ import java.util.*;
 
 public class MiniMaxAgent extends ChessAgent {
 
-    private int depth = 2;
-    public MiniMaxAgent(ChessEval evaluation) {
-        setEvaluation(evaluation);
-    }
+    private int depth;
 
     public MiniMaxAgent(ChessEval evaluation, int depth) {
         setEvaluation(evaluation);
@@ -19,26 +16,9 @@ public class MiniMaxAgent extends ChessAgent {
     }
 
     public void setDepth(int depth) {
+        if(depth < 0)
+            throw new IllegalArgumentException("invalid lookahead depth for AlphaBeta agent");
         this.depth = depth;
-    }
-
-
-    public LMove decideMove(LBoard board) {
-
-        Map<LMove, Double> allMoveUtilities = rankMoves(board);
-        LMove bestMove = null;
-
-        double bestUtility = Integer.MIN_VALUE;
-
-        for(LMove nextMove: allMoveUtilities.keySet()) {
-
-            if(bestUtility < allMoveUtilities.get(nextMove)) {
-                bestMove = nextMove;
-                bestUtility = allMoveUtilities.get(nextMove);
-
-            }
-        }
-        return bestMove;
     }
 
     public Map<LMove, Double> rankMoves(LBoard board) {
