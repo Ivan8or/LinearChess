@@ -24,20 +24,20 @@ public class DistanceToMidEval extends DiscriminatingChessEval {
 
     @Override
     public double utility(LBoard board) {
-        return distanceFromStartSide(board);
+        return distanceFromMiddle(board);
     }
 
-    private int distanceFromStartSide(LBoard board) {
+    private double distanceFromMiddle(LBoard board) {
 
         return Arrays.stream(LSquare.values())
                 .filter(square -> square != LSquare.NONE)
                 .filter(square -> board.getPiece(square).exists())
                 .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
                 .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
-                .mapToInt(square -> {
-                    double col = Math.abs((square.toString().charAt(0) - 'D') - 0.5);
-                    double row = Math.abs((square.toString().charAt(1) - '4') - 0.5);
-                    return Math.max((int)col, (int)row);
+                .mapToDouble(square -> {
+                    double col = Math.abs(square.file - 3.5);
+                    double row = Math.abs(square.rank - 3.5);
+                    return Math.max(col, row);
                 })
                 .sum();
     }

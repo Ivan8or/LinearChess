@@ -35,10 +35,10 @@ public class DistanceAcrossEval extends DiscriminatingChessEval {
                 .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
                 .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
                 .mapToInt(square -> {
-                    int row = square.toString().charAt(1) - '1';
+                    int rank = square.rank;
                     if(board.getPiece(square).getPieceSide() == LSide.BLACK)
-                        return 7 - row;
-                    return row;
+                        return 7 - rank;
+                    return rank;
                 })
                 .sum();
     }
