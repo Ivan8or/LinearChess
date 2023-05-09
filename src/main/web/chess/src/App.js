@@ -4,18 +4,20 @@ import Menu from './menu/Menu';
 
 export default function App() {
 
-    const initialFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+    const [fenState, setFenState] = useState("");
 
-    const [fenState, updateFenState] = useState(initialFen);
+    const updateFen = (fen) => {
+        setFenState(fen);
+    }
 
     return (
         <>
         <div id="board-root">
-            <ChessBoard  fen={fenState} />
+            <ChessBoard fen={fenState} />
         </div>
 
         <div id="menu-root">
-            <Menu  />
+            <Menu updater={ updateFen }  />
         </div>
         
         </>

@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 export default function BoardTile( {tile} ) {
-    
-    const [tileState, setTileState] = useState(tile);
 
     return (
-        <div onClick={() => setTileState(tileState)} className="chess-tile"> {tileState} </div>
+        <img className="chess-tile" src={tile+".jpg"} alt={tile}></img>
     );
 }
