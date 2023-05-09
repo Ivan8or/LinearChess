@@ -1,0 +1,82 @@
+/*
+All global color variables declared here:
+*/
+:root {
+    --text: #222;
+
+    --focus: #aaa;
+    --semifocus: #bbb;
+    --nofocus: #efefef;
+
+    --lighttile: #E2BC7B;
+    --darktile: #7D591B;
+    --hovertile: #47501A;
+    --clicktile: #2A2F0F;
+}
+
+body {
+    background-color: var(--nofocus);
+    margin: 0px;
+    position: fixed;
+}
+
+#root {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background-color: lime;
+
+    grid-template-columns: 65% 35%;
+    grid-template-rows: 100%;
+
+}
+
+#board-root {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows:    repeat(8, 1fr);
+
+    padding: 10%;
+    
+
+    background-color: var(--semifocus);
+}
+
+.chess-tile {
+    background-color: var(--darktile);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 3.8em;
+    font-family: monospace;
+    font-weight: bolder;
+    user-select: none;
+}
+
+.chess-tile:nth-child(16n + 1),
+.chess-tile:nth-child(16n + 3),
+.chess-tile:nth-child(16n + 5),
+.chess-tile:nth-child(16n + 7),
+.chess-tile:nth-child(16n + 10),
+.chess-tile:nth-child(16n + 12),
+.chess-tile:nth-child(16n + 14),
+.chess-tile:nth-child(16n + 16){
+    background-color: var(--lighttile);
+}
+
+.chess-tile:hover {
+    background-color: var(--hovertile);
+}
+.chess-tile:active {
+    background-color: var(--clicktile);
+}
+.chess-tile:focus {
+    background-color: red;
+}
+
+#menu-root {
+    display: grid;
+    background-color: var(--focus);
+}
