@@ -15,8 +15,3 @@ body {
     grid-template-rows: 100%;
 
 }
-
-#menu-root {
-    display: grid;
-    background-color: var(--focus);
-}

@@ -14,4 +14,8 @@ All global color variables declared here:
     --clicktile: #2A2F0F;
     --inner-border: rgb(53, 35, 14);
     --outer-border: rgb(66, 63, 59);
+
+    --button: #888;
+    --hoverbutton: #777;
+    --clickbutton: #666;
 }
