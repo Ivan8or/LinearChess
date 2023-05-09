@@ -27,6 +27,10 @@ public class ChessGame {
         ChessAgent turnAgent = turnAgent();
         LMove bestMove = turnAgent.decideMove(board);
         board.doMove(bestMove);
+        return isOver();
+    }
+
+    public boolean isOver() {
         return board.isMated() || board.isDraw();
     }
 
