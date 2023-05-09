@@ -11,6 +11,7 @@ public enum LSide {
     public LSide flip() {
         return sides[(this.ordinal() + 1) % 2];
     }
+
     protected static LSide wrap(Side side) {
         if(side == null)
             return null;

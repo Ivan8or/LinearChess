@@ -18,7 +18,7 @@ public class DistanceToMidEvalTest {
                 LSide.values());
 
         double utility = pawnDistance.utility(board);
-        Assert.assertEquals(2, utility, 0.0);
+        Assert.assertEquals(2.5, utility, 0.0);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class DistanceToMidEvalTest {
                 LSide.BLACK);
 
         double utility = pawnDistance.utility(board);
-        Assert.assertEquals(3, utility, 0.0);
+        Assert.assertEquals(3.5, utility, 0.0);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class DistanceToMidEvalTest {
                 LSide.WHITE);
 
         double utility = pawnDistance.utility(board);
-        Assert.assertEquals(18, utility, 0.0);
+        Assert.assertEquals(22, utility, 0.0);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class DistanceToMidEvalTest {
                 LSide.WHITE);
 
         double utility = allDistance.utility(board);
-        Assert.assertEquals(42, utility, 0.0);
+        Assert.assertEquals(50, utility, 0.0);
     }
 
     @Test
@@ -65,6 +65,6 @@ public class DistanceToMidEvalTest {
                 LSide.values());
 
         double utility = allDistance.utility(board);
-        Assert.assertEquals(84, utility, 0.0);
+        Assert.assertEquals(100, utility, 0.0);
     }
 }
