@@ -23,41 +23,55 @@ public class Main {
         game.setWhiteAgent(simpleAgent(LSide.WHITE));
         game.setBlackAgent(simpleAgent(LSide.BLACK));
 
+        after((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+        });
+
         registerV0(game);
     }
 
     public static void registerV0(ChessGame game) {
 
-        get("/api/v0/fen", "GET", (request, response) ->
-            game.getBoard().getFen()
-        );
+        get("/api/v0/fen", "GET", (request, response) -> {
+            synchronized(game) {
+                return game.getBoard().getFen();
+            }
+        });
 
         get("/api/v0/moves", "GET", (request, response) ->
                 Arrays.toString(game.getBoard().legalMoves().toArray())
         );
 
         get("/api/v0/increment", "GET", (request, response) -> {
-            System.out.println(game.getBoard().getSideToMove()+" goes!");
-            game.increment();
-            return game.getBoard().getFen();
+            synchronized(game) {
+                System.out.println(game.getBoard().getSideToMove() + " goes!");
+                if (!game.isOver())
+                    game.increment();
+
+                return game.getBoard().getFen();
+            }
         });
 
         get("/api/v0/reset", "GET", (request, response) -> {
-            game.resetBoard();
-            return game.getBoard().getFen();
+            synchronized(game) {
+                game.resetBoard();
+                return game.getBoard().getFen();
+            }
         });
 
         get("/api/v0/move/:move", "GET", (request, response) -> {
-            String moveString = request.params(":move");
+            synchronized(game) {
+                String moveString = request.params(":move");
 
-            Optional<LMove> move = game.getBoard().legalMoves().stream()
-                    .filter(s -> s.toString().equals(moveString))
-                    .findFirst();
+                Optional<LMove> move = game.getBoard().legalMoves().stream()
+                        .filter(s -> s.toString().equals(moveString))
+                        .findFirst();
 
-            if(!move.isPresent())
-                return "bad-move";
+                if (!move.isPresent())
+                    return "bad-move";
 
-            return game.getBoard().getFen();
+                return game.getBoard().getFen();
+            }
         });
     }
 
