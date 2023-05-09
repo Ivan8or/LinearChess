@@ -4,6 +4,7 @@ import chess.board.LBoard;
 import chess.board.LPieceType;
 import chess.board.LSide;
 import chess.board.LSquare;
+import chess.eval.DiscriminatingChessEval;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package chess.eval.impl;
+package chess.eval;
 
 import chess.board.LPieceType;
 import chess.board.LSide;
