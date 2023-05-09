@@ -1,32 +1,64 @@
-package rest;
+package api;
 
 import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
+import chess.board.LMove;
 import chess.board.LPieceType;
 import chess.board.LSide;
 import chess.eval.*;
 import chess.eval.impl.*;
-import spark.Spark;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 
-public class GameBackend {
+import static spark.Spark.*;
+
+public class Main {
 
     public static void main(String[] args) {
-        Spark.port(3100);
+        port(3100);
         ChessGame game = new ChessGame();
         game.setWhiteAgent(simpleAgent(LSide.WHITE));
         game.setBlackAgent(simpleAgent(LSide.BLACK));
 
-        Spark.get("/api/v1/fen", "GET",
-                (request, response) -> game.getBoard().getFen());
+        registerV0(game);
+    }
 
-        Spark.get("/api/v1/board", "GET",
-                (request, response) -> game.getBoard().toString());
+    public static void registerV0(ChessGame game) {
 
-        Spark.get("/api/v1/increment", "GET",
-                (request, response) -> "success: " + game.increment());
+        get("/api/v0/fen", "GET", (request, response) ->
+            game.getBoard().getFen()
+        );
+
+        get("/api/v0/moves", "GET", (request, response) ->
+                Arrays.toString(game.getBoard().legalMoves().toArray())
+        );
+
+        get("/api/v0/increment", "GET", (request, response) -> {
+            System.out.println(game.getBoard().getSideToMove()+" goes!");
+            game.increment();
+            return game.getBoard().getFen();
+        });
+
+        get("/api/v0/reset", "GET", (request, response) -> {
+            game.resetBoard();
+            return game.getBoard().getFen();
+        });
+
+        get("/api/v0/move/:move", "GET", (request, response) -> {
+            String moveString = request.params(":move");
+
+            Optional<LMove> move = game.getBoard().legalMoves().stream()
+                    .filter(s -> s.toString().equals(moveString))
+                    .findFirst();
+
+            if(!move.isPresent())
+                return "bad-move";
+
+            return game.getBoard().getFen();
+        });
     }
 
 

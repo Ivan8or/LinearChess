@@ -10,7 +10,7 @@ public class ChessGame {
     private ChessAgent whiteAgent;
     private ChessAgent blackAgent;
 
-    final private LBoard board;
+    private LBoard board;
 
     public ChessGame() {
         board = new LBoard();
@@ -30,8 +30,12 @@ public class ChessGame {
         return board.isMated() || board.isDraw();
     }
 
+    public void resetBoard() {
+        board = new LBoard();
+    }
+
     public LBoard getBoard() {
-        return board.clone();
+        return board;
     }
 
     private ChessAgent turnAgent() {
