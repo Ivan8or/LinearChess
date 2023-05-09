@@ -1,0 +1,22 @@
+
+body {
+    background-color: var(--nofocus);
+    margin: 0px;
+    position: fixed;
+}
+
+#root {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background-color: lime;
+
+    grid-template-columns: 65% 35%;
+    grid-template-rows: 100%;
+
+}
+
+#menu-root {
+    display: grid;
+    background-color: var(--focus);
+}

@@ -1,0 +1,17 @@
+/*
+All global color variables declared here:
+*/
+:root {
+    --text: #222;
+
+    --focus: #aaa;
+    --semifocus: #bbb;
+    --nofocus: #efefef;
+
+    --lighttile: #E2BC7B;
+    --darktile: #7D591B;
+    --hovertile: #47501A;
+    --clicktile: #2A2F0F;
+    --inner-border: rgb(53, 35, 14);
+    --outer-border: rgb(66, 63, 59);
+}

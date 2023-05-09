@@ -1,35 +1,3 @@
-/*
-All global color variables declared here:
-*/
-:root {
-    --text: #222;
-
-    --focus: #aaa;
-    --semifocus: #bbb;
-    --nofocus: #efefef;
-
-    --lighttile: #E2BC7B;
-    --darktile: #7D591B;
-    --hovertile: #47501A;
-    --clicktile: #2A2F0F;
-}
-
-body {
-    background-color: var(--nofocus);
-    margin: 0px;
-    position: fixed;
-}
-
-#root {
-    display: grid;
-    width: 100vw;
-    height: 100vh;
-    background-color: lime;
-
-    grid-template-columns: 65% 35%;
-    grid-template-rows: 100%;
-
-}
 
 #board-root {
     display: grid;
@@ -44,12 +12,13 @@ body {
 
 .chess-tile {
     background-color: var(--darktile);
-
+    border: 2px solid var(--inner-border);
+    
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: 3.8em;
+    font-size: 3.5em;
     font-family: monospace;
     font-weight: bolder;
     user-select: none;
@@ -71,12 +40,4 @@ body {
 }
 .chess-tile:active {
     background-color: var(--clicktile);
-}
-.chess-tile:focus {
-    background-color: red;
-}
-
-#menu-root {
-    display: grid;
-    background-color: var(--focus);
 }
