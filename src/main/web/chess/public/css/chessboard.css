@@ -4,7 +4,7 @@
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows:    repeat(8, 1fr);
 
-    padding: 10%;
+    padding: 15%;
 
     background-color: var(--semifocus);
 }
@@ -21,6 +21,11 @@
     font-family: monospace;
     font-weight: bolder;
     user-select: none;
+}
+
+.chess-tile > img {
+    height: 100%;
+    object-fit: fill;
 }
 
 .chess-tile:nth-child(16n + 1),

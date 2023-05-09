@@ -2,7 +2,16 @@ import React from 'react';
 
 export default function BoardTile( {tile} ) {
 
+    if(tile === ' ')
+        return <div className="chess-tile"></div>
+
+    const color = tile == tile.toUpperCase() ? 'w' : 'b';
+    const filePath = `./assets/chess/${tile}_${color}.png`;
+
+
     return (
-        <img className="chess-tile" src={tile+".jpg"} alt={tile}></img>
+        <div className="chess-tile">
+            <img src={filePath} alt={tile}></img>
+        </div>
     );
 }

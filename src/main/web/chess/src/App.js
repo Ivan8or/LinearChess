@@ -4,7 +4,7 @@ import Menu from './menu/Menu';
 
 export default function App() {
 
-    const [fenState, setFenState] = useState("");
+    const [fenState, setFenState] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
     const updateFen = (fen) => {
         setFenState(fen);
