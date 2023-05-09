@@ -6,7 +6,7 @@ export default function ChessBoard( {fen} ) {
 
     const tiles = [...fen]
         .filter((c) => c !== '/')
-        .map((c) => parseInt(c) ? '.'.repeat(parseInt(c)) : c)
+        .map((c) => parseInt(c) ? ' '.repeat(parseInt(c)) : c)
         .join('');
 
     return (
