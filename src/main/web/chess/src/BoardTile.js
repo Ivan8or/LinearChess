@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 export default function BoardTile( {tile} ) {
     
+    const [tileState, setTileState] = useState(tile);
+
     return (
-        <div class="chess-tile"> {tile} </div>
+        <div onClick={() => setTileState(tileState)} className="chess-tile"> {tileState} </div>
     );
 }

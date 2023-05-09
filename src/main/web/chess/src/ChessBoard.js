@@ -2,14 +2,9 @@ import React from 'react';
 import BoardTile from './BoardTile';
 
 
-export default function ChessBoard( {fen} ) {
-
-    const tiles = [...fen]
-        .filter((c) => c !== '/')
-        .map((c) => parseInt(c) ? ' '.repeat(parseInt(c)) : c)
-        .join('');
+export default function ChessBoard( {tiles} ) {
 
     return (
-        [...tiles].map(t => <BoardTile key={t} tile={t} />)
+        tiles.map(t => <BoardTile key={t[1]} tile={t[0]} />)
     );
 }
