@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
-
-
-const API_ENDPOINT = "http://localhost:3100/api/v0/fen";
-
+import requestFen from '../../api/v0/requestFen.js'
+import extractFen from '../../api/v0/util/extractFen.js'
 
 function handler(setFenState, setLoadingState) {
     return () => {
         setLoadingState("true");
 
-        fetch(API_ENDPOINT, {method: "GET"})
+        requestFen()
             .then((response) => response.text())
-            .then((fatFen) => fatFen.split(" ")[0])
-            .then((response) => setFenState(response))
+            .then(extractFen)
+            .then(setFenState)
             .finally(() => setLoadingState("false"));
     }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import BoardTile from './BoardTile';
 
-
 export default function ChessBoard( {fen} ) {
 
     const tileKinds = parseFen(fen);
@@ -20,6 +19,5 @@ function parseFen(fen) {
         .map((c) => parseInt(c) ? ' '.repeat(parseInt(c)) : c)
         .join('');
     
-    //const tiles = [...expandedFen].map((e,i) => [e,i]);
     return [...expandedFen];
 }
