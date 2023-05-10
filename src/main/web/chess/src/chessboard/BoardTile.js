@@ -3,10 +3,11 @@ import React from 'react';
 export default function BoardTile( {tile} ) {
 
     if(tile === ' ')
-        return <div className="chess-tile"></div>
+        return <div className="chess-tile"></div>;
 
+    const ROOT_PATH = './assets/chess';
     const color = tile == tile.toUpperCase() ? 'w' : 'b';
-    const filePath = `./assets/chess/${tile}_${color}.png`;
+    const filePath = `${ROOT_PATH}/${tile}_${color}.svg`;
 
 
     return (
