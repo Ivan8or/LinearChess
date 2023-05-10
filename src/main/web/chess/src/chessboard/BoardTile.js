@@ -11,7 +11,7 @@ export default function BoardTile( {tile} ) {
 
     return (
         <div className="chess-tile">
-            <img src={filePath} alt={tile}></img>
+            <img draggable="false" src={filePath} alt={tile}></img>
         </div>
     );
 }
