@@ -11,7 +11,7 @@ body {
     height: 100vh;
     background-color: lime;
 
-    grid-template-columns: 65% 35%;
+    grid-template-columns: 65vw 35vw;
     grid-template-rows: 100%;
 
 }

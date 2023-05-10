@@ -4,12 +4,13 @@ import BoardTile from './BoardTile';
 
 export default function ChessBoard( {fen} ) {
 
-    console.log('rerendered ChessBoard with fen '+fen);
-    const tiles = parseFen(fen);
-    console.log('tiles: '+tiles)
+    const tileKinds = parseFen(fen);
+    const tileComponents = tileKinds.map(t => <BoardTile /* key={t[1]} */ tile={t} />);
 
     return (
-        tiles.map(t => <BoardTile /* key={t[1]} */ tile={t} />)
+        <div class='chessboard'>
+            {tileComponents}
+        </div>
     );
 }
 

@@ -1,7 +1,9 @@
-/*
-All global color variables declared here:
-*/
+
 :root {
+
+    /*
+    All global color variables declared here:
+    */
     --text: #222;
 
     --focus: #aaa;
@@ -18,4 +20,13 @@ All global color variables declared here:
     --button: #888;
     --hoverbutton: #777;
     --clickbutton: #666;
+
+
+    /*
+    All size variables declared here:display:
+    */
+
+    --board-size: 33vw;
+
+
 }

@@ -1,18 +1,27 @@
 
 #board-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--semifocus);
+}
+
+.chessboard {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows:    repeat(8, 1fr);
 
-    padding: 15%;
+    padding: 10px;
+    width: var(--board-size);
+    height: var(--board-size);
 
-    background-color: var(--semifocus);
+    background-color: var(--outer-border);
 }
 
 .chess-tile {
     background-color: var(--darktile);
-    border: 2px solid var(--inner-border);
-    
+    border: 4px solid var(--inner-border);
+    margin: -2px;
     display: flex;
     justify-content: center;
     align-items: center;
