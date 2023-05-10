@@ -2,5 +2,4 @@
 .idea/
 build/
 gradle/
-/src/main/web/chess/node_modules/
-scratch.js
+node_modules/
