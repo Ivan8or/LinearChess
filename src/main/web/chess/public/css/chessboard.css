@@ -11,10 +11,10 @@
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows:    repeat(8, 1fr);
 
-    padding: 10px;
     width: var(--board-size);
     height: var(--board-size);
 
+    padding: 10px;
     background-color: var(--outer-border);
 }
 
@@ -35,18 +35,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
 
     font-size: 3.5em;
     font-family: monospace;
     font-weight: bolder;
-    user-select: none;
 
     &:hover {background-color: var(--hovertile);}
     &:active {background-color: var(--clicktile);}
 }
 .chess-tile > img {
     height: 100%;
-    object-fit: fill;
+    margin: -30vw;
+    object-fit: contain;
     filter: drop-shadow(4px 0px 3px var(--piece-shadow) );
 
     &:hover, &:active {filter: drop-shadow(4px 0px 2px var(--piece-hover-shadow) );}
