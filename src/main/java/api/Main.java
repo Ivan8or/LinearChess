@@ -16,7 +16,6 @@ import static spark.Spark.*;
 public class Main {
 
     public static void main(String[] args) {
-        port(3100);
         ChessGame game = new ChessGame();
         game.setWhiteAgent(simpleAgent(LSide.WHITE));
         game.setBlackAgent(simpleAgent(LSide.BLACK));
@@ -36,7 +35,6 @@ public class Main {
                 .withEndpoint(new GetPossibleMoves(game).withCommonPath(pathV0))
                 .withEndpoint(new MakeMove(game).withCommonPath(pathV0))
                 .start();
-
     }
 
 

@@ -11,12 +11,13 @@ public class StepGame extends APIEndpoint {
     private final ChessGame game;
 
     public StepGame(ChessGame game) {
-        super("/increment", HttpMethod.get);
+        super("/increment", HttpMethod.post);
         this.game = game;
     }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
+
         synchronized(game) {
             if (!game.isOver())
                 game.increment();

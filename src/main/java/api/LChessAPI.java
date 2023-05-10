@@ -43,7 +43,9 @@ public class LChessAPI {
                 .port(port)
                 .webSocketIdleTimeoutMillis(timeout);
 
-        sparkService.after((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+        sparkService.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+        sparkService.before((request, response) -> response.header("Access-Control-Allow-Methods", "*"));
+
 
         for(APIEndpoint endpoint : endpoints)
             registerEndpoint(endpoint);
