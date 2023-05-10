@@ -18,6 +18,16 @@
     background-color: var(--outer-border);
 }
 
+.chess-tile:nth-child(16n + 1),
+.chess-tile:nth-child(16n + 3),
+.chess-tile:nth-child(16n + 5),
+.chess-tile:nth-child(16n + 7),
+.chess-tile:nth-child(16n + 10),
+.chess-tile:nth-child(16n + 12),
+.chess-tile:nth-child(16n + 14),
+.chess-tile:nth-child(16n + 16){
+    background-color: var(--lighttile);
+}
 .chess-tile {
     background-color: var(--darktile);
     border: 4px solid var(--inner-border);
@@ -30,27 +40,14 @@
     font-family: monospace;
     font-weight: bolder;
     user-select: none;
-}
 
+    &:hover {background-color: var(--hovertile);}
+    &:active {background-color: var(--clicktile);}
+}
 .chess-tile > img {
     height: 100%;
     object-fit: fill;
-}
+    filter: drop-shadow(4px 0px 3px var(--piece-shadow) );
 
-.chess-tile:nth-child(16n + 1),
-.chess-tile:nth-child(16n + 3),
-.chess-tile:nth-child(16n + 5),
-.chess-tile:nth-child(16n + 7),
-.chess-tile:nth-child(16n + 10),
-.chess-tile:nth-child(16n + 12),
-.chess-tile:nth-child(16n + 14),
-.chess-tile:nth-child(16n + 16){
-    background-color: var(--lighttile);
-}
-
-.chess-tile:hover {
-    background-color: var(--hovertile);
-}
-.chess-tile:active {
-    background-color: var(--clicktile);
+    &:hover, &:active {filter: drop-shadow(4px 0px 2px var(--piece-hover-shadow) );}
 }
