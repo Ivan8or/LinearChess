@@ -5,10 +5,10 @@ import BoardTile from './BoardTile';
 export default function ChessBoard( {fen} ) {
 
     const tileKinds = parseFen(fen);
-    const tileComponents = tileKinds.map(t => <BoardTile /* key={t[1]} */ tile={t} />);
+    const tileComponents = tileKinds.map((t, i) => <BoardTile key={i} tile={t} />);
 
     return (
-        <div class='chessboard'>
+        <div className='chessboard'>
             {tileComponents}
         </div>
     );
