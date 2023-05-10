@@ -2,9 +2,8 @@ package api.v0.impl;
 
 import api.APIEndpoint;
 import chess.ChessGame;
-import spark.Route;
-import spark.RouteImpl;
-import spark.Service;
+import spark.Request;
+import spark.Response;
 import spark.route.HttpMethod;
 
 public class RestartGame extends APIEndpoint {
@@ -17,12 +16,11 @@ public class RestartGame extends APIEndpoint {
     }
 
     @Override
-    public Route route() {
-        return (request, response) -> {
-            synchronized(game) {
-                game.resetBoard();
-                return game.getBoard().getFen();
-            }
-        };
+    public Object handle(Request request, Response response) throws Exception {
+        synchronized(game) {
+            game.resetBoard();
+            return game.getBoard().getFen();
+        }
     }
+
 }

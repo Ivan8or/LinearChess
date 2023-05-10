@@ -52,7 +52,7 @@ public class LChessAPI {
     }
 
     private void registerEndpoint(APIEndpoint endpoint) {
-        RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint.route());
+        RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint);
         sparkService.addRoute(endpoint.getMethod(), routeImpl);
     }
 }

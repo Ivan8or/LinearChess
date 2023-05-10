@@ -1,9 +1,11 @@
 package api;
 
+import spark.Request;
+import spark.Response;
 import spark.Route;
 import spark.route.HttpMethod;
 
-public abstract class APIEndpoint {
+public abstract class APIEndpoint implements Route {
 
     protected String ENDPOINT_PATH;
     protected String FULL_PATH;
@@ -26,5 +28,6 @@ public abstract class APIEndpoint {
         return this;
     }
 
-    public abstract Route route();
+    @Override
+    abstract public Object handle(Request request, Response response) throws Exception;
 }
