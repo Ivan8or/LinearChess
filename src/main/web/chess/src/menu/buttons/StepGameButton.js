@@ -12,7 +12,7 @@ function handler(setFenState, setLoadingState) {
             .then((response) => response.text())
             .then((fatFen) => fatFen.split(" ")[0])
             .then((response) => setFenState(response))
-            .then(() => setLoadingState("false"));
+            .finally(() => setLoadingState("false"));
     }
 }
 
