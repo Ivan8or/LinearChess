@@ -1,8 +1,6 @@
 package api;
 
-import api.v0.impl.GetBoardFen;
-import api.v0.impl.RestartGame;
-import api.v0.impl.StepGame;
+import api.v0.impl.*;
 import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
@@ -32,29 +30,13 @@ public class Main {
         LChessAPI apiV0 = new LChessAPI()
                 .withPort(3100)
                 .withTimeout(8000)
-                .withEndpoint(new GetBoardFen(game).withCommonPath(pathV0))
+                .withEndpoint(new GetBoardState(game).withCommonPath(pathV0))
                 .withEndpoint(new RestartGame(game).withCommonPath(pathV0))
                 .withEndpoint(new StepGame(game).withCommonPath(pathV0))
+                .withEndpoint(new GetPossibleMoves(game).withCommonPath(pathV0))
+                .withEndpoint(new MakeMove(game).withCommonPath(pathV0))
                 .start();
 
-//        get("/api/v0/moves", (request, response) ->
-//                Arrays.toString(game.getBoard().legalMoves().toArray())
-//        );
-//
-//        get("/api/v0/move/:move", (request, response) -> {
-//            synchronized(game) {
-//                String moveString = request.params(":move");
-//
-//                Optional<LMove> move = game.getBoard().legalMoves().stream()
-//                        .filter(s -> s.toString().equals(moveString))
-//                        .findFirst();
-//
-//                if (!move.isPresent())
-//                    return "bad-move";
-//
-//                return game.getBoard().getFen();
-//            }
-//        });
     }
 
 
