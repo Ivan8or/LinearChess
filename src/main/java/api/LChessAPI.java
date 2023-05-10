@@ -1,5 +1,7 @@
 package api;
 
+import spark.Route;
+import spark.RouteImpl;
 import spark.Service;
 
 import static spark.Service.ignite;
@@ -44,8 +46,13 @@ public class LChessAPI {
         sparkService.after((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
         for(APIEndpoint endpoint : endpoints)
-            endpoint.start(sparkService);
+            registerEndpoint(endpoint);
 
         return this;
+    }
+
+    private void registerEndpoint(APIEndpoint endpoint) {
+        RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint.route());
+        sparkService.addRoute(endpoint.getMethod(), routeImpl);
     }
 }

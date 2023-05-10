@@ -2,26 +2,25 @@ package api.v0.impl;
 
 import api.APIEndpoint;
 import chess.ChessGame;
+import spark.Route;
 import spark.Service;
+import spark.route.HttpMethod;
 
 public class GetBoardFen extends APIEndpoint {
 
     private ChessGame game;
-    public final String ENDPOINT_PATH = "/fen";
 
     public GetBoardFen(ChessGame game) {
+        super("/fen", HttpMethod.get);
         this.game = game;
     }
 
     @Override
-    public void start(Service sparkService) {
-
-        String fullPath = commonPath + ENDPOINT_PATH;
-
-        sparkService.get(fullPath, (request, response) -> {
+    public Route route() {
+        return (request, response) -> {
             synchronized(game) {
                 return game.getBoard().getFen();
             }
-        });
+        };
     }
 }
