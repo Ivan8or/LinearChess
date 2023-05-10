@@ -1,4 +1,4 @@
-package tests.agent;
+package tests.chess.agent;
 
 import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;

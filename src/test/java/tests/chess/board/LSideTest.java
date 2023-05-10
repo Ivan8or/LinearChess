@@ -1,4 +1,4 @@
-package tests.board;
+package tests.chess.board;
 
 import chess.board.LSide;
 import org.junit.Assert;

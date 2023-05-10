@@ -1,4 +1,4 @@
-package tests;
+package tests.chess;
 
 import org.junit.Test;
 

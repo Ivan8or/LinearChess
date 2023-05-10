@@ -1,4 +1,4 @@
-package tests.eval;
+package tests.chess.eval;
 
 import chess.board.LBoard;
 import chess.eval.impl.GameDrawsEval;
