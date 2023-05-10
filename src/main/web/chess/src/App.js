@@ -17,7 +17,7 @@ export default function App() {
         </div>
 
         <div id="menu-root">
-            <Menu updater={ updateFen }  />
+            <Menu setFenState={ updateFen }  />
         </div>
         
         </>

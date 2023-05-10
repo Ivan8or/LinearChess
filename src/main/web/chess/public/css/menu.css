@@ -1,14 +1,28 @@
 #menu-root {
     display: grid;
     background-color: var(--focus);
-
     grid-template-rows: repeat(10, 1fr);
 }
-
 .menu-button {
     margin: 3%;
     border: 3px solid var(--outer-border);
     background-color: var(--button);
+    user-select: none;
+}
+.menu-button[loading="true"] {
+    pointer-events: none; 
+    background-color: var(--clickbutton);
+    &::after {
+        content: '';
+        position: absolute;
+        animation: loading 1s linear infinite;
+    }
+}
+@keyframes loading {
+    00%  {content: '   ';}
+    33%  {content: '.  ';}
+    66%  {content: '.. ';}
+    100% {content: '...';}
 }
 .menu-button:hover {
     background-color: var(--hoverbutton);
