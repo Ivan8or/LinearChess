@@ -6,7 +6,7 @@ import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
 import chess.board.LPieceType;
 import chess.board.LSide;
-import chess.eval.*;
+import chess.eval.ChessEval;
 import chess.eval.impl.*;
 
 import java.util.Random;
@@ -63,7 +63,7 @@ public class Main {
                 new WeightedEval(myProgress, 0.5),
                 new WeightedEval(rand, 0.001)
         );
-        return new AlphaBetaAgent(outerEval, 3);
+        return new AlphaBetaAgent(outerEval, 2);
     }
 
     public static ChessEval pieceWeights(LSide side) {

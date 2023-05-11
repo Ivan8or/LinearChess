@@ -11,7 +11,7 @@ public class StepGame extends APIEndpoint {
     private final ChessGame game;
 
     public StepGame(ChessGame game) {
-        super("/increment", HttpMethod.post);
+        super("/increment", HttpMethod.patch);
         this.game = game;
     }
 

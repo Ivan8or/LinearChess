@@ -11,7 +11,7 @@ public class RestartGame extends APIEndpoint {
     final private ChessGame game;
 
     public RestartGame(ChessGame game) {
-        super("/reset", HttpMethod.post);
+        super("/reset", HttpMethod.patch);
         this.game = game;
     }
 

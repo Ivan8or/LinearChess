@@ -1,8 +1,8 @@
 package api;
 
-import spark.Route;
 import spark.RouteImpl;
 import spark.Service;
+import spark.route.HttpMethod;
 
 import static spark.Service.ignite;
 
@@ -43,12 +43,13 @@ public class LChessAPI {
                 .port(port)
                 .webSocketIdleTimeoutMillis(timeout);
 
-        sparkService.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-        sparkService.before((request, response) -> response.header("Access-Control-Allow-Methods", "*"));
+        sparkService.before((request, response) -> response.header(
+                "Access-Control-Allow-Origin", "*"));
 
-
-        for(APIEndpoint endpoint : endpoints)
+        for(APIEndpoint endpoint : endpoints) {
+            handlePreflight(endpoint);
             registerEndpoint(endpoint);
+        }
 
         return this;
     }
@@ -56,5 +57,13 @@ public class LChessAPI {
     private void registerEndpoint(APIEndpoint endpoint) {
         RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint);
         sparkService.addRoute(endpoint.getMethod(), routeImpl);
+    }
+
+    private void handlePreflight(APIEndpoint endpoint) {
+        RouteImpl optionsHandler = RouteImpl.create(endpoint.getPath(), (req, res) -> {
+            res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
+            return res;
+        });
+        sparkService.addRoute(HttpMethod.options, optionsHandler);
     }
 }
