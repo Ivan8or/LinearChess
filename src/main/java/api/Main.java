@@ -29,11 +29,12 @@ public class Main {
         LChessAPI apiV0 = new LChessAPI()
                 .withPort(3100)
                 .withTimeout(8000)
-                .withEndpoint(new GetBoardState(game).withCommonPath(pathV0))
-                .withEndpoint(new RestartGame(game).withCommonPath(pathV0))
-                .withEndpoint(new StepGame(game).withCommonPath(pathV0))
-                .withEndpoint(new GetPossibleMoves(game).withCommonPath(pathV0))
-                .withEndpoint(new MakeMove(game).withCommonPath(pathV0))
+                .withCommonPath("/api/v0")
+                .withEndpoint(new GetBoardState(game))
+                .withEndpoint(new RestartGame(game))
+                .withEndpoint(new StepGame(game))
+                .withEndpoint(new GetPossibleMoves(game))
+                .withEndpoint(new MakeMove(game))
                 .start();
     }
 
@@ -57,8 +58,8 @@ public class Main {
         CumulativeEval outerEval = new CumulativeEval(
                 new WeightedEval(gameEnds, 1000),
                 new WeightedEval(gameDraws, -100),
-                new WeightedEval(numMyPieces, 1),
-                new WeightedEval(numOpPieces, -1),
+                new WeightedEval(numMyPieces, 10),
+                new WeightedEval(numOpPieces, -10),
                 new WeightedEval(opProgress, -0.5),
                 new WeightedEval(myProgress, 0.5),
                 new WeightedEval(rand, 0.001)
