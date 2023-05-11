@@ -1,4 +1,4 @@
-package tests.chesslib;
+package tests.chess.chesslib;
 
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.move.Move;

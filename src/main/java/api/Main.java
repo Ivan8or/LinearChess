@@ -1,16 +1,14 @@
 package api;
 
+import api.v0.impl.*;
 import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;
 import chess.agent.ChessAgent;
-import chess.board.LMove;
 import chess.board.LPieceType;
 import chess.board.LSide;
-import chess.eval.*;
+import chess.eval.ChessEval;
 import chess.eval.impl.*;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Random;
 
 import static spark.Spark.*;
@@ -18,61 +16,25 @@ import static spark.Spark.*;
 public class Main {
 
     public static void main(String[] args) {
-        port(3100);
         ChessGame game = new ChessGame();
         game.setWhiteAgent(simpleAgent(LSide.WHITE));
         game.setBlackAgent(simpleAgent(LSide.BLACK));
-
-        after((request, response) -> {
-            response.header("Access-Control-Allow-Origin", "*");
-        });
-
         registerV0(game);
     }
 
     public static void registerV0(ChessGame game) {
 
-        get("/api/v0/fen", "GET", (request, response) -> {
-            synchronized(game) {
-                return game.getBoard().getFen();
-            }
-        });
+        String pathV0 = "/api/v0";
 
-        get("/api/v0/moves", "GET", (request, response) ->
-                Arrays.toString(game.getBoard().legalMoves().toArray())
-        );
-
-        get("/api/v0/increment", "GET", (request, response) -> {
-            synchronized(game) {
-                System.out.println(game.getBoard().getSideToMove() + " goes!");
-                if (!game.isOver())
-                    game.increment();
-
-                return game.getBoard().getFen();
-            }
-        });
-
-        get("/api/v0/reset", "GET", (request, response) -> {
-            synchronized(game) {
-                game.resetBoard();
-                return game.getBoard().getFen();
-            }
-        });
-
-        get("/api/v0/move/:move", "GET", (request, response) -> {
-            synchronized(game) {
-                String moveString = request.params(":move");
-
-                Optional<LMove> move = game.getBoard().legalMoves().stream()
-                        .filter(s -> s.toString().equals(moveString))
-                        .findFirst();
-
-                if (!move.isPresent())
-                    return "bad-move";
-
-                return game.getBoard().getFen();
-            }
-        });
+        LChessAPI apiV0 = new LChessAPI()
+                .withPort(3100)
+                .withTimeout(8000)
+                .withEndpoint(new GetBoardState(game).withCommonPath(pathV0))
+                .withEndpoint(new RestartGame(game).withCommonPath(pathV0))
+                .withEndpoint(new StepGame(game).withCommonPath(pathV0))
+                .withEndpoint(new GetPossibleMoves(game).withCommonPath(pathV0))
+                .withEndpoint(new MakeMove(game).withCommonPath(pathV0))
+                .start();
     }
 
 
@@ -101,7 +63,7 @@ public class Main {
                 new WeightedEval(myProgress, 0.5),
                 new WeightedEval(rand, 0.001)
         );
-        return new AlphaBetaAgent(outerEval, 3);
+        return new AlphaBetaAgent(outerEval, 2);
     }
 
     public static ChessEval pieceWeights(LSide side) {
