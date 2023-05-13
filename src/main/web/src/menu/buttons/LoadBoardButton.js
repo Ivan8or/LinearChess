@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import requestFen from '../../api/v0/requestFen.js'
+import getBoardFen from '../../api/v0/getBoardFen.js'
 import extractFen from '../../api/v0/util/extractFen.js'
 
 function handler(setFenState, setLoadingState) {
     return () => {
         setLoadingState("true");
 
-        requestFen()
+        getBoardFen()
             .then((response) => response.text())
             .then(extractFen)
             .then(setFenState)
