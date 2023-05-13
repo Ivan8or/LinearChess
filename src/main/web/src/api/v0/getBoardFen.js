@@ -1,5 +1,5 @@
-const API_ENDPOINT = "http://localhost:3100/api/v0/fen";
+const API_ENDPOINT = "/api/v0/fen";
 
 export default function getBoardFen() {
-    return fetch(API_ENDPOINT, {method: "GET"});
+    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT, {method: "GET"});
 }

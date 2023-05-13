@@ -16,12 +16,14 @@ public class LChessAPI {
 
     private int port;
     private long timeout;
+    private String commonPath;
 
     private List<APIEndpoint> endpoints;
 
     public LChessAPI() {
         port = 8080;
         timeout = 8000;
+        commonPath = "";
         endpoints = new ArrayList<>();
     }
 
@@ -33,7 +35,14 @@ public class LChessAPI {
         this.timeout = timeout;
         return this;
     }
+    public LChessAPI withCommonPath(String commonPath) {
+        this.commonPath = commonPath;
+        return this;
+    }
     public LChessAPI withEndpoint(APIEndpoint endpoint) {
+        if(!endpoint.commonPathSet())
+            endpoint.withCommonPath(commonPath);
+
         endpoints.add(endpoint);
         return this;
     }
