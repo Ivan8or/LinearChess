@@ -1,0 +1,9 @@
+.logic-board {
+    background-color: salmon;
+    grid-row-end: span 6;
+    width: 100%;
+    height: 100%;
+}
+.logic-tile {
+    background-color: pink;
+}

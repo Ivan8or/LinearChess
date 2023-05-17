@@ -12,7 +12,8 @@ export default function App() {
     getBoardFen()
         .then((response) => response.text())
         .then(extractFen)
-        .then(setFenState);
+        .then(setFenState)
+        .catch(e => console.log(e));
 
     const updateFen = (fen) => {
         setFenState(fen);
@@ -27,7 +28,6 @@ export default function App() {
         <div id="menu-root">
             <Menu setFenState={ updateFen }  />
         </div>
-        
         </>
     );
 }
