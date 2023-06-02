@@ -8,17 +8,15 @@ export default function LogicTile( {tile} ) {
         <Draggable
         axis="both"
         handle=".handle"
-        defaultPosition={{x: 0, y: 0}}
+        defaultPosition={{x: tile.x, y: tile.y}}
         position={null}
         grid={[1,1]}
         scale={1}>
             <div className="logic-tile handle"
             style={{
                 width: tile.width + '%',
-                height: tile.height + '%',
-                left: tile.x + '%',
-                top: tile.y + '%'
-            }}>AAA</div>
+                height: tile.height + '%'
+            }}> {tile.content} </div>
         </Draggable>
       
         
