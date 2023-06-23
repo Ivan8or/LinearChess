@@ -1,5 +1,6 @@
 const API_ENDPOINT = "/api/v0/fen";
 
 export default function getBoardFen() {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT, {method: "GET"});
+    return new Promise((res, err) => res("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT, {method: "GET"}).then((response) => response.text());
 }

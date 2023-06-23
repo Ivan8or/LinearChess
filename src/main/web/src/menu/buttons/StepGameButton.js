@@ -7,7 +7,6 @@ function handler(setFenState, setLoadingState) {
         setLoadingState("true");
 
         stepGame()
-            .then((response) => response.text())
             .then(extractFen)
             .then(setFenState)
             .finally(() => setLoadingState("false"));
