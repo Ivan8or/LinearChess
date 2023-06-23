@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
 import LogicTile from './LogicTile';
 
-export default function DragBoard () {
+export default function DragBoard() {
     
     const testTiles = [
         {x: 10, y: 10, width: 40, height: 20, content: "AAA"},
-        {x: 100, y: 100, width: 40, height: 20, content: "BBB"}];
-    const [tilesState, setTilesState] = useState(testTiles);
+        {x: 10, y: 60, width: 40, height: 20, content: "BBB"}
+    ];
 
-    const tileComponents = tilesState.map((t, i) => <LogicTile key={i} tile={t} />);
+    const lockOns = [
+        {x: 50, y: 10, width: 40, height: 20, type: "rectangle"},
+        {x: 50, y: 60, width: 40, height: 20, type: "rectangle"}
+    ];
+    
+    const [tilesState, setTilesState] = useState(testTiles);
+    const [locksState, setLocksState] = useState(lockOns);
+
+    const tileComponents = tilesState.map((t, i) => <LogicTile key={i} tile={t} locks={locksState} />);
 
     return (
         <div className='logic-board'>
