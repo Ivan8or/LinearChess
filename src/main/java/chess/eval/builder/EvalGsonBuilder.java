@@ -20,7 +20,7 @@ public class EvalGsonBuilder implements EvalBuilder {
 
         String type = (String) body.getOrDefault("type", "DOES_NOT_EXIST");
 
-
+        return null;
     }
 
     @Override
