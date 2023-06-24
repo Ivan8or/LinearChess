@@ -13,18 +13,16 @@ export default function LogicTile({ tile, locks }) {
 
     function handleDragStop(e, data) {
         const curPosition = {x: positionState.x, y: positionState.y, width: tile.width, height: tile.height }
-        console.log("cur position:", curPosition);
+
         for(const lockId in locks) {
             const lock = locks[lockId];
             
             if(inBounds(curPosition, lock)) {
                 setPositionState({x: lock.x, y: lock.y});
                 setSafePositionState({x: lock.x, y: lock.y});
-                console.log("LOCKING POSITION ");
                 return;
             }
         }
-        console.log("RETURNING TO ORIGINAL POSITION");
         setPositionState(safePositionState);
     }
 
@@ -36,30 +34,29 @@ export default function LogicTile({ tile, locks }) {
             onDrag={handleDrag}
             onStop={handleDragStop}
             position={positionState}
-            //grid={[100, 100]}
+
             scale={1}>
-            <div className="logic-tile handle"
-                style={{
-                    width: tile.width + '%',
-                    height: tile.height + '%',
-                }}> {tile.content} </div>
+            <div className="logic-tile handle logic-rectangle"> {tile.content} </div>
         </DraggableCore>
     );
 }
 
 function inBounds(tile, bound) {
     const tileCenter = getCenter(tile);
-    const boundCenter = getCenter(bound);
 
-    const returnval = getDistance(tileCenter, boundCenter) < 60;
-    console.log('returning',returnval);
-    return returnval;
-}
-
-function getDistance(p1, p2) {
-    console.log('getting distance of', p1.x, p1.y, 'to', p2.x, p2.y);
-    console.log('result is',Math.sqrt( Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2) ));
-    return Math.sqrt( Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2) );
+    if(tileCenter.x < bound.x)
+        return false;
+    
+    if(tileCenter.x > (bound.x + bound.width) )
+        return false;
+    
+    if(tileCenter.y < bound.y)
+        return false;
+;
+    if(tileCenter.y > (bound.y + bound.height) )
+        return false;
+    
+    return true;
 }
 
 function getCenter(tile) {
