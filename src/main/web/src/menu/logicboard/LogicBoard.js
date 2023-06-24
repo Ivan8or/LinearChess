@@ -4,13 +4,19 @@ import LogicTile from './LogicTile';
 export default function DragBoard() {
     
     const testTiles = [
-        {x: 10, y: 110, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: ""}
+        {x: 10, y: 110, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: "", type: "logic-rectangle"},
+        {x: 200, y: 250, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"},
     ];
 
     const lockOns = [
-        {x: 450, y: 10,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
+
+
+        {x: 200, y: 250,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
+        {x: 200, y: 450,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
+
+        {x: 450, y: 300,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
         {x: 200, y: 60,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 10, y: 110,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"}
+        {x: 10, y: 110,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
     ];
 
     const lockComponents = lockOns.map((l, i) => <div key={i} className={"logic-lock "+l.type} style={{

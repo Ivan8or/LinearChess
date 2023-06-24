@@ -17,7 +17,7 @@ export default function LogicTile({ tile, locks }) {
         for(const lockId in locks) {
             const lock = locks[lockId];
             
-            if(inBounds(curPosition, lock)) {
+            if(lock.type == tile.type && inBounds(curPosition, lock)) {
                 setPositionState({x: lock.x, y: lock.y});
                 setSafePositionState({x: lock.x, y: lock.y});
                 return;
@@ -36,32 +36,22 @@ export default function LogicTile({ tile, locks }) {
             position={positionState}
 
             scale={1}>
-            <div className="logic-tile handle logic-rectangle"> {tile.content} </div>
+            <div className={"logic-tile handle "+tile.type}> {tile.content} </div>
         </DraggableCore>
     );
 }
 
 function inBounds(tile, bound) {
     const tileCenter = getCenter(tile);
-
-    if(tileCenter.x < bound.x)
-        return false;
-    
-    if(tileCenter.x > (bound.x + bound.width) )
-        return false;
-    
-    if(tileCenter.y < bound.y)
-        return false;
-;
-    if(tileCenter.y > (bound.y + bound.height) )
-        return false;
-    
-    return true;
+    return tileCenter.x > bound.x 
+        && tileCenter.x < (bound.x + bound.width) 
+        && tileCenter.y > bound.y 
+        && tileCenter.y < (bound.y + bound.height);
 }
 
 function getCenter(tile) {
     return {
-        x: Math.round(tile.x + tile.width / 2), 
+        x: Math.round(tile.x + tile.width / 2),
         y: Math.round(tile.y + tile.height / 2)
     };
 }
