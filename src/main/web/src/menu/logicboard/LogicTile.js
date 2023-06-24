@@ -1,62 +1,65 @@
 import React, {useState} from 'react';
-import Draggable from 'react-draggable';
+import DraggableCore from 'react-draggable';
 
 
 export default function LogicTile({ tile, locks }) {
 
-    const startPosition = { x: tile.x, y: tile.y }
-    const [positionState, setPositionState] = useState(startPosition);
+    const [positionState, setPositionState] = useState({ x: tile.x, y: tile.y });
+    const [safePositionState, setSafePositionState] = useState({ x: tile.x, y: tile.y });
 
-
-    function onStartTile(e, data) {
-        setPositionState(null);
-        console.log("RESET POSITION STATE");
+    function handleDrag(e, data) {
+        setPositionState({ x: positionState.x + data.deltaX, y: positionState.y + data.deltaY });
     }
 
-    function onReleaseTile(e, data) {
-
-        const curPosition = {x: tile.x, y: tile.y, width: tile.width, height: tile.height }
-
-        for(const lock in locks) {
+    function handleDragStop(e, data) {
+        const curPosition = {x: positionState.x, y: positionState.y, width: tile.width, height: tile.height }
+        console.log("cur position:", curPosition);
+        for(const lockId in locks) {
+            const lock = locks[lockId];
+            
             if(inBounds(curPosition, lock)) {
                 setPositionState({x: lock.x, y: lock.y});
+                setSafePositionState({x: lock.x, y: lock.y});
+                console.log("LOCKING POSITION ");
                 return;
             }
         }
-        //setPositionState(startPosition);
+        console.log("RETURNING TO ORIGINAL POSITION");
+        setPositionState(safePositionState);
     }
 
     return (
-        <Draggable
-            axis="both"
+        <DraggableCore
             handle=".handle"
-            defaultPosition={startPosition}
-            //position={positionState}
 
-            onStart={onStartTile}
-            onStop={onReleaseTile}
-            onDrag={() => {console.log("position state is "+positionState)}}
+            onStart={() => {}}
+            onDrag={handleDrag}
+            onStop={handleDragStop}
+            position={positionState}
             //grid={[100, 100]}
             scale={1}>
             <div className="logic-tile handle"
                 style={{
                     width: tile.width + '%',
-                    height: tile.height + '%'
+                    height: tile.height + '%',
                 }}> {tile.content} </div>
-        </Draggable>
+        </DraggableCore>
     );
 }
 
 function inBounds(tile, bound) {
     const tileCenter = getCenter(tile);
+    const boundCenter = getCenter(bound);
 
-    if(bound.x < tileCenter.x || bound.x + bound.width > tileCenter.x)
-        return false;
-    
-    if(bound.y < tileCenter.y || bound.y + bound.height > tileCenter.y)
-        return false;
+    const returnval = getDistance(tileCenter, boundCenter) < 60;
+    console.log('returning',returnval);
+    return returnval;
+}
 
-    return true;
+function getDistance(p1, p2) {
+    console.log('getting distance of', p1.x, p1.y, 'to', p2.x, p2.y);
+    console.log('result is',Math.sqrt( Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2) ));
+    return Math.sqrt( Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2) );
 }
 
 function getCenter(tile) {

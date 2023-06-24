@@ -10,7 +10,6 @@ export default function App() {
     const [fenState, setFenState] = useState("8/8/8/8/8/8/8/8");
     
     getBoardFen()
-        .then((response) => response.text())
         .then(extractFen)
         .then(setFenState)
         .catch(e => console.log(e));
