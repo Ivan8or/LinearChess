@@ -10,11 +10,13 @@ export default function DragBoard() {
         , url: "./assets/logic/gems/blue_tri.jpg"},
         {x: 245, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
         , url: "./assets/logic/gems/green_dodec.jpg"},
+        {x: 345, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
+        , url: "./assets/logic/gems/pink_quad.jpg"},
 
         {x: 50, y: 150, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: "", type: "logic-rectangle"
-        , url: "./assets/logic/gems/pink_quad.jpg"},
+        , url: "./assets/chess/b_b.svg"},
         {x: 150, y: 150, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: "", type: "logic-rectangle"
-        , url: "./assets/logic/gems/pink_quad.jpg"},
+        , url: "./assets/chess/r_b.svg"},
     ];
 
     const lockOns = [

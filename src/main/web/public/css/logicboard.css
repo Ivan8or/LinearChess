@@ -33,6 +33,10 @@
     height: calc(var(--logic-height) * 1px);
     
     user-select: none;
+
+    &:active {
+        z-index: 2;
+    }
 }
 
 .logic-tile > img {
@@ -41,7 +45,9 @@
     object-fit: cover;
     border-radius: var(--logic-radius);
 
-    &:active {filter: drop-shadow(4px 0px 2px var(--gem-hover-shadow) );}
+    &:active {
+        filter: drop-shadow(4px 0px 2px var(--gem-hover-shadow) );
+    }
 }
 
 .logic-lock {
