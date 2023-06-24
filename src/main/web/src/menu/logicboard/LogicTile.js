@@ -36,7 +36,9 @@ export default function LogicTile({ tile, locks }) {
             position={positionState}
 
             scale={1}>
-            <div className={"logic-tile handle "+tile.type}> {tile.content} </div>
+            <div className={"logic-tile handle "+tile.type}> 
+                <img draggable="false" src={tile.url} alt={tile.url}></img>
+            </div>
         </DraggableCore>
     );
 }

@@ -2,18 +2,18 @@
     --logic-rectangle-width: 80;
     --logic-rectangle-height: 120;
 
-    
     --logic-circle-diameter: 90;
 }
 .logic-rectangle {
     --logic-width: var(--logic-rectangle-width);
     --logic-height: var(--logic-rectangle-height);
+    --logic-radius: 0;
 }
 
 .logic-circle {
     --logic-width: var(--logic-circle-diameter);
     --logic-height: var(--logic-circle-diameter);
-    border-radius: calc(var(--logic-circle-diameter) * 0.5px);
+    --logic-radius: calc(var(--logic-circle-diameter) * 0.5px);
 }
 
 .logic-board {
@@ -27,16 +27,32 @@
     z-index: 1;
     position: absolute;
     background-color: pink;
+    border-radius: var(--logic-radius);
+
     width: calc(var(--logic-width) * 1px);
     height: calc(var(--logic-height) * 1px);
+    
+    user-select: none;
+}
+
+.logic-tile > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--logic-radius);
+
+    &:active {filter: drop-shadow(4px 0px 2px var(--gem-hover-shadow) );}
 }
 
 .logic-lock {
     z-index: 0;
     position: relative;
     background-color: purple;
+    border-radius: var(--logic-radius);
 
     margin-bottom: calc(var(--logic-height) * -1px);
     width: calc(var(--logic-width) * 1px);
     height: calc(var(--logic-height) * 1px);
+
+    user-select: none;
 }
