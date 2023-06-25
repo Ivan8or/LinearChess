@@ -1,0 +1,8 @@
+{
+  "slot": 2,
+  "type": "NUM_PIECES",
+  "context": {
+    "discriminate-types": ["PAWN","ROOK"],
+    "discriminate-sides": ["WHITE"]
+  }
+}

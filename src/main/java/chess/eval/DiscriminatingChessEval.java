@@ -8,8 +8,8 @@ import java.util.List;
 
 public abstract class DiscriminatingChessEval implements ChessEval {
 
-    final protected List<LPieceType> validTypes;
-    final protected List<LSide> validSides;
+    final public List<LPieceType> validTypes;
+    final public List<LSide> validSides;
 
     public DiscriminatingChessEval(LPieceType[] validTypes, LSide[] validSides) {
         this.validTypes = List.of(validTypes);
