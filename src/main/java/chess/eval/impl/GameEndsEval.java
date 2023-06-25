@@ -6,7 +6,7 @@ import chess.eval.ChessEval;
 
 public class GameEndsEval implements ChessEval {
 
-    final private LSide mySide;
+    final public LSide mySide;
 
     public GameEndsEval(LSide mySide) {
         this.mySide = mySide;

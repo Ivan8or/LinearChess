@@ -1,0 +1,8 @@
+{
+  "slot": 2,
+  "type": "DISTANCE_TO_MID",
+  "context": {
+    "discriminate-types": ["KNIGHT"],
+    "discriminate-sides": ["WHITE"]
+  }
+}

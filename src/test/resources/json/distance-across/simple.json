@@ -1,0 +1,8 @@
+{
+  "slot": 2,
+  "type": "DISTANCE_ACROSS",
+  "context": {
+    "discriminate-types": ["PAWN"],
+    "discriminate-sides": ["WHITE"]
+  }
+}
