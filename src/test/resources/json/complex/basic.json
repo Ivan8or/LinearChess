@@ -1,0 +1,21 @@
+{
+  "object": "logicboard",
+  "version": "1.0.0",
+  "active-evals": [
+    {
+      "slot": 2,
+      "type": "NUM_PIECES",
+      "context": {
+        "discriminate-types": ["PAWN"],
+        "discriminate-sides": ["WHITE"]
+      }
+    }
+  ],
+  "active-multipliers": [
+    {
+      "slot": 2,
+      "type": "DOUBLE"
+    }
+  ],
+  "inventory": []
+}

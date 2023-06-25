@@ -5,8 +5,8 @@ import chess.eval.ChessEval;
 
 public class WeightedEval implements ChessEval {
 
-    final private ChessEval baseEval;
-    final private double coefficient;
+    final public ChessEval baseEval;
+    final public double coefficient;
 
     public WeightedEval(ChessEval baseEvaluation, double coefficient) {
         this.baseEval = baseEvaluation;

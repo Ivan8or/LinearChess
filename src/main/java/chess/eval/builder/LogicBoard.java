@@ -5,11 +5,40 @@ import chess.board.LSide;
 import chess.eval.ChessEval;
 import chess.eval.impl.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LogicBoard {
 
+    public ChessEval parseBoard(Map<String, Object> logicboard) {
+        if(!logicboard.get("object").equals("logicboard"))
+            throw new IllegalStateException("OBJECT IS NOT OF TYPE LOGICBOARD: "+logicboard);
+
+        List<Map<String, Object>> activeEvals = (List<Map<String, Object>>) logicboard.getOrDefault("active-evals", List.of());
+        List<Map<String, Object>> activeMultipliers = (List<Map<String, Object>>) logicboard.getOrDefault("active-multipliers", List.of());
+
+        Map<Integer, ChessEval> chessEvals = new HashMap<>(activeEvals.size());
+
+        for(Map<String, Object> evalObject : activeEvals) {
+            ChessEval parsedEval = parseEval(evalObject);
+            int evalSlot = (int) evalObject.get("slot");
+
+            chessEvals.put(evalSlot, parsedEval);
+        }
+
+        for(Map<String, Object> multiplierObject : activeMultipliers) {
+            float parsedMultiplier = parseMultiplier(multiplierObject);
+            int multiplierSlot = (int) multiplierObject.get("slot");
+
+            ChessEval originalEval = chessEvals.get(multiplierSlot);
+            ChessEval multipliedEval = new WeightedEval(originalEval, parsedMultiplier);
+            chessEvals.put(multiplierSlot, multipliedEval);
+        }
+
+        ChessEval cumulativeEval = new CumulativeEval(chessEvals.values().toArray(new ChessEval[0]));
+        return cumulativeEval;
+    }
 
     public ChessEval parseEval(Map<String, Object> eval) {
         String type = (String) eval.getOrDefault("type", "NONEXISTENT");

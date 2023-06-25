@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class CumulativeEval implements ChessEval {
 
-    final private ChessEval[] evaluations;
+    final public ChessEval[] evaluations;
 
     public CumulativeEval(ChessEval... evaluations) {
         this.evaluations = evaluations;

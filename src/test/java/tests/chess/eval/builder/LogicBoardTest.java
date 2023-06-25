@@ -19,7 +19,7 @@ public class LogicBoardTest {
     @Test
     public void parseDistanceAcrossEval() {
         LogicBoard lb = new LogicBoard();
-        String jsonText = ResourceAsString.at("json/distance-across/simple.json").get();
+        String jsonText = ResourceAsString.at("json/individual/distance-across/simple.json").get();
 
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
         Map<String, Object> context = lb.extractContext(jsonObject);
@@ -36,7 +36,7 @@ public class LogicBoardTest {
     @Test
     public void parseDistanceToMidEval() {
         LogicBoard lb = new LogicBoard();
-        String jsonText = ResourceAsString.at("json/distance-to-mid/simple.json").get();
+        String jsonText = ResourceAsString.at("json/individual/distance-to-mid/simple.json").get();
 
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
         Map<String, Object> context = lb.extractContext(jsonObject);
@@ -53,7 +53,7 @@ public class LogicBoardTest {
     @Test
     public void parseGameMatedEval() {
         LogicBoard lb = new LogicBoard();
-        String jsonText = ResourceAsString.at("json/game-mated/simple.json").get();
+        String jsonText = ResourceAsString.at("json/individual/game-mated/simple.json").get();
 
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
         Map<String, Object> context = lb.extractContext(jsonObject);
@@ -65,7 +65,7 @@ public class LogicBoardTest {
     @Test
     public void parseNumPiecesEval() {
         LogicBoard lb = new LogicBoard();
-        String jsonText = ResourceAsString.at("json/num-pieces/simple.json").get();
+        String jsonText = ResourceAsString.at("json/individual/num-pieces/simple.json").get();
 
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
         Map<String, Object> context = lb.extractContext(jsonObject);
@@ -83,11 +83,22 @@ public class LogicBoardTest {
     @Test
     public void parseMultiplierDouble() {
         LogicBoard lb = new LogicBoard();
-        String jsonText = ResourceAsString.at("json/multiplier/double.json").get();
+        String jsonText = ResourceAsString.at("json/individual/multiplier/double.json").get();
 
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
         float multiplier = lb.parseMultiplier(jsonObject);
 
         Assert.assertEquals(multiplier, 2, 0.00001);
+    }
+
+    @Test
+    public void parseMultiplierTripleInverted() {
+        LogicBoard lb = new LogicBoard();
+        String jsonText = ResourceAsString.at("json/individual/multiplier/triple-inverted.json").get();
+
+        Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
+        float multiplier = lb.parseMultiplier(jsonObject);
+
+        Assert.assertEquals(multiplier, -3, 0.00001);
     }
 }
