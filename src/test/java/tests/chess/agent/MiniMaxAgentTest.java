@@ -20,7 +20,6 @@ public class MiniMaxAgentTest {
         try {
             new MiniMaxAgent(null, 3);
         }catch(Exception e) {
-            e.printStackTrace();
             return;
         }
         Assert.fail();
@@ -45,7 +44,6 @@ public class MiniMaxAgentTest {
             ChessEval eval = new ConstantEval(1);
             new MiniMaxAgent(eval, -1);
         }catch(IllegalArgumentException e) {
-            e.printStackTrace();
             return;
         }
         Assert.fail();

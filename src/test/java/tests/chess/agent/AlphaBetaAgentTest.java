@@ -20,7 +20,6 @@ public class AlphaBetaAgentTest {
         try {
             new AlphaBetaAgent(null, 3);
         }catch(Exception e) {
-            e.printStackTrace();
             return;
         }
         Assert.fail();
@@ -45,7 +44,6 @@ public class AlphaBetaAgentTest {
             ChessEval eval = new ConstantEval(1);
             AlphaBetaAgent a = new AlphaBetaAgent(eval, -1);
         }catch(IllegalArgumentException e) {
-            e.printStackTrace();
             return;
         }
         Assert.fail();
