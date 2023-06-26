@@ -2,12 +2,11 @@ package tests.chess.eval.builder;
 
 import chess.board.LPieceType;
 import chess.board.LSide;
+import chess.eval.ChessEval;
 import chess.eval.builder.JsonParser;
 import chess.eval.builder.LogicBoard;
-import chess.eval.impl.DistanceAcrossEval;
-import chess.eval.impl.DistanceToMidEval;
-import chess.eval.impl.GameEndsEval;
-import chess.eval.impl.NumPiecesEval;
+import chess.eval.impl.*;
+import com.github.bhlangonijr.chesslib.game.Game;
 import org.junit.Assert;
 import org.junit.Test;
 import util.ResourceAsString;
@@ -15,6 +14,17 @@ import util.ResourceAsString;
 import java.util.Map;
 
 public class LogicBoardTest {
+
+    @Test
+    public void parseBoard() {
+        LogicBoard lb = new LogicBoard();
+        String jsonText = ResourceAsString.at("json/complex/basic.json").get();
+        Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
+        CumulativeEval eval = (CumulativeEval) lb.parseBoard(jsonObject);
+
+        Assert.assertNotNull(eval);
+        Assert.assertEquals(eval.evaluations.length, 2);
+    }
 
     @Test
     public void parseDistanceAcrossEval() {

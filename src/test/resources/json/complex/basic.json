@@ -9,6 +9,13 @@
         "discriminate-types": ["PAWN"],
         "discriminate-sides": ["WHITE"]
       }
+    },
+    {
+      "slot": 1,
+      "type": "GAME_MATED",
+      "context": {
+        "side": "WHITE"
+      }
     }
   ],
   "active-multipliers": [

@@ -22,16 +22,19 @@ public class LogicBoard {
 
         for(Map<String, Object> evalObject : activeEvals) {
             ChessEval parsedEval = parseEval(evalObject);
-            int evalSlot = (int) evalObject.get("slot");
+            int evalSlot = (int) (double) evalObject.get("slot");
 
             chessEvals.put(evalSlot, parsedEval);
         }
 
         for(Map<String, Object> multiplierObject : activeMultipliers) {
             float parsedMultiplier = parseMultiplier(multiplierObject);
-            int multiplierSlot = (int) multiplierObject.get("slot");
+            int multiplierSlot = (int) (double) multiplierObject.get("slot");
 
             ChessEval originalEval = chessEvals.get(multiplierSlot);
+            if(!chessEvals.containsKey(multiplierSlot))
+                throw new IllegalStateException("MULTIPLIER DOES NOT HAVE A VALID EVAL");
+
             ChessEval multipliedEval = new WeightedEval(originalEval, parsedMultiplier);
             chessEvals.put(multiplierSlot, multipliedEval);
         }
