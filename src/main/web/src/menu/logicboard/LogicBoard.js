@@ -1,46 +1,113 @@
-import React, {useState} from 'react';
+import React from 'react';
 import LogicTile from './LogicTile';
 
-export default function DragBoard() {
-    
-    const testTiles = [
-        {x:  45, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
-        , url: "./assets/logic/gems/yellow_hex.jpg"},
-        {x: 145, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
-        , url: "./assets/logic/gems/blue_tri.jpg"},
-        {x: 245, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
-        , url: "./assets/logic/gems/green_dodec.jpg"},
-        {x: 345, y: 30, width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), content: "", type: "logic-circle"
-        , url: "./assets/logic/gems/pink_quad.jpg"},
+export default function LogicBoard() {
 
-        {x: 50, y: 150, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: "", type: "logic-rectangle"
-        , url: "./assets/chess/b_b.svg"},
-        {x: 150, y: 150, width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), content: "", type: "logic-rectangle"
-        , url: "./assets/chess/r_b.svg"},
+    const testTiles = [
+        {shape: "logic-circle", type: "SINGLE", uid: 1, lock: 13,
+            url: "./assets/logic/gems/yellow_hex.jpg",
+            context: {}
+        },
+        {shape: "logic-rectangle", type: "NUM_PIECES", uid: 2, lock: 7,
+            url: "./assets/chess/r_w.svg",
+            context: {
+                "discriminate-types": ["PAWN"],
+                "discriminate-sides": ["WHITE"]
+            },
+        },
     ];
 
     const lockOns = [
+        {x:  50, y: 30, shape: "logic-rectangle", category: "active-evals", slot: 1, uid: 1},
+        {x:  200, y: 30, shape: "logic-rectangle", category: "active-evals", slot: 2, uid: 2},
+        {x:  350, y: 30, shape: "logic-rectangle", category: "active-evals", slot: 3, uid: 3},
+        {x:  45, y: 170, shape: "logic-circle", category: "active-multipliers", slot: 1, uid: 4},
+        {x:  195, y: 170, shape: "logic-circle", category: "active-multipliers", slot: 2, uid: 5},
+        {x:  345, y: 170, shape: "logic-circle", category: "active-multipliers", slot: 3, uid: 6},
 
-        {x:  45, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-        {x: 145, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-        {x: 245, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-        {x: 345, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-        {x: 445, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-        {x: 545, y: 30,  width: getVar("logic-circle-diameter"), height: getVar("logic-circle-diameter"), type: "logic-circle"},
-
-        {x: 50, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 150, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 250, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 350, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 450, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
-        {x: 550, y: 150,  width: getVar("logic-rectangle-width"), height: getVar("logic-rectangle-height"), type: "logic-rectangle"},
+        {x:  20, y: 320, shape: "logic-rectangle", category: "inventory", slot: 4, uid: 7},
+        {x:  120, y: 320, shape: "logic-rectangle", category: "inventory", slot: 5, uid: 8},
+        {x:  220, y: 320, shape: "logic-rectangle", category: "inventory", slot: 6, uid: 9},
+        {x:  320, y: 320, shape: "logic-rectangle", category: "inventory", slot: 7, uid: 10},
+        {x:  420, y: 320, shape: "logic-rectangle", category: "inventory", slot: 8, uid: 11},
+        {x:  520, y: 320, shape: "logic-rectangle", category: "inventory", slot: 9, uid: 12},
+        {x:  15,  y: 460, shape: "logic-circle", category: "inventory", slot: 4, uid: 13},
+        {x:  115, y: 460, shape: "logic-circle", category: "inventory", slot: 5, uid: 14},
+        {x:  215, y: 460, shape: "logic-circle", category: "inventory", slot: 6, uid: 15},
+        {x:  315, y: 460, shape: "logic-circle", category: "inventory", slot: 7, uid: 16},
+        {x:  415, y: 460, shape: "logic-circle", category: "inventory", slot: 8, uid: 17},
+        {x:  515, y: 460, shape: "logic-circle", category: "inventory", slot: 9, uid: 18},
     ];
 
-    const lockComponents = lockOns.map((l, i) => <div key={i} className={"logic-lock "+l.type} style={{
+
+    let logicBoard = {
+        "object": "logicboard",
+        "version": "1.0.0",
+        "active-evals": [
+          {
+            "slot": 2,
+            "type": "NUM_PIECES",
+            "context": {
+              "discriminate-types": ["PAWN"],
+              "discriminate-sides": ["WHITE"]
+            }
+          },
+          {
+            "slot": 1,
+            "type": "GAME_MATED",
+            "context": {
+              "side": "WHITE"
+            }
+          }
+        ],
+        "active-multipliers": [
+          {
+            "slot": 2,
+            "type": "DOUBLE"
+          }
+        ],
+        "inventory": []
+      }
+
+    const usedTiles = new Map();
+    testTiles.forEach((tile) => usedTiles.set(tile.uid, tile.lock));
+
+    function updateTile(tile, lockId) {
+        usedTiles.set(tile.uid, lockId);
+        console.log(JSON.stringify(buildBoardJson(usedTiles), null, 2));
+    }
+
+    function buildBoardJson(tilesMap) {
+        let toReturn = {
+            object: "logicboard",
+            version: "1.0.0",
+            "active-evals": [],
+            "active-multipliers": [],
+            inventory: []
+        }
+
+        Array.from( tilesMap ).forEach(([tileUID, lockUID]) => 
+            { 
+                const nextLock = byUID(lockOns, lockUID);
+                const nextTile = byUID(testTiles, tileUID);
+                if(nextTile.shape === "logic-rectangle")
+                    toReturn["active-evals"].push( { "slot": nextLock.slot, "type": nextTile.type, "context": nextTile.context } );
+                else
+                    toReturn["active-multipliers"].push( { "slot": nextLock.slot, "type": nextTile.type, "context": nextTile.context } );
+            }
+        ); 
+
+        return toReturn;
+    }
+
+
+
+    const lockComponents = lockOns.map((l, i) => <div key={i} className={"logic-lock "+l.shape} style={{
         top: l.y + 'px',
         left: l.x + 'px',
     }}/>);
-    const tileComponents = testTiles.map((t, i) => <LogicTile key={i} tile={t} locks={lockOns} />);
+
+    const tileComponents = testTiles.map((t, i) => <LogicTile key={i} tile={t} locks={lockOns} callback={updateTile} />);
 
     return (
         <div className='logic-board'>
@@ -50,6 +117,6 @@ export default function DragBoard() {
     );
 }
 
-function getVar(value) {
-    return parseInt(getComputedStyle(document.body).getPropertyValue('--'+value));
+function byUID(objectsList, uid) {
+    return objectsList.find(element => element.uid === uid);
 }

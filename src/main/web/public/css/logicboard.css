@@ -7,12 +7,14 @@
 .logic-rectangle {
     --logic-width: var(--logic-rectangle-width);
     --logic-height: var(--logic-rectangle-height);
+
     --logic-radius: 0;
 }
 
 .logic-circle {
     --logic-width: var(--logic-circle-diameter);
     --logic-height: var(--logic-circle-diameter);
+    
     --logic-radius: calc(var(--logic-circle-diameter) * 0.5px);
 }
 
