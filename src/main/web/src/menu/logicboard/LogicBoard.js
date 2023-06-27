@@ -1,18 +1,31 @@
 import React from 'react';
 import LogicTile from './LogicTile';
+import setLogicBoard from '../../api/v0/setLogicBoard.js'
 
 export default function LogicBoard() {
 
     const testTiles = [
-        {shape: "logic-circle", type: "SINGLE", uid: 1, lock: 13,
-            url: "./assets/logic/gems/yellow_hex.jpg",
+        {shape: "logic-circle", type: "SINGLE", uid: 2, lock: 13,
+            url: "./assets/logic/gems/green_dodec.jpg",
             context: {}
         },
-        {shape: "logic-rectangle", type: "NUM_PIECES", uid: 2, lock: 7,
-            url: "./assets/chess/r_w.svg",
+        {shape: "logic-circle", type: "SINGLE_INVERTED", uid: 3, lock: 14,
+            url: "./assets/logic/gems/pink_quad.jpg",
+            context: {}
+        },
+
+        {shape: "logic-rectangle", type: "NUM_PIECES", uid: 4, lock: 7,
+            url: "./assets/chess/p_w.svg",
             context: {
                 "discriminate-types": ["PAWN"],
                 "discriminate-sides": ["WHITE"]
+            },
+        },
+        {shape: "logic-rectangle", type: "NUM_PIECES", uid: 5, lock: 8,
+            url: "./assets/chess/p_b.svg",
+            context: {
+                "discriminate-types": ["PAWN"],
+                "discriminate-sides": ["BLACK"]
             },
         },
     ];
@@ -39,42 +52,13 @@ export default function LogicBoard() {
         {x:  515, y: 460, shape: "logic-circle", category: "inventory", slot: 9, uid: 18},
     ];
 
-
-    let logicBoard = {
-        "object": "logicboard",
-        "version": "1.0.0",
-        "active-evals": [
-          {
-            "slot": 2,
-            "type": "NUM_PIECES",
-            "context": {
-              "discriminate-types": ["PAWN"],
-              "discriminate-sides": ["WHITE"]
-            }
-          },
-          {
-            "slot": 1,
-            "type": "GAME_MATED",
-            "context": {
-              "side": "WHITE"
-            }
-          }
-        ],
-        "active-multipliers": [
-          {
-            "slot": 2,
-            "type": "DOUBLE"
-          }
-        ],
-        "inventory": []
-      }
-
     const usedTiles = new Map();
     testTiles.forEach((tile) => usedTiles.set(tile.uid, tile.lock));
 
     function updateTile(tile, lockId) {
         usedTiles.set(tile.uid, lockId);
-        console.log(JSON.stringify(buildBoardJson(usedTiles), null, 2));
+        setLogicBoard(buildBoardJson(usedTiles))
+            .then(res => console.log(res));
     }
 
     function buildBoardJson(tilesMap) {

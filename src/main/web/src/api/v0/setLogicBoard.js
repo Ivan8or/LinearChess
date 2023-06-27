@@ -2,8 +2,10 @@ const API_ENDPOINT = "/api/v0/logicboard";
 const URL = process.env.REACT_APP_API_URL + API_ENDPOINT;
 
 export default function setLogicBoard(logicboard) {
-    //if(process.env.REACT_APP_DUMMY_API_CALLS === "true")
-    //    return new Promise((res, err) => res("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+    if(process.env.REACT_APP_DUMMY_API_CALLS === "true") {
+        console.log("accessed",API_ENDPOINT,"endpoint");
+        return new Promise((res, err) => res( {success: "true"} ));
+    }
 
     return fetch(URL, 
             {
@@ -13,5 +15,5 @@ export default function setLogicBoard(logicboard) {
                 },
                 body: JSON.stringify( logicboard )
             }
-        ).then((response) => response.json());
+        ).then((response) => response.text());
 }
