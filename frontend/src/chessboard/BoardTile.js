@@ -7,7 +7,8 @@ export default function BoardTile( {tile} ) {
 
     const ROOT_PATH = './assets/chess';
     const color = tile === tile.toUpperCase() ? 'w' : 'b';
-    const filePath = `${ROOT_PATH}/${tile}_${color}.svg`;
+    const lowercaseTile = tile.toLowerCase();
+    const filePath = `${ROOT_PATH}/${lowercaseTile}_${color}.svg`;
 
 
     return (
