@@ -29,10 +29,6 @@ dependencies {
     implementation 'com.sparkjava:spark-core:2.9.4'
     implementation 'com.google.code.gson:gson:2.10.1'
 }
-//
-// java {
-//     withJavadocJar()
-// }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -40,6 +36,6 @@ tasks.withType(JavaCompile) {
 
 jar {
   manifest {
-     attributes "Main-Class": "rest.GameBackend"
+     attributes "Main-Class": "api.Main"
   }
 }
