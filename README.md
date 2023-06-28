@@ -47,8 +47,8 @@ npm run build
 
 3. serve the build using node
 ```bash
-npm install -g serve
-serve -s build
+npm install serve
+npx serve -s build
 ```
 
 
