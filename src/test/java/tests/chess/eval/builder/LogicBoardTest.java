@@ -15,8 +15,20 @@ import java.util.Map;
 
 public class LogicBoardTest {
 
+
     @Test
-    public void parseBoard() {
+    public void parseGeneratedBoard1() {
+        LogicBoard lb = new LogicBoard();
+        String jsonText = ResourceAsString.at("json/complex/client-generated-1.json").get();
+        Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);
+        CumulativeEval eval = (CumulativeEval) lb.parseBoard(jsonObject);
+
+        Assert.assertNotNull(eval);
+        Assert.assertEquals(eval.evaluations.length, 1);
+    }
+
+    @Test
+    public void parseBasicBoard() {
         LogicBoard lb = new LogicBoard();
         String jsonText = ResourceAsString.at("json/complex/basic.json").get();
         Map<String, Object> jsonObject = JsonParser.parseJsonObject(jsonText);

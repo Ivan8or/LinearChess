@@ -23,6 +23,13 @@ public class ChessGame {
         this.blackAgent = blackAgent;
     }
 
+    public void setAgent(ChessAgent agent, LSide side) {
+        if(side == LSide.BLACK)
+            this.blackAgent = agent;
+        else
+            this.whiteAgent = agent;
+    }
+
     public boolean increment() {
         ChessAgent turnAgent = turnAgent();
         LMove bestMove = turnAgent.decideMove(board);

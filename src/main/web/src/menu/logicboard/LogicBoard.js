@@ -17,14 +17,14 @@ export default function LogicBoard() {
         {shape: "logic-rectangle", type: "NUM_PIECES", uid: 4, lock: 7,
             url: "./assets/chess/p_w.svg",
             context: {
-                "discriminate-types": ["PAWN"],
+                "discriminate-types": ["PAWN", "KNIGHT", "ROOK", "BISHOP", "QUEEN"],
                 "discriminate-sides": ["WHITE"]
             },
         },
         {shape: "logic-rectangle", type: "NUM_PIECES", uid: 5, lock: 8,
             url: "./assets/chess/p_b.svg",
             context: {
-                "discriminate-types": ["PAWN"],
+                "discriminate-types": ["PAWN", "KNIGHT", "ROOK", "BISHOP", "QUEEN"],
                 "discriminate-sides": ["BLACK"]
             },
         },

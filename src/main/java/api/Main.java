@@ -35,6 +35,7 @@ public class Main {
                 .withEndpoint(new StepGame(game))
                 .withEndpoint(new GetPossibleMoves(game))
                 .withEndpoint(new MakeMove(game))
+                .withEndpoint(new SetPlayerEval(game))
                 .start();
     }
 

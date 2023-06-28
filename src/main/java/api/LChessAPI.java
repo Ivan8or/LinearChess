@@ -71,6 +71,7 @@ public class LChessAPI {
     private void handlePreflight(APIEndpoint endpoint) {
         RouteImpl optionsHandler = RouteImpl.create(endpoint.getPath(), (req, res) -> {
             res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
+            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
             return res;
         });
         sparkService.addRoute(HttpMethod.options, optionsHandler);
