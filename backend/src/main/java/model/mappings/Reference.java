@@ -4,11 +4,7 @@ import java.util.Arrays;
 
 public class Reference {
 
-    private Endpoint[] endpoints;
-
-    public Reference() {
-
-    }
+    private final Endpoint[] endpoints;
 
     public Reference(Endpoint[] endpoints) {
         this.endpoints = endpoints;
@@ -16,10 +12,6 @@ public class Reference {
 
     public Endpoint[] getEndpoints() {
         return endpoints;
-    }
-
-    public void setEndpoints(Endpoint[] endpoints) {
-        this.endpoints = endpoints;
     }
 
     @Override
