@@ -17,10 +17,16 @@ public class JsonConverter {
     public static String toJson(Object object) {
         return compactGson.toJson(object);
     }
+
     public static String toPrettyJson(Object object) {
         return prettyGson.toJson(object);
     }
+
     public static <T> T fromJson(String json, Class<T> type) {
         return prettyGson.fromJson(json, type);
+    }
+
+    public static String minimize(String json) {
+        return json.replaceAll("\\s", "");
     }
 }
