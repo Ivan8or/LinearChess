@@ -1,0 +1,4 @@
+{
+  "endpoint": "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
+  "methods": ["GET","POST","PUT","DELETE"]
+}
