@@ -1,0 +1,39 @@
+{
+  "slots": [
+    {
+      "slot": 101,
+      "item": {
+        "type": "eval",
+        "id": 3001
+      }
+    },
+    {
+      "slot": 201,
+      "item": {
+        "type": "multiplier",
+        "id": 40010
+      }
+    },
+    {
+      "slot": 202,
+      "item": {
+        "type": "multiplier",
+        "id": 40011
+      }
+    },
+    {
+      "slot": 203,
+      "item": {
+        "type": "multiplier",
+        "id": 40012
+      }
+    },
+    {
+      "slot": 204,
+      "item": {
+        "type": "multiplier",
+        "id": 40013
+      }
+    }
+  ]
+}

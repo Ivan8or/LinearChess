@@ -1,27 +1,28 @@
 package tests.model.mappings;
 
 import model.mappings.Endpoint;
+import model.mappings.Item;
 import org.junit.Assert;
 import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
-public class EndpointTest {
+public class ItemTest {
 
-    static final String RESOURCE_PATH = "model/mappings/endpoint/";
+    static final String RESOURCE_PATH = "model/mappings/item/";
 
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Item generated = JsonConverter.fromJson(from, Item.class);
 
-        Endpoint expected = new Endpoint("", new String[]{});
+        Item expected = new Item("", 0);
         Assert.assertEquals(expected, generated);
     }
 
     @Test
     public void writeEmpty() {
-        Endpoint from = new Endpoint("", new String[]{});
+        Item from = new Item("", 0);
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
@@ -33,16 +34,16 @@ public class EndpointTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Item generated = JsonConverter.fromJson(from, Item.class);
 
-        Endpoint expected = new Endpoint("/api/v1", new String[]{"GET"});
+        Item expected = new Item("eval", 4001);
 
         Assert.assertEquals(expected, generated);
     }
 
     @Test
     public void writeSimple() {
-        Endpoint from = new Endpoint("/api/v1", new String[]{"GET"});
+        Item from = new Item("eval", 4001);
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
@@ -54,20 +55,16 @@ public class EndpointTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Item generated = JsonConverter.fromJson(from, Item.class);
 
-        Endpoint expected = new Endpoint(
-                "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
-                new String[]{"GET","POST","PUT","DELETE"});
+        Item expected = new Item("THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",10002000);
 
         Assert.assertEquals(expected, generated);
     }
 
     @Test
     public void writeLong() {
-        Endpoint from = new Endpoint(
-                "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
-                new String[]{"GET","POST","PUT","DELETE"});
+        Item from = new Item("THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",10002000);
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
