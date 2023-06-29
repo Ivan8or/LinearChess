@@ -1,13 +1,20 @@
 package model.shop;
 
+import model.mappings.Inventory;
+import model.mappings.SlottedItem;
+
 public class ShopSession {
 
     private transient LobbyShop shop;
 
     private int gold;
-    private Object[] wares;
+    private Inventory wares;
 
-    public Object[] getWares() {
+    public ShopSession(LobbyShop shop) {
+        this.shop = shop;
+    }
+
+    public Inventory getWares() {
         return wares;
     }
 
@@ -20,24 +27,28 @@ public class ShopSession {
     }
 
     public boolean refresh() {
+        if(!canAffordRefresh())
+            return false;
+
+        gold -= 1;
         return true;
     }
 
     public boolean warePresent(int slot) {
-        return wares[slot] != null;
+        return wares.getSlot(slot).isPresent();
     }
 
     public boolean canAffordBuy(int slot) {
         return gold >= 3;
     }
 
-    public boolean buy(int slot) {
-        return true;
+    public SlottedItem buy(int slot) {
+        SlottedItem purchasedItem = wares.getSlot(slot).get();
+
+        return wares.getSlot(slot).get();
     }
 
-    public boolean sell(int slot) {
-        return true;
+    public void sell(SlottedItem item) {
+
     }
-
-
 }
