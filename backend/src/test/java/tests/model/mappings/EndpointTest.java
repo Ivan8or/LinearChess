@@ -34,8 +34,9 @@ public class EndpointTest {
         String from = ResourceAsString.at("model/mappings/endpoint/simple.json").get();
         Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
 
-        Assert.assertEquals("/api/v1", generated.getEndpoint());
-        Assert.assertArrayEquals(new String[]{"GET"} , generated.getMethods());
+        Endpoint expected = new Endpoint("/api/v1", new String[]{"GET"});
+
+        Assert.assertEquals(expected, generated);
     }
 
     @Test

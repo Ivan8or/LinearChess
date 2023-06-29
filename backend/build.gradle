@@ -8,7 +8,7 @@ plugins {
 group = 'volkov.ivan'
 version = '1.0.0'
 description = 'Linear Chess Backend'
-java.sourceCompatibility = JavaVersion.VERSION_1_9
+java.sourceCompatibility = JavaVersion.VERSION_16
 
 repositories {
     mavenLocal()
@@ -25,10 +25,11 @@ shadowJar {
 }
 dependencies {
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation 'org.mockito:mockito-core:3.+'
     implementation 'com.github.bhlangonijr:chesslib:1.3.3'
     implementation 'com.sparkjava:spark-core:2.9.4'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.danilopianini:gson-extras:0.2.1'
 }
 
 tasks.withType(JavaCompile) {
@@ -40,3 +41,4 @@ jar {
      attributes "Main-Class": "api.Main"
   }
 }
+targetCompatibility = JavaVersion.VERSION_16

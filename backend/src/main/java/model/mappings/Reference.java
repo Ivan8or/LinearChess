@@ -2,17 +2,7 @@ package model.mappings;
 
 import java.util.Arrays;
 
-public class Reference {
-
-    private final Endpoint[] endpoints;
-
-    public Reference(Endpoint[] endpoints) {
-        this.endpoints = endpoints;
-    }
-
-    public Endpoint[] getEndpoints() {
-        return endpoints;
-    }
+public record Reference(Endpoint[] endpoints) {
 
     @Override
     public boolean equals(Object other) {

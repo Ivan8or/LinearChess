@@ -2,23 +2,7 @@ package model.mappings;
 
 import java.util.Arrays;
 
-public class Endpoint {
-
-    private final String endpoint;
-    private final String[] methods;
-
-    public Endpoint(String endpoint, String[] methods) {
-        this.endpoint = endpoint;
-        this.methods = methods;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public String[] getMethods() {
-        return methods;
-    }
+public record Endpoint (String endpoint, String[] methods) {
 
     @Override
     public boolean equals(Object other) {
@@ -31,3 +15,4 @@ public class Endpoint {
                 && Arrays.equals(methods, otherEndpoint.methods);
     }
 }
+
