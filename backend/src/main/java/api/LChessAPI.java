@@ -53,8 +53,6 @@ public class LChessAPI {
 
         sparkService.before((request, response) -> response.header(
                 "Access-Control-Allow-Origin", "*"));
-        sparkService.before((request, response) -> response.header(
-                "Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
 
         for(APIEndpoint endpoint : endpoints) {
             specifyOptions(endpoint);
@@ -72,13 +70,16 @@ public class LChessAPI {
         if(endpoint.getMethods().contains(HttpMethod.options))
             return;
 
-        Set<String> methodNames = endpoint.getMethods()
-                .stream().map(Enum::toString)
+        Set<String> methodNames = endpoint.getMethods().stream()
+                .map(Enum::toString)
+                .map(String::toUpperCase)
                 .collect(Collectors.toSet());
         String allowedMethods = String.join(", ", methodNames);
 
-        RouteImpl optionsHandler = RouteImpl.create(endpoint.getPath(), (req, res) -> {
+        RouteImpl optionsHandler = RouteImpl.create(commonPath + endpoint.getPath(), (req, res) -> {
             res.header("Access-Control-Allow-Methods", allowedMethods);
+            res.header("Access-Control-Allow-Headers", "*");
+            res.header("Access-Control-Allow-Credentials", "true");
             return res;
         });
         sparkService.addRoute(HttpMethod.options, optionsHandler);
