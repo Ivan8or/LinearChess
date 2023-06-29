@@ -1,6 +1,6 @@
-package api.v0.impl;
+package api.v0;
 
-import api.APIEndpoint;
+import api.util.APIEndpoint;
 import chess.ChessGame;
 import chess.agent.ChessAgent;
 import chess.agent.impl.AlphaBetaAgent;
@@ -16,7 +16,7 @@ public class SetPlayerEval extends APIEndpoint {
     final private ChessGame game;
 
     public SetPlayerEval(ChessGame game) {
-        super("/logicboard", HttpMethod.put);
+        super("/api/v0/logicboard", HttpMethod.put);
         this.game = game;
     }
 

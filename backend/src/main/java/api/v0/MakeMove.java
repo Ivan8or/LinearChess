@@ -1,6 +1,6 @@
-package api.v0.impl;
+package api.v0;
 
-import api.APIEndpoint;
+import api.util.APIEndpoint;
 import chess.ChessGame;
 import chess.board.LMove;
 import spark.Request;
@@ -14,7 +14,7 @@ public class MakeMove extends APIEndpoint {
     private final ChessGame game;
 
     public MakeMove(ChessGame game) {
-        super("/move/:move", HttpMethod.get);
+        super("/api/v0/move/:move", HttpMethod.get);
         this.game = game;
     }
 

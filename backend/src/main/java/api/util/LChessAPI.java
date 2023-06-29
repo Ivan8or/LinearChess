@@ -1,4 +1,4 @@
-package api;
+package api.util;
 
 import spark.RouteImpl;
 import spark.Service;
@@ -18,14 +18,12 @@ public class LChessAPI {
 
     private int port;
     private long timeout;
-    private String commonPath;
 
     private final List<APIEndpoint> endpoints;
 
     public LChessAPI() {
         port = 8080;
         timeout = 8000;
-        commonPath = "";
         endpoints = new ArrayList<>();
     }
 
@@ -35,10 +33,6 @@ public class LChessAPI {
     }
     public LChessAPI withTimeout(long timeout) {
         this.timeout = timeout;
-        return this;
-    }
-    public LChessAPI withCommonPath(String commonPath) {
-        this.commonPath = commonPath;
         return this;
     }
     public LChessAPI withEndpoint(APIEndpoint endpoint) {
@@ -61,7 +55,7 @@ public class LChessAPI {
     }
 
     private void registerEndpoint(APIEndpoint endpoint) {
-        RouteImpl routeImpl = RouteImpl.create(commonPath + endpoint.getPath(), endpoint);
+        RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint);
         for(HttpMethod method : endpoint.getMethods())
             sparkService.addRoute(method, routeImpl);
     }
@@ -76,7 +70,7 @@ public class LChessAPI {
                 .collect(Collectors.toSet());
         String allowedMethods = String.join(", ", methodNames);
 
-        RouteImpl optionsHandler = RouteImpl.create(commonPath + endpoint.getPath(), (req, res) -> {
+        RouteImpl optionsHandler = RouteImpl.create(endpoint.getPath(), (req, res) -> {
             res.header("Access-Control-Allow-Methods", allowedMethods);
             res.header("Access-Control-Allow-Headers", "*");
             res.header("Access-Control-Allow-Credentials", "true");

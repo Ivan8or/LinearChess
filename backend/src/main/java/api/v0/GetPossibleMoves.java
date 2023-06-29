@@ -1,6 +1,6 @@
-package api.v0.impl;
+package api.v0;
 
-import api.APIEndpoint;
+import api.util.APIEndpoint;
 import chess.ChessGame;
 import spark.Request;
 import spark.Response;
@@ -13,7 +13,7 @@ public class GetPossibleMoves extends APIEndpoint {
     private final ChessGame game;
 
     public GetPossibleMoves(ChessGame game) {
-        super("/moves", HttpMethod.get);
+        super("/api/v0/moves", HttpMethod.get);
         this.game = game;
     }
 

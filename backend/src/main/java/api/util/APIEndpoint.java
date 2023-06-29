@@ -1,4 +1,4 @@
-package api;
+package api.util;
 
 import spark.Request;
 import spark.Response;

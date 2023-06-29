@@ -1,6 +1,6 @@
-package api.v0.impl;
+package api.v0;
 
-import api.APIEndpoint;
+import api.util.APIEndpoint;
 import chess.ChessGame;
 import spark.Request;
 import spark.Response;
@@ -11,7 +11,7 @@ public class RestartGame extends APIEndpoint {
     final private ChessGame game;
 
     public RestartGame(ChessGame game) {
-        super("/reset", HttpMethod.patch);
+        super("/api/v0/reset", HttpMethod.patch);
         this.game = game;
     }
 

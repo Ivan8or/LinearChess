@@ -1,7 +1,7 @@
-package api.v0;
+package api.util.launchers;
 
-import api.LChessAPI;
-import api.v0.impl.*;
+import api.util.LChessAPI;
+import api.v0.*;
 import chess.ChessGame;
 import chess.agent.ChessAgent;
 import chess.agent.impl.AlphaBetaAgent;
@@ -12,9 +12,7 @@ import chess.eval.impl.*;
 
 import java.util.Random;
 
-public class APIv0 {
-
-    final static public String rootPath = "/api/v0";
+public class V0Launcher {
 
     public static void registerV0() {
 
@@ -26,7 +24,6 @@ public class APIv0 {
         new LChessAPI()
                 .withPort(3100)
                 .withTimeout(8000)
-                .withCommonPath(rootPath)
                 .withEndpoint(new GetBoardState(game))
                 .withEndpoint(new RestartGame(game))
                 .withEndpoint(new StepGame(game))
