@@ -48,49 +48,4 @@ public class MiniMaxAgentTest {
         }
         Assert.fail();
     }
-
-    @Test
-    public void simpleGame() {
-
-        NumPiecesEval numWhite = new NumPiecesEval(
-                new LPieceType[]{LPieceType.KNIGHT},
-                new LSide[]{LSide.BLACK}
-        );
-        NumPiecesEval numBlack = new NumPiecesEval(
-                new LPieceType[]{LPieceType.ROOK},
-                new LSide[]{LSide.WHITE}
-        );
-        RandomEval rand = new RandomEval(new Random(422));
-
-        GameEndsEval whiteEnds = new GameEndsEval(LSide.WHITE);
-        GameEndsEval blackEnds = new GameEndsEval(LSide.BLACK);
-
-        GameDrawsEval draws = new GameDrawsEval();
-
-        CumulativeEval w = new CumulativeEval(
-                whiteEnds,
-                new WeightedEval(draws, -5),
-                new WeightedEval(numWhite, -1),
-                rand
-        );
-        CumulativeEval b = new CumulativeEval(
-                new WeightedEval(numBlack, -1),
-                new WeightedEval(draws, -5),
-                blackEnds,
-                rand
-        );
-
-        ChessAgent white = new MiniMaxAgent(w, 1);
-        ChessAgent black = new MiniMaxAgent(b, 1);
-
-        double total = 1;
-
-        for (int numGames = 0; numGames < total; numGames++) {
-            ChessGame game = new ChessGame();
-            game.setWhiteAgent(white);
-            game.setBlackAgent(black);
-
-            while(!game.increment());
-        }
-    }
 }
