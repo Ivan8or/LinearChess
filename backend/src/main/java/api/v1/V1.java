@@ -1,18 +1,18 @@
-package api;
+package api.v1;
 
 import api.util.APIEndpoint;
 import spark.Request;
 import spark.Response;
 import spark.route.HttpMethod;
 
-public class Root extends APIEndpoint {
+public class V1 extends APIEndpoint {
 
-    public Root() {
-        super("/api", HttpMethod.get);
+    public V1() {
+        super("/api/v1", HttpMethod.get);
     }
 
     @Override
     public Object handle(Request request, Response response) {
-        return "test";
+        return "this is v1";
     }
 }
