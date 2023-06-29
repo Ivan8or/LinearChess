@@ -1,7 +1,6 @@
 package api;
 
 import api.util.APIEndpoint;
-import com.google.gson.Gson;
 import model.mappings.Endpoint;
 import model.mappings.Reference;
 import spark.Request;
@@ -17,6 +16,8 @@ public class Root extends APIEndpoint {
 
     @Override
     public Object handle(Request request, Response response) {
+        response.header("Content-Type","application/json");
+
         Reference rootReference = new Reference(new Endpoint[]{
                 new Endpoint("/api/v1", new String[]{"GET"})
         });

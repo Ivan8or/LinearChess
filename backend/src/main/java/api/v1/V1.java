@@ -16,6 +16,8 @@ public class V1 extends APIEndpoint {
 
     @Override
     public Object handle(Request request, Response response) {
+        response.header("Content-Type","application/json");
+
         Reference rootReference = new Reference(new Endpoint[]{
                 new Endpoint("/api/v1/lobbies", new String[]{"GET", "POST"}),
                 new Endpoint("/api/v1/sessions", new String[]{"POST", "DELETE"})
