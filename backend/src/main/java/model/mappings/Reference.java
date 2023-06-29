@@ -1,5 +1,7 @@
 package model.mappings;
 
+import util.JsonConverter;
+
 import java.util.Arrays;
 
 public record Reference(Endpoint[] endpoints) {
@@ -11,5 +13,10 @@ public record Reference(Endpoint[] endpoints) {
 
         Reference otherReference = (Reference) other;
         return Arrays.equals(endpoints, otherReference.endpoints);
+    }
+
+    @Override
+    public String toString() {
+        return JsonConverter.toJson(this);
     }
 }

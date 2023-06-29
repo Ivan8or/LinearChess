@@ -1,5 +1,7 @@
 package model.mappings;
 
+import util.JsonConverter;
+
 import java.util.Arrays;
 
 public record Endpoint (String endpoint, String[] methods) {
@@ -13,6 +15,11 @@ public record Endpoint (String endpoint, String[] methods) {
 
         return  this.endpoint.equals(otherEndpoint.endpoint)
                 && Arrays.equals(methods, otherEndpoint.methods);
+    }
+
+    @Override
+    public String toString() {
+        return JsonConverter.toJson(this);
     }
 }
 

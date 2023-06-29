@@ -1,5 +1,7 @@
 package model.mappings;
 
+import util.JsonConverter;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -13,6 +15,11 @@ public record Inventory(SlottedItem[] items) {
 
         Inventory otherInventory = (Inventory) other;
         return Arrays.equals(items, otherInventory.items);
+    }
+
+    @Override
+    public String toString() {
+        return JsonConverter.toJson(this);
     }
 
     public Optional<SlottedItem> getSlot(int slot) {
