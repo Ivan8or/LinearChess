@@ -3,6 +3,8 @@ package model.shop;
 import model.mappings.Inventory;
 import model.mappings.SlottedItem;
 
+import java.util.Optional;
+
 public class ShopSession {
 
     private transient LobbyShop shop;
@@ -12,6 +14,8 @@ public class ShopSession {
 
     public ShopSession(LobbyShop shop) {
         this.shop = shop;
+        this.gold = shop.startingGold();
+        this.wares = shop.borrowItems();
     }
 
     public Inventory getWares() {
@@ -31,6 +35,8 @@ public class ShopSession {
             return false;
 
         gold -= 1;
+        shop.returnItems(wares);
+        wares = shop.borrowItems();
         return true;
     }
 
@@ -42,13 +48,18 @@ public class ShopSession {
         return gold >= 3;
     }
 
-    public SlottedItem buy(int slot) {
-        SlottedItem purchasedItem = wares.getSlot(slot).get();
+    public Optional<SlottedItem> buy(int slot) {
+        if(!canAffordBuy(slot))
+            return Optional.empty();
 
-        return wares.getSlot(slot).get();
+        gold -= 3;
+        Optional<SlottedItem> toReturn = wares.getSlot(slot);
+        wares = wares.removeItem(slot);
+        return toReturn;
     }
 
     public void sell(SlottedItem item) {
-
+        shop.returnItem(item);
+        gold += 1;
     }
 }
