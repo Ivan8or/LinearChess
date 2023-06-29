@@ -16,8 +16,7 @@ public class StepGame extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
-
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             if (!game.isOver())
                 game.increment();

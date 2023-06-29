@@ -19,7 +19,7 @@ public class MakeMove extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             String moveString = request.params(":move");
 

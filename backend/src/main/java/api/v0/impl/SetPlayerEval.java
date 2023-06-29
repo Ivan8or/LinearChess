@@ -21,7 +21,7 @@ public class SetPlayerEval extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             String logicboardJson = request.body();
             ChessEval newEval = LogicBoard.parseBoard(JsonParser.parseJsonObject(logicboardJson));

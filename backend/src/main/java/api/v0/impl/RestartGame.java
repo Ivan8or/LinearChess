@@ -16,7 +16,7 @@ public class RestartGame extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             game.resetBoard();
             return game.getBoard().getFen();

@@ -18,7 +18,7 @@ public class GetPossibleMoves extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             return Arrays.toString(game.getBoard().legalMoves().toArray());
         }

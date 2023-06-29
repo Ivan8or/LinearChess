@@ -16,7 +16,7 @@ public class GetBoardState extends APIEndpoint {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         synchronized(game) {
             return game.getBoard().getFen();
         }

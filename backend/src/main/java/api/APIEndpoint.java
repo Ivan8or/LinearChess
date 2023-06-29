@@ -5,35 +5,26 @@ import spark.Response;
 import spark.Route;
 import spark.route.HttpMethod;
 
+import java.util.Set;
+
 public abstract class APIEndpoint implements Route {
 
-    protected String COMMON_PATH;
-    protected String ENDPOINT_PATH;
-    protected String FULL_PATH;
-    protected HttpMethod HTTP_METHOD;
+    protected final Set<HttpMethod> HTTP_METHODS;
+    protected final String ENDPOINT_PATH;
 
     public String getPath() {
-        return FULL_PATH;
-    }
-    public HttpMethod getMethod() {
-        return HTTP_METHOD;
+        return ENDPOINT_PATH;
     }
 
-    public APIEndpoint(String ENDPOINT_PATH, HttpMethod HTTP_METHOD) {
-        this.ENDPOINT_PATH = ENDPOINT_PATH;
-        this.HTTP_METHOD = HTTP_METHOD;
-        this.COMMON_PATH = null;
+    public Set<HttpMethod> getMethods() {
+        return HTTP_METHODS;
     }
 
-    public APIEndpoint withCommonPath(String commonPath) {
-        COMMON_PATH = commonPath;
-        FULL_PATH = COMMON_PATH + ENDPOINT_PATH;
-        return this;
-    }
-    public boolean commonPathSet() {
-        return COMMON_PATH != null;
+    public APIEndpoint(String path, HttpMethod... methods) {
+        this.ENDPOINT_PATH = path;
+        this.HTTP_METHODS = Set.of(methods);
     }
 
     @Override
-    abstract public Object handle(Request request, Response response) throws Exception;
+    abstract public Object handle(Request request, Response response);
 }

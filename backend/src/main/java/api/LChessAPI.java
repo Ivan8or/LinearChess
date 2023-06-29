@@ -8,6 +8,8 @@ import static spark.Service.ignite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class LChessAPI {
@@ -18,7 +20,7 @@ public class LChessAPI {
     private long timeout;
     private String commonPath;
 
-    private List<APIEndpoint> endpoints;
+    private final List<APIEndpoint> endpoints;
 
     public LChessAPI() {
         port = 8080;
@@ -40,38 +42,43 @@ public class LChessAPI {
         return this;
     }
     public LChessAPI withEndpoint(APIEndpoint endpoint) {
-        if(!endpoint.commonPathSet())
-            endpoint.withCommonPath(commonPath);
-
         endpoints.add(endpoint);
         return this;
     }
 
-    public LChessAPI start() {
+    public void start() {
         sparkService = ignite()
                 .port(port)
                 .webSocketIdleTimeoutMillis(timeout);
 
         sparkService.before((request, response) -> response.header(
                 "Access-Control-Allow-Origin", "*"));
+        sparkService.before((request, response) -> response.header(
+                "Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
 
         for(APIEndpoint endpoint : endpoints) {
-            handlePreflight(endpoint);
+            specifyOptions(endpoint);
             registerEndpoint(endpoint);
         }
-
-        return this;
     }
 
     private void registerEndpoint(APIEndpoint endpoint) {
-        RouteImpl routeImpl = RouteImpl.create(endpoint.getPath(), endpoint);
-        sparkService.addRoute(endpoint.getMethod(), routeImpl);
+        RouteImpl routeImpl = RouteImpl.create(commonPath + endpoint.getPath(), endpoint);
+        for(HttpMethod method : endpoint.getMethods())
+            sparkService.addRoute(method, routeImpl);
     }
 
-    private void handlePreflight(APIEndpoint endpoint) {
+    private void specifyOptions(APIEndpoint endpoint) {
+        if(endpoint.getMethods().contains(HttpMethod.options))
+            return;
+
+        Set<String> methodNames = endpoint.getMethods()
+                .stream().map(Enum::toString)
+                .collect(Collectors.toSet());
+        String allowedMethods = String.join(", ", methodNames);
+
         RouteImpl optionsHandler = RouteImpl.create(endpoint.getPath(), (req, res) -> {
-            res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
-            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+            res.header("Access-Control-Allow-Methods", allowedMethods);
             return res;
         });
         sparkService.addRoute(HttpMethod.options, optionsHandler);
