@@ -7,6 +7,7 @@ import chess.board.LSquare;
 import chess.eval.DiscriminatingChessEval;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class DistanceAcrossEval extends DiscriminatingChessEval {
 
@@ -33,8 +34,8 @@ public class DistanceAcrossEval extends DiscriminatingChessEval {
         return Arrays.stream(LSquare.values())
                 .filter(square -> square != LSquare.NONE)
                 .filter(square -> board.getPiece(square).exists())
-                .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
-                .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
+                .filter(square -> List.of(validTypes).contains(board.getPiece(square).getPieceType()) )
+                .filter(square -> List.of(validSides).contains(board.getPiece(square).getPieceSide()) )
                 .mapToInt(square -> {
                     int rank = square.rank;
                     if(board.getPiece(square).getPieceSide() == LSide.BLACK)

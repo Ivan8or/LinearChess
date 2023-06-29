@@ -7,6 +7,7 @@ import chess.board.LSquare;
 import chess.eval.DiscriminatingChessEval;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class NumPiecesEval extends DiscriminatingChessEval {
 
@@ -32,8 +33,8 @@ public class NumPiecesEval extends DiscriminatingChessEval {
         return (int) Arrays.stream(LSquare.values())
                 .filter(square -> square != LSquare.NONE)
                 .filter(square -> board.getPiece(square).exists())
-                .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
-                .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
+                .filter(square -> List.of(validTypes).contains(board.getPiece(square).getPieceType()) )
+                .filter(square -> List.of(validSides).contains(board.getPiece(square).getPieceSide()) )
                 .count();
     }
 }

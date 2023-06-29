@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import util.ResourceAsString;
 
+import java.util.List;
 import java.util.Map;
 
 public class LogicBoardTest {
@@ -48,11 +49,11 @@ public class LogicBoardTest {
 
         DistanceAcrossEval eval = (DistanceAcrossEval) lb.parseDistanceAcrossEval(context);
 
-        Assert.assertEquals(eval.validSides.size(), 1);
-        Assert.assertEquals(eval.validTypes.size(), 1);
+        Assert.assertEquals(eval.validSides.length, 1);
+        Assert.assertEquals(eval.validTypes.length, 1);
 
-        Assert.assertTrue(eval.validTypes.contains(LPieceType.PAWN));
-        Assert.assertTrue(eval.validSides.contains(LSide.WHITE));
+        Assert.assertTrue(List.of(eval.validTypes).contains(LPieceType.PAWN));
+        Assert.assertTrue(List.of(eval.validSides).contains(LSide.WHITE));
     }
 
     @Test
@@ -65,11 +66,11 @@ public class LogicBoardTest {
 
         DistanceToMidEval eval = (DistanceToMidEval) lb.parseDistanceToMidEval(context);
 
-        Assert.assertEquals(eval.validSides.size(), 1);
-        Assert.assertEquals(eval.validTypes.size(), 1);
+        Assert.assertEquals(eval.validSides.length, 1);
+        Assert.assertEquals(eval.validTypes.length, 1);
 
-        Assert.assertTrue(eval.validTypes.contains(LPieceType.KNIGHT));
-        Assert.assertTrue(eval.validSides.contains(LSide.WHITE));
+        Assert.assertTrue(List.of(eval.validTypes).contains(LPieceType.KNIGHT));
+        Assert.assertTrue(List.of(eval.validSides).contains(LSide.WHITE));
     }
 
     @Test
@@ -94,12 +95,12 @@ public class LogicBoardTest {
 
         NumPiecesEval eval = (NumPiecesEval) lb.parseNumPiecesEval(context);
 
-        Assert.assertEquals(eval.validTypes.size(), 2);
-        Assert.assertEquals(eval.validSides.size(), 1);
+        Assert.assertEquals(eval.validTypes.length, 2);
+        Assert.assertEquals(eval.validSides.length, 1);
 
-        Assert.assertTrue(eval.validTypes.contains(LPieceType.PAWN));
-        Assert.assertTrue(eval.validTypes.contains(LPieceType.ROOK));
-        Assert.assertTrue(eval.validSides.contains(LSide.WHITE));
+        Assert.assertTrue(List.of(eval.validTypes).contains(LPieceType.PAWN));
+        Assert.assertTrue(List.of(eval.validTypes).contains(LPieceType.ROOK));
+        Assert.assertTrue(List.of(eval.validSides).contains(LSide.WHITE));
     }
 
     @Test

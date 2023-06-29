@@ -8,23 +8,23 @@ import java.util.List;
 
 public abstract class DiscriminatingChessEval implements ChessEval {
 
-    final public List<LPieceType> validTypes;
-    final public List<LSide> validSides;
+    final public LPieceType[] validTypes;
+    final public LSide[] validSides;
 
     public DiscriminatingChessEval(LPieceType[] validTypes, LSide[] validSides) {
-        this.validTypes = List.of(validTypes);
-        this.validSides = List.of(validSides);
+        this.validTypes = validTypes;
+        this.validSides = validSides;
     }
     public DiscriminatingChessEval(LPieceType validType, LSide[] validSides) {
-        this.validTypes = List.of(validType);
-        this.validSides = List.of(validSides);
+        this.validTypes = new LPieceType[] {validType};
+        this.validSides = validSides;
     }
     public DiscriminatingChessEval(LPieceType[] validTypes, LSide validSide) {
-        this.validTypes = List.of(validTypes);
-        this.validSides = List.of(validSide);
+        this.validTypes = validTypes;
+        this.validSides = new LSide[] {validSide};
     }
     public DiscriminatingChessEval(LPieceType validType, LSide validSide) {
-        this.validTypes = List.of(validType);
-        this.validSides = List.of(validSide);
+        this.validTypes = new LPieceType[] {validType};
+        this.validSides = new LSide[] {validSide};
     }
 }

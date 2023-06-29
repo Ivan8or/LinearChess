@@ -7,6 +7,7 @@ import chess.board.LSquare;
 import chess.eval.DiscriminatingChessEval;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class DistanceToMidEval extends DiscriminatingChessEval {
 
@@ -33,8 +34,8 @@ public class DistanceToMidEval extends DiscriminatingChessEval {
         return Arrays.stream(LSquare.values())
                 .filter(square -> square != LSquare.NONE)
                 .filter(square -> board.getPiece(square).exists())
-                .filter(square -> validTypes.contains(board.getPiece(square).getPieceType()) )
-                .filter(square -> validSides.contains(board.getPiece(square).getPieceSide()) )
+                .filter(square -> List.of(validTypes).contains(board.getPiece(square).getPieceType()) )
+                .filter(square -> List.of(validSides).contains(board.getPiece(square).getPieceSide()) )
                 .mapToDouble(square -> {
                     double col = Math.abs(square.file - 3.5);
                     double row = Math.abs(square.rank - 3.5);
