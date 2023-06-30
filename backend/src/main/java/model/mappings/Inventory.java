@@ -1,5 +1,6 @@
 package model.mappings;
 
+import chess.eval.ChessEval;
 import util.JsonConverter;
 
 import java.util.Arrays;
@@ -39,8 +40,12 @@ public record Inventory(SlottedItem... items) {
     }
 
     public Inventory addItem(SlottedItem item) {
-        SlottedItem[] updatedItems = new SlottedItem[items.length + 1];
+        SlottedItem[] updatedItems = Arrays.copyOf(items, items.length + 1);
         updatedItems[updatedItems.length - 1] = item;
         return new Inventory(updatedItems);
+    }
+
+    public ChessEval translate() {
+        return null;
     }
 }
