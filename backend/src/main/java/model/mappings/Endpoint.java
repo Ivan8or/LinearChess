@@ -4,7 +4,7 @@ import util.JsonConverter;
 
 import java.util.Arrays;
 
-public record Endpoint (String endpoint, String[] methods) {
+public record Endpoint (String endpoint, String... methods) {
 
     @Override
     public boolean equals(Object other) {

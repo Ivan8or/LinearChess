@@ -4,7 +4,7 @@ import util.JsonConverter;
 
 import java.util.Arrays;
 
-public record Reference(Endpoint[] endpoints) {
+public record Reference(Endpoint... endpoints) {
 
     @Override
     public boolean equals(Object other) {

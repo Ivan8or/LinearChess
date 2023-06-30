@@ -26,14 +26,13 @@ public class RootTest {
 
     @Test
     public void testEndpointGet1(){
-        lenient().when(request.requestMethod()).thenReturn("GET");
+
+
 
         String generated = (String) new Root().handle(request, response);
         generated = JsonConverter.minimize(generated);
 
-        Reference from = new Reference(new Endpoint[]{
-                new Endpoint("/api/v1", new String[]{"GET"})
-        });
+        Reference from = new Reference(new Endpoint("/api/v1", "GET"));
         String expected = JsonConverter.toJson(from);
 
         Assert.assertEquals(expected, generated);

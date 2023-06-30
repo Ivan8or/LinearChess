@@ -19,10 +19,9 @@ public class V1 extends APIEndpoint {
         response.header("Content-Type","application/json");
         response.header("Server-Version","1.1.0");
 
-        Reference rootReference = new Reference(new Endpoint[]{
-                new Endpoint("/api/v1/lobbies", new String[]{"GET", "POST"}),
-                new Endpoint("/api/v1/sessions", new String[]{"POST", "DELETE"})
-        });
+        Reference rootReference = new Reference(
+                new Endpoint("/api/v1/lobbies", "GET", "POST"),
+                new Endpoint("/api/v1/sessions", "POST", "DELETE"));
         return JsonConverter.toPrettyJson(rootReference);
     }
 }

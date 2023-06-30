@@ -5,7 +5,7 @@ import util.JsonConverter;
 import java.util.Arrays;
 import java.util.Optional;
 
-public record Inventory(SlottedItem[] items) {
+public record Inventory(SlottedItem... items) {
 
     @Override
     public boolean equals(Object other) {

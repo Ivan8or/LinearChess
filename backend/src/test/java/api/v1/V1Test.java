@@ -30,10 +30,9 @@ public class V1Test {
         String generated = (String) new V1().handle(request, response);
         generated = JsonConverter.minimize(generated);
 
-        Reference from = new Reference(new Endpoint[]{
-                new Endpoint("/api/v1/lobbies", new String[]{"GET", "POST"}),
-                new Endpoint("/api/v1/sessions", new String[]{"POST", "DELETE"})
-        });
+        Reference from = new Reference(
+                new Endpoint("/api/v1/lobbies", "GET", "POST"),
+                new Endpoint("/api/v1/sessions", "POST", "DELETE"));
         String expected = JsonConverter.toJson(from);
 
         Assert.assertEquals(expected, generated);

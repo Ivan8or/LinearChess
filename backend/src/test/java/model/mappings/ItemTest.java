@@ -1,7 +1,5 @@
 package model.mappings;
 
-import model.mappings.Endpoint;
-import model.mappings.Item;
 import org.junit.Assert;
 import org.junit.Test;
 import util.JsonConverter;

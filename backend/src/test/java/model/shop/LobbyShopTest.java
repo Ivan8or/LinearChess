@@ -37,10 +37,10 @@ public class LobbyShopTest {
         LobbyShop shop = new LobbyShop(itemPool, random);
         Inventory generated = shop.borrowItems(3);
 
-        Inventory expected = new Inventory(new SlottedItem[] {
+        Inventory expected = new Inventory(
                 new SlottedItem(0, new Item("eval", 4003)),
                 new SlottedItem(1, new Item("eval", 4001)),
-                new SlottedItem(2, new Item("multiplier", 3001))});
+                new SlottedItem(2, new Item("multiplier", 3001)));
 
         Assert.assertEquals(expected, generated);
         Assert.assertEquals(37, shop.itemPool().size());
@@ -50,10 +50,10 @@ public class LobbyShopTest {
     public void returnItems() {
         ItemPool[] poolTemplates = new ItemPool[] {};
         LobbyShop shop = new LobbyShop(new ArrayList<>());
-        Inventory from = new Inventory(new SlottedItem[] {
+        Inventory from = new Inventory(
                 new SlottedItem(0, new Item("eval", 4003)),
                 new SlottedItem(1, new Item("eval", 4001)),
-                new SlottedItem(2, new Item("multiplier", 3001))});
+                new SlottedItem(2, new Item("multiplier", 3001)));
 
         List<Item> expected = List.of(
                 new Item("eval", 4003),

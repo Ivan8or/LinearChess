@@ -19,9 +19,8 @@ public class Root extends APIEndpoint {
         response.header("Content-Type","application/json");
         response.header("Version","1.1.0");
 
-        Reference rootReference = new Reference(new Endpoint[]{
-                new Endpoint("/api/v1", new String[]{"GET"})
-        });
+        Reference rootReference = new Reference(
+                new Endpoint("/api/v1", "GET"));
         return JsonConverter.toPrettyJson(rootReference);
     }
 }

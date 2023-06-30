@@ -1,6 +1,5 @@
 package model.mappings;
 
-import model.mappings.Endpoint;
 import org.junit.Assert;
 import org.junit.Test;
 import util.JsonConverter;
@@ -15,13 +14,13 @@ public class EndpointTest {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
         Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
 
-        Endpoint expected = new Endpoint("", new String[]{});
+        Endpoint expected = new Endpoint("");
         Assert.assertEquals(expected, generated);
     }
 
     @Test
     public void writeEmpty() {
-        Endpoint from = new Endpoint("", new String[]{});
+        Endpoint from = new Endpoint("");
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
@@ -35,14 +34,14 @@ public class EndpointTest {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
         Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
 
-        Endpoint expected = new Endpoint("/api/v1", new String[]{"GET"});
+        Endpoint expected = new Endpoint("/api/v1", "GET");
 
         Assert.assertEquals(expected, generated);
     }
 
     @Test
     public void writeSimple() {
-        Endpoint from = new Endpoint("/api/v1", new String[]{"GET"});
+        Endpoint from = new Endpoint("/api/v1", "GET");
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
@@ -58,7 +57,7 @@ public class EndpointTest {
 
         Endpoint expected = new Endpoint(
                 "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
-                new String[]{"GET","POST","PUT","DELETE"});
+                "GET","POST","PUT","DELETE");
 
         Assert.assertEquals(expected, generated);
     }
@@ -67,7 +66,7 @@ public class EndpointTest {
     public void writeLong() {
         Endpoint from = new Endpoint(
                 "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
-                new String[]{"GET","POST","PUT","DELETE"});
+                "GET","POST","PUT","DELETE");
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"long.json").get();

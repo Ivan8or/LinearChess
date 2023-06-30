@@ -1,7 +1,5 @@
 package model.mappings;
 
-import model.mappings.Item;
-import model.mappings.SlottedItem;
 import org.junit.Assert;
 import org.junit.Test;
 import util.JsonConverter;

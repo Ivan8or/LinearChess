@@ -41,6 +41,6 @@ public class ItemPoolTest {
                 new ItemPool(new Item("multiplier", 3002),8)
         };
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertArrayEquals(expected, generated);
     }
 }

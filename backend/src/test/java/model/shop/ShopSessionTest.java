@@ -27,7 +27,7 @@ public class ShopSessionTest {
     public void sellItem() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] {new SlottedItem(501, new Item("eval", 3001))}));
+                new Inventory(new SlottedItem(501, new Item("eval", 3001))));
         ShopSession from = new ShopSession(shop);
         SlottedItem toSell = new SlottedItem(202, new Item("multiplier", 4004));
 
@@ -40,11 +40,10 @@ public class ShopSessionTest {
     public void buyItem() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] {
+                new Inventory(
                         new SlottedItem(501, new Item("eval", 3001)),
                         new SlottedItem(602, new Item("multiplier", 4001)),
-                        new SlottedItem(603, new Item("multiplier", 4004))
-                }));
+                        new SlottedItem(603, new Item("multiplier", 4004))));
         ShopSession from = new ShopSession(shop);
 
         Assert.assertTrue(from.canAffordBuy(602));
@@ -55,9 +54,9 @@ public class ShopSessionTest {
         Assert.assertEquals(new SlottedItem(602, new Item("multiplier", 4001)), purchased.get());
         Assert.assertEquals(1, from.getGold());
         Assert.assertEquals(
-                new Inventory(new SlottedItem[] {
+                new Inventory(
                         new SlottedItem(501, new Item("eval", 3001)),
-                        new SlottedItem(603, new Item("multiplier", 4004))}),
+                        new SlottedItem(603, new Item("multiplier", 4004))),
                 from.getWares());
         Assert.assertFalse(from.canAffordBuy(501));
 
@@ -66,9 +65,9 @@ public class ShopSessionTest {
         Assert.assertFalse(purchased.isPresent());
         Assert.assertEquals(1, from.getGold());
         Assert.assertEquals(
-                new Inventory(new SlottedItem[] {
+                new Inventory(
                         new SlottedItem(501, new Item("eval", 3001)),
-                        new SlottedItem(603, new Item("multiplier", 4004))}),
+                        new SlottedItem(603, new Item("multiplier", 4004))),
                 from.getWares());
     }
 
@@ -76,11 +75,10 @@ public class ShopSessionTest {
     public void waresPresent() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] {
+                new Inventory(
                         new SlottedItem(501, new Item("eval", 3001)),
                         new SlottedItem(602, new Item("multiplier", 4001)),
-                        new SlottedItem(603, new Item("multiplier", 4004))
-                }));
+                        new SlottedItem(603, new Item("multiplier", 4004))));
 
         ShopSession from = new ShopSession(shop);
 
@@ -98,7 +96,7 @@ public class ShopSessionTest {
     public void refreshItems() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] { new SlottedItem(501, new Item("eval", 3001)) }));
+                new Inventory(new SlottedItem(501, new Item("eval", 3001))));
 
         ShopSession from = new ShopSession(shop);
 
@@ -108,7 +106,7 @@ public class ShopSessionTest {
 
 
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] { new SlottedItem(601, new Item("multiplier", 4001)) }));
+                new Inventory(new SlottedItem(601, new Item("multiplier", 4001))));
 
         boolean refreshStatus = from.refresh();
 
@@ -123,7 +121,7 @@ public class ShopSessionTest {
         from.refresh();
 
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] { new SlottedItem(502, new Item("eval", 3009)) }));
+                new Inventory(new SlottedItem(502, new Item("eval", 3009))));
 
         refreshStatus = from.refresh();
 
@@ -138,10 +136,9 @@ public class ShopSessionTest {
     public void writeSimple() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
-                new Inventory(new SlottedItem[] {
+                new Inventory(
                         new SlottedItem(501, new Item("eval", 3001)),
-                        new SlottedItem(601, new Item("multiplier", 4001))
-                })
+                        new SlottedItem(601, new Item("multiplier", 4001)))
         );
         ShopSession from = new ShopSession(shop);
         String generated = JsonConverter.toJson(from);

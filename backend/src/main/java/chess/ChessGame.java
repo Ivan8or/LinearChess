@@ -1,9 +1,13 @@
 package chess;
 
 import chess.agent.ChessAgent;
+import chess.agent.impl.AlphaBetaAgent;
 import chess.board.LBoard;
 import chess.board.LMove;
 import chess.board.LSide;
+import chess.eval.impl.RandomEval;
+
+import java.util.Random;
 
 public class ChessGame {
 
@@ -14,6 +18,8 @@ public class ChessGame {
 
     public ChessGame() {
         board = new LBoard();
+        whiteAgent = new AlphaBetaAgent(new RandomEval(new Random()), 2);
+        blackAgent = new AlphaBetaAgent(new RandomEval(new Random()), 2);
     }
 
     public void setWhiteAgent(ChessAgent whiteAgent) {
