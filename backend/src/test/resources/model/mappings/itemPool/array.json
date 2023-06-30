@@ -1,0 +1,30 @@
+[
+  {
+    "item": {
+      "type": "eval",
+      "id": 4001
+    },
+    "amount": 12
+  },
+  {
+    "item": {
+      "type": "eval",
+      "id": 4003
+    },
+    "amount": 12
+  },
+  {
+    "item": {
+      "type": "multiplier",
+      "id": 3001
+    },
+    "amount": 8
+  },
+  {
+    "item": {
+      "type": "multiplier",
+      "id": 3002
+    },
+    "amount": 8
+  }
+]

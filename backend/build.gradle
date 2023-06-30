@@ -8,7 +8,7 @@ plugins {
 group = 'volkov.ivan'
 version = '1.0.0'
 description = 'Linear Chess Backend'
-java.sourceCompatibility = JavaVersion.VERSION_16
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenLocal()
@@ -41,4 +41,4 @@ jar {
      attributes "Main-Class": "api.Main"
   }
 }
-targetCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_17
