@@ -10,4 +10,8 @@ public record Session(UUID sessionID) {
     public String toString() {
         return JsonConverter.toJson(this);
     }
+
+    public static Session spawn() {
+        return new Session(UUID.randomUUID());
+    }
 }
