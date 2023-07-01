@@ -23,20 +23,7 @@ public class V1LobbiesBoard extends APIEndpoint {
         this.model = model;
     }
 
-    @Override
-    public Object handle(Request request, Response response) {
-        response.header("Content-Type","application/json");
-        response.header("Server-Version","1.1.0");
-
-        HttpMethod method = HttpMethod.get(request.requestMethod().toLowerCase());
-        switch(method) {
-            case get: return get(request, response);
-        }
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
-    }
-
-    private String get(Request request, Response response) {
+    protected String get(Request request, Response response) {
         String lobbyJson = request.body();
         Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
 

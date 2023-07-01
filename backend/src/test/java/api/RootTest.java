@@ -1,8 +1,5 @@
 package api;
 
-import api.Root;
-import model.mappings.Endpoint;
-import model.mappings.Reference;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +8,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import spark.Request;
 import spark.Response;
-import util.JsonConverter;
+import util.ResourceAsString;
 
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RootTest {
+
+    static final String RESOURCE_PATH = "api/root/";
 
     @Mock
     Request request;
@@ -25,15 +24,27 @@ public class RootTest {
     Response response;
 
     @Test
-    public void testEndpointGet1(){
+    public void unsupported() {
+        Root endpoint = new Root();
+        lenient().when(request.requestMethod()).thenReturn("TRACE");
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
 
+        String expected = ResourceAsString.at(RESOURCE_PATH+"unsupported/result.json").get();
+        expected = expected.replaceAll("\\s", "");
 
+        Assert.assertEquals(expected, generated);
+    }
 
-        String generated = (String) new Root().handle(request, response);
-        generated = JsonConverter.minimize(generated);
+    @Test
+    public void get(){
+        Root endpoint = new Root();
+        lenient().when(request.requestMethod()).thenReturn("GET");
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
 
-        Reference from = new Reference(new Endpoint("/api/v1", "GET"));
-        String expected = JsonConverter.toJson(from);
+        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
+        expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);
     }

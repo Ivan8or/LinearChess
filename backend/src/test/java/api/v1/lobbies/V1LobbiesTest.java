@@ -68,7 +68,7 @@ public class V1LobbiesTest {
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"postNoSession.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"postNoSession/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);
@@ -86,7 +86,7 @@ public class V1LobbiesTest {
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"postBadSession.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"postBadSession/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);
@@ -106,7 +106,7 @@ public class V1LobbiesTest {
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"post.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"post/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

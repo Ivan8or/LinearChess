@@ -1,0 +1,18 @@
+{
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/lobbies",
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/sessions",
+      "methods": [
+        "POST",
+        "DELETE"
+      ]
+    }
+  ]
+}

@@ -42,7 +42,7 @@ public class V1LobbiesBoardTest {
     Response response;
 
     @Test
-    public void unsupportedMethod() {
+    public void unsupported() {
         V1LobbiesBoard endpoint = new V1LobbiesBoard(model);
         lenient().when(request.requestMethod()).thenReturn("DELETE");
         String generated = (String) endpoint.handle(request, response);

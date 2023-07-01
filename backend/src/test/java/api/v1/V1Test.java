@@ -1,8 +1,5 @@
 package api.v1;
 
-import api.v1.V1;
-import model.mappings.Endpoint;
-import model.mappings.Reference;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,12 +7,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import spark.Request;
 import spark.Response;
-import util.JsonConverter;
+import util.ResourceAsString;
 
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
 public class V1Test {
+
+    static final String RESOURCE_PATH = "api/v1/v1/";
 
     @Mock
     Request request;
@@ -24,16 +23,27 @@ public class V1Test {
     Response response;
 
     @Test
-    public void testEndpointGet1(){
+    public void unsupported() {
+        V1 endpoint = new V1();
+        lenient().when(request.requestMethod()).thenReturn("TRACE");
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
+
+        String expected = ResourceAsString.at(RESOURCE_PATH+"unsupported/result.json").get();
+        expected = expected.replaceAll("\\s", "");
+
+        Assert.assertEquals(expected, generated);
+    }
+
+    @Test
+    public void get(){
+        V1 endpoint = new V1();
         lenient().when(request.requestMethod()).thenReturn("GET");
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
 
-        String generated = (String) new V1().handle(request, response);
-        generated = JsonConverter.minimize(generated);
-
-        Reference from = new Reference(
-                new Endpoint("/api/v1/lobbies", "GET", "POST"),
-                new Endpoint("/api/v1/sessions", "POST", "DELETE"));
-        String expected = JsonConverter.toJson(from);
+        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
+        expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);
     }

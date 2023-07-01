@@ -14,8 +14,7 @@ public class V1 extends APIEndpoint {
         super("/api/v1", HttpMethod.get);
     }
 
-    @Override
-    public Object handle(Request request, Response response) {
+    public Object get(Request request, Response response) {
         response.header("Content-Type","application/json");
         response.header("Server-Version","1.1.0");
 

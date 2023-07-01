@@ -26,21 +26,7 @@ public class V1Lobbies extends APIEndpoint {
         this.model = model;
     }
 
-    @Override
-    public Object handle(Request request, Response response) {
-        response.header("Content-Type","application/json");
-        response.header("Server-Version","1.1.0");
-
-        HttpMethod method = HttpMethod.get(request.requestMethod().toLowerCase());
-        switch(method) {
-            case get: return get(request, response);
-            case post: return post(request, response);
-        }
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
-    }
-
-    private String get(Request request, Response response) {
+    protected String get(Request request, Response response) {
         Reference rootReference = new Reference(
                 new Endpoint("/api/v1/lobbies/boards", "GET"),
                 new Endpoint("/api/v1/lobbies/inventories", "GET", "PATCH"),
@@ -48,7 +34,7 @@ public class V1Lobbies extends APIEndpoint {
         return JsonConverter.toPrettyJson(rootReference);
     }
 
-    private String post(Request request, Response response) {
+    protected String post(Request request, Response response) {
         String sessionJson = request.headers("session");
         Optional<Session> session = JsonConverter.fromJson(sessionJson, Session.class);
 
