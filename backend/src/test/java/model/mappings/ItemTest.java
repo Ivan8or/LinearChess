@@ -5,6 +5,8 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
+
 public class ItemTest {
 
     static final String RESOURCE_PATH = "model/mappings/item/";
@@ -12,10 +14,11 @@ public class ItemTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        Item generated = JsonConverter.fromJson(from, Item.class);
+        Optional<Item> generated = JsonConverter.fromJson(from, Item.class);
+        Assert.assertTrue(generated.isPresent());
 
         Item expected = new Item("", 0);
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -32,11 +35,12 @@ public class ItemTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Item generated = JsonConverter.fromJson(from, Item.class);
+        Optional<Item> generated = JsonConverter.fromJson(from, Item.class);
+        Assert.assertTrue(generated.isPresent());
 
         Item expected = new Item("eval", 4001);
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -53,11 +57,12 @@ public class ItemTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        Item generated = JsonConverter.fromJson(from, Item.class);
+        Optional<Item> generated = JsonConverter.fromJson(from, Item.class);
+        Assert.assertTrue(generated.isPresent());
 
         Item expected = new Item("THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",10002000);
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test

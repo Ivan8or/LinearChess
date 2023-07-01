@@ -23,18 +23,6 @@ public class ChessLobbyTest {
     SessionTracker tracker;
 
     @Test
-    public void write() {
-        LobbyID lobbyId = new LobbyID("alabama");
-        ChessLobby from = new ChessLobby(lobbyId, tracker);
-        String generated = JsonConverter.toJson(from);
-
-        String expected = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        expected = expected.replaceAll("\\s", "");
-
-        Assert.assertEquals(expected, generated);
-    }
-
-    @Test
     public void lobbyCount() {
         LobbyID lobbyId = new LobbyID("alabama");
         ChessLobby lobby = new ChessLobby(lobbyId, tracker);

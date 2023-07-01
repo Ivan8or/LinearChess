@@ -5,6 +5,8 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
+
 public class EndpointTest {
 
     static final String RESOURCE_PATH = "model/mappings/endpoint/";
@@ -12,10 +14,11 @@ public class EndpointTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Optional<Endpoint> generated = JsonConverter.fromJson(from, Endpoint.class);
+        Assert.assertTrue(generated.isPresent());
 
         Endpoint expected = new Endpoint("");
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -32,11 +35,12 @@ public class EndpointTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Optional<Endpoint> generated = JsonConverter.fromJson(from, Endpoint.class);
+        Assert.assertTrue(generated.isPresent());
 
         Endpoint expected = new Endpoint("/api/v1", "GET");
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -53,13 +57,14 @@ public class EndpointTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        Endpoint generated = JsonConverter.fromJson(from, Endpoint.class);
+        Optional<Endpoint> generated = JsonConverter.fromJson(from, Endpoint.class);
+        Assert.assertTrue(generated.isPresent());
 
         Endpoint expected = new Endpoint(
                 "THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",
                 "GET","POST","PUT","DELETE");
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
