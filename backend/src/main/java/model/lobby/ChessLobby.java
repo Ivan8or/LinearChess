@@ -1,6 +1,7 @@
 package model.lobby;
 
 import chess.ChessGame;
+import model.mappings.Inventory;
 import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
@@ -8,17 +9,17 @@ import model.shop.ItemShop;
 import model.shop.ShopView;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChessLobby {
 
     private final LobbyID lobbyId;
-    transient final private ItemShop shop;
-    transient private ChessGame game;
+    final private ItemShop shop;
+    private ChessGame game;
 
-    transient private Set<Session> players;
-    transient private SessionTracker allSessions;
+    private Map<Session, Inventory> players;
+    private SessionTracker allSessions;
 
     public ChessLobby(LobbyID lobbyId, SessionTracker allSessions) {
         this.lobbyId = lobbyId;
@@ -26,7 +27,7 @@ public class ChessLobby {
 
         this.shop = new ItemShop(List.of());
         this.game = new ChessGame();
-        this.players = ConcurrentHashMap.newKeySet();
+        this.players = new ConcurrentHashMap<>();
     }
 
     public LobbyID getLobbyId() {
@@ -50,27 +51,29 @@ public class ChessLobby {
     }
 
     public boolean hasPlayer(Session session) {
-        return players.contains(session);
+        return players.containsKey(session);
+    }
+
+    public boolean full() {
+        return players.size() >= 2;
     }
 
     public boolean addPlayer(Session session) {
-        if(players.size() >= 2)
+        if(full())
             return false;
 
-        if(players.contains(session))
+        if(hasPlayer(session))
             return false;
 
-        players.add(session);
+        players.put(session, new Inventory());
         allSessions.joinLobby(session, this);
         return true;
     }
 
-    public boolean removePlayer(Session session) {
-        if(!players.contains(session))
-            return false;
-
-        players.remove(session);
-        allSessions.leaveLobby(session);
-        return true;
+    public void removePlayer(Session session) {
+        if(hasPlayer(session)) {
+            players.remove(session);
+            allSessions.leaveLobby(session);
+        }
     }
 }

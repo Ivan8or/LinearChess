@@ -7,19 +7,18 @@ import model.mappings.BoardFEN;
 import model.mappings.LobbyID;
 import spark.Request;
 import spark.Response;
-import spark.route.HttpMethod;
 import util.JsonConverter;
 
 import java.util.Optional;
 
 import static spark.route.HttpMethod.get;
 
-public class V1LobbiesBoard extends APIEndpoint {
+public class V1LobbiesBoards extends APIEndpoint {
 
     final private Model model;
 
-    public V1LobbiesBoard(Model model) {
-        super("/api/v1/lobbies/:lobby/board", get);
+    public V1LobbiesBoards(Model model) {
+        super("/api/v1/lobbies/boards", get);
         this.model = model;
     }
 
@@ -28,11 +27,11 @@ public class V1LobbiesBoard extends APIEndpoint {
         Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
 
         if(lobbyId.isEmpty()) {
-            response.status(401);
+            response.status(400);
             return JsonConverter.toPrettyJson(new ApiError("NO_LOBBY_ID"));
         }
 
-        if(model.getLobby(lobbyId.get()) == null) {
+        if(!model.lobbyExists(lobbyId.get())) {
             response.status(403);
             return JsonConverter.toPrettyJson(new ApiError("BAD_LOBBY_ID"));
         }
@@ -40,5 +39,4 @@ public class V1LobbiesBoard extends APIEndpoint {
         BoardFEN board = new BoardFEN(model.getLobby(lobbyId.get()).getGame().getBoard().getFen());
         return JsonConverter.toPrettyJson(board);
     }
-
 }

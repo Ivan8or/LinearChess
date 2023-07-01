@@ -45,6 +45,21 @@ public record Inventory(SlottedItem... items) {
         return new Inventory(updatedItems);
     }
 
+    public Inventory moveItem(int slotFrom, int slotTo) {
+        SlottedItem[] updatedItems = Arrays.copyOf(items, items.length);
+        for(int i = 0; i < updatedItems.length; i++) {
+            if (updatedItems[i].slot() == slotFrom) {
+                updatedItems[i] = new SlottedItem(slotTo,updatedItems[i].item());
+                return new Inventory(updatedItems);
+            }
+        }
+        throw new IllegalStateException("can't move nonexistent slot");
+    }
+
+    public boolean occupied(int slot) {
+        return getSlot(slot).isEmpty();
+    }
+
     public ChessEval translate() {
         return null;
     }

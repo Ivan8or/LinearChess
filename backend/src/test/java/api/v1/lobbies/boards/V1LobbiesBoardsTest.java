@@ -1,6 +1,5 @@
 package api.v1.lobbies.boards;
 
-import api.v1.lobbies.V1Lobbies;
 import chess.ChessGame;
 import chess.board.LBoard;
 import model.api.Model;
@@ -19,7 +18,7 @@ import util.ResourceAsString;
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class V1LobbiesBoardTest {
+public class V1LobbiesBoardsTest {
 
     static final String RESOURCE_PATH = "api/v1/lobbies/boards/v1LobbiesBoards/";
 
@@ -43,7 +42,7 @@ public class V1LobbiesBoardTest {
 
     @Test
     public void unsupported() {
-        V1LobbiesBoard endpoint = new V1LobbiesBoard(model);
+        V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
         lenient().when(request.requestMethod()).thenReturn("DELETE");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -56,11 +55,12 @@ public class V1LobbiesBoardTest {
 
     @Test
     public void get() {
-        V1LobbiesBoard endpoint = new V1LobbiesBoard(model);
+        V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
         String body = ResourceAsString.at(RESOURCE_PATH+"get/body.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
         lenient().when(request.body()).thenReturn(body);
+        lenient().when(model.lobbyExists(lobbyId)).thenReturn(true);
         lenient().when(model.getLobby(lobbyId)).thenReturn(lobby);
         lenient().when(lobby.getGame()).thenReturn(game);
         lenient().when(game.getBoard()).thenReturn(board);
@@ -77,7 +77,7 @@ public class V1LobbiesBoardTest {
 
     @Test
     public void getNoLobbyId() {
-        V1LobbiesBoard endpoint = new V1LobbiesBoard(model);
+        V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
         lenient().when(request.requestMethod()).thenReturn("GET");
         lenient().when(request.body()).thenReturn(null);
 
@@ -92,7 +92,7 @@ public class V1LobbiesBoardTest {
 
     @Test
     public void getBadLobbyId() {
-        V1LobbiesBoard endpoint = new V1LobbiesBoard(model);
+        V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
         String body = ResourceAsString.at(RESOURCE_PATH+"getBadLobbyId/body.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");

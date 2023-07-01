@@ -42,6 +42,10 @@ public class Model {
         return newLobby;
     }
 
+    public boolean lobbyExists(LobbyID lobbyId) {
+        return lobbies.containsKey(lobbyId);
+    }
+
     public ChessLobby getLobby(LobbyID lobbyId) {
         return lobbies.get(lobbyId);
     }
