@@ -1,0 +1,23 @@
+{
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/lobbies/boards",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/lobbies/inventories",
+      "methods": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/lobbies/shops",
+      "methods": [
+        "GET"
+      ]
+    }
+  ]
+}

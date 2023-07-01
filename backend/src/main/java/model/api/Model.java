@@ -42,7 +42,7 @@ public class Model {
         return newLobby;
     }
 
-    public ChessLobby getLobby(String lobbyId) {
+    public ChessLobby getLobby(LobbyID lobbyId) {
         return lobbies.get(lobbyId);
     }
 

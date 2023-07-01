@@ -37,6 +37,10 @@ public class ChessLobby {
         return shop;
     }
 
+    public ChessGame getGame() {
+        return game;
+    }
+
     public ShopView getShop(Session player) {
         return shop.playerView(player);
     }

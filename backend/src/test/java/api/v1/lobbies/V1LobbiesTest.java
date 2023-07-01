@@ -2,7 +2,6 @@ package api.v1.lobbies;
 
 import model.api.Model;
 import model.lobby.ChessLobby;
-import model.mappings.Item;
 import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
@@ -16,14 +15,12 @@ import spark.Response;
 import util.JsonConverter;
 import util.ResourceAsString;
 
-import java.util.UUID;
-
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
 public class V1LobbiesTest {
 
-    static final String RESOURCE_PATH = "api/v1/lobbies/v1lobbies/";
+    static final String RESOURCE_PATH = "api/v1/lobbies/v1Lobbies/";
 
     @Mock
     Model model;
@@ -44,7 +41,7 @@ public class V1LobbiesTest {
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"unsupported.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"unsupported/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);
@@ -57,7 +54,7 @@ public class V1LobbiesTest {
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"get.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

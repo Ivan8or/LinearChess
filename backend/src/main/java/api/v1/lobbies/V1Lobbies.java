@@ -42,7 +42,9 @@ public class V1Lobbies extends APIEndpoint {
 
     private String get(Request request, Response response) {
         Reference rootReference = new Reference(
-                new Endpoint("/api/v1/lobbies/:lobby", "GET"));
+                new Endpoint("/api/v1/lobbies/boards", "GET"),
+                new Endpoint("/api/v1/lobbies/inventories", "GET", "PATCH"),
+                new Endpoint("/api/v1/lobbies/shops", "GET"));
         return JsonConverter.toPrettyJson(rootReference);
     }
 

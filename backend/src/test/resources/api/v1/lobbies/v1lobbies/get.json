@@ -1,8 +1,0 @@
-{
-  "endpoints": [
-    {
-      "endpoint": "/api/v1/lobbies/:lobby",
-      "methods": ["GET"]
-    }
-  ]
-}
