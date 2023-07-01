@@ -33,6 +33,9 @@ public class SessionTracker {
         if(!validSession(session))
             return false;
 
+        Optional<ChessLobby> oldLobby = sessions.get(session);
+        oldLobby.ifPresent(l -> l.removePlayer(session));
+
         sessions.put(session, Optional.of(lobby));
         return true;
     }
@@ -41,6 +44,11 @@ public class SessionTracker {
         if(!validSession(session))
             return false;
 
+        Optional<ChessLobby> lobby = sessions.get(session);
+        if(lobby.isEmpty())
+            return false;
+
+        lobby.get().removePlayer(session);
         sessions.put(session, Optional.empty());
         return true;
     }

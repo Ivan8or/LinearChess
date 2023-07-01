@@ -5,14 +5,14 @@ import model.mappings.SlottedItem;
 
 import java.util.Optional;
 
-public class ShopSession {
+public class ShopView {
 
-    private transient LobbyShop shop;
+    private transient ItemShop shop;
 
     private int gold;
     private Inventory wares;
 
-    public ShopSession(LobbyShop shop) {
+    public ShopView(ItemShop shop) {
         this.shop = shop;
         this.gold = shop.startingGold();
         this.wares = shop.borrowItems();
@@ -30,14 +30,23 @@ public class ShopSession {
         return gold >= 1;
     }
 
-    public boolean refresh() {
+    public boolean restockWares() {
         if(!canAffordRefresh())
             return false;
 
         gold -= 1;
+        forceRestockWares();
+        return true;
+    }
+
+    public void refresh() {
+        gold = 4;
+        forceRestockWares();
+    }
+
+    public void forceRestockWares() {
         shop.returnItems(wares);
         wares = shop.borrowItems();
-        return true;
     }
 
     public boolean warePresent(int slot) {

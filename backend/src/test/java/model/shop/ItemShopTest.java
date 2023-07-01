@@ -10,15 +10,38 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.random.RandomGenerator;
 
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LobbyShopTest {
+public class ItemShopTest {
 
     @Mock
     RandomGenerator random;
+
+    @Test
+    public void trackShopSession() {
+        ItemPool[] poolTemplates = new ItemPool[] {
+                new ItemPool(new Item("eval", 4001),12)};
+        List<Item> itemPool = Arrays.stream(poolTemplates)
+                .flatMap(pool -> Arrays.stream(pool.expand()))
+                .toList();
+
+        ItemShop shop = new ItemShop(itemPool, random);
+        Session player1 = new Session(UUID.randomUUID());
+        Session player2 = new Session(UUID.randomUUID());
+
+        ShopView view1a = shop.playerView(player1);
+        ShopView view1b = shop.playerView(player1);
+        ShopView view2 = shop.playerView(player2);
+        Assert.assertEquals(view1a, view1b);
+        Assert.assertNotEquals(view1a, view2);
+
+        shop.refreshShops();
+        Assert.assertEquals(view1a, view1b);
+    }
 
     @Test
     public void borrowItems() {
@@ -34,7 +57,7 @@ public class LobbyShopTest {
         List<Item> itemPool = Arrays.stream(poolTemplates)
                 .flatMap(pool -> Arrays.stream(pool.expand()))
                 .toList();
-        LobbyShop shop = new LobbyShop(itemPool, random);
+        ItemShop shop = new ItemShop(itemPool, random);
         Inventory generated = shop.borrowItems(3);
 
         Inventory expected = new Inventory(
@@ -48,8 +71,7 @@ public class LobbyShopTest {
 
     @Test
     public void returnItems() {
-        ItemPool[] poolTemplates = new ItemPool[] {};
-        LobbyShop shop = new LobbyShop(new ArrayList<>());
+        ItemShop shop = new ItemShop(new ArrayList<>());
         Inventory from = new Inventory(
                 new SlottedItem(0, new Item("eval", 4003)),
                 new SlottedItem(1, new Item("eval", 4001)),

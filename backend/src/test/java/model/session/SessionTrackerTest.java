@@ -4,7 +4,6 @@ import model.lobby.ChessLobby;
 import model.mappings.Session;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.Optional;
 

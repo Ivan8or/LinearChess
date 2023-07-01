@@ -2,26 +2,33 @@ package model.shop;
 
 import model.mappings.Inventory;
 import model.mappings.Item;
+import model.mappings.Session;
 import model.mappings.SlottedItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.SplittableRandom;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.random.RandomGenerator;
 
-public class LobbyShop {
+public class ItemShop {
 
     final private List<Item> itemPool;
     final private RandomGenerator random;
 
-    public LobbyShop(List<Item> items) {
+    final private Map<Session, ShopView> shopViews;
+
+    public ItemShop(List<Item> items) {
         itemPool = new ArrayList<>(items);
         random = new SplittableRandom();
+        shopViews = new ConcurrentHashMap<>();
     }
 
-    public LobbyShop(List<Item> items, RandomGenerator random) {
+    public ItemShop(List<Item> items, RandomGenerator random) {
         itemPool = new ArrayList<>(items);
         this.random = random;
+        shopViews = new ConcurrentHashMap<>();
     }
 
     public List<Item> itemPool() {
@@ -30,6 +37,20 @@ public class LobbyShop {
 
     public int startingGold() {
         return 4;
+    }
+
+    public ShopView playerView(Session player) {
+        if(shopViews.containsKey(player))
+            return shopViews.get(player);
+
+        ShopView newSession = new ShopView(this);
+        shopViews.put(player, newSession);
+        return newSession;
+    }
+
+    public void refreshShops() {
+        for(ShopView shop : shopViews.values())
+            shop.refresh();
     }
 
     public Inventory borrowItems() {

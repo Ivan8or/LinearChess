@@ -16,19 +16,19 @@ import java.util.Optional;
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ShopSessionTest {
+public class ShopViewTest {
 
-    static final String RESOURCE_PATH = "model/shop/shopSession/";
+    static final String RESOURCE_PATH = "model/shop/shopView/";
 
     @Mock
-    LobbyShop shop;
+    ItemShop shop;
 
     @Test
     public void sellItem() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
                 new Inventory(new SlottedItem(501, new Item("eval", 3001))));
-        ShopSession from = new ShopSession(shop);
+        ShopView from = new ShopView(shop);
         SlottedItem toSell = new SlottedItem(202, new Item("multiplier", 4004));
 
         from.sell(toSell);
@@ -44,7 +44,7 @@ public class ShopSessionTest {
                         new SlottedItem(501, new Item("eval", 3001)),
                         new SlottedItem(602, new Item("multiplier", 4001)),
                         new SlottedItem(603, new Item("multiplier", 4004))));
-        ShopSession from = new ShopSession(shop);
+        ShopView from = new ShopView(shop);
 
         Assert.assertTrue(from.canAffordBuy(602));
 
@@ -80,7 +80,7 @@ public class ShopSessionTest {
                         new SlottedItem(602, new Item("multiplier", 4001)),
                         new SlottedItem(603, new Item("multiplier", 4004))));
 
-        ShopSession from = new ShopSession(shop);
+        ShopView from = new ShopView(shop);
 
         Assert.assertTrue(from.warePresent(501));
         Assert.assertTrue(from.warePresent(501));
@@ -93,12 +93,30 @@ public class ShopSessionTest {
     }
 
     @Test
-    public void refreshItems() {
+    public void refreshShop() {
         lenient().when(shop.startingGold()).thenReturn(4);
         lenient().when(shop.borrowItems()).thenReturn(
                 new Inventory(new SlottedItem(501, new Item("eval", 3001))));
 
-        ShopSession from = new ShopSession(shop);
+        ShopView from = new ShopView(shop);
+        from.buy(501);
+        Assert.assertEquals(1, from.getGold());
+
+        from.refresh();
+
+        Assert.assertEquals(4, from.getGold());
+        Assert.assertArrayEquals(
+                new SlottedItem[] { new SlottedItem(501, new Item("eval", 3001)) },
+                from.getWares().items());
+    }
+
+    @Test
+    public void restockItems() {
+        lenient().when(shop.startingGold()).thenReturn(4);
+        lenient().when(shop.borrowItems()).thenReturn(
+                new Inventory(new SlottedItem(501, new Item("eval", 3001))));
+
+        ShopView from = new ShopView(shop);
 
         Assert.assertArrayEquals(
                 new SlottedItem[] { new SlottedItem(501, new Item("eval", 3001)) },
@@ -108,7 +126,7 @@ public class ShopSessionTest {
         lenient().when(shop.borrowItems()).thenReturn(
                 new Inventory(new SlottedItem(601, new Item("multiplier", 4001))));
 
-        boolean refreshStatus = from.refresh();
+        boolean refreshStatus = from.restockWares();
 
         Assert.assertTrue(refreshStatus);
         Assert.assertArrayEquals(
@@ -116,14 +134,14 @@ public class ShopSessionTest {
                 from.getWares().items());
         Assert.assertEquals(3, from.getGold());
 
-        from.refresh();
-        from.refresh();
-        from.refresh();
+        from.restockWares();
+        from.restockWares();
+        from.restockWares();
 
         lenient().when(shop.borrowItems()).thenReturn(
                 new Inventory(new SlottedItem(502, new Item("eval", 3009))));
 
-        refreshStatus = from.refresh();
+        refreshStatus = from.restockWares();
 
         Assert.assertFalse(refreshStatus);
         Assert.assertArrayEquals(
@@ -140,7 +158,7 @@ public class ShopSessionTest {
                         new SlottedItem(501, new Item("eval", 3001)),
                         new SlottedItem(601, new Item("multiplier", 4001)))
         );
-        ShopSession from = new ShopSession(shop);
+        ShopView from = new ShopView(shop);
         String generated = JsonConverter.toJson(from);
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
