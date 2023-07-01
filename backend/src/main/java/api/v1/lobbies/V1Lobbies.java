@@ -12,6 +12,8 @@ import spark.Response;
 import spark.route.HttpMethod;
 import util.JsonConverter;
 
+import java.util.Optional;
+
 import static spark.route.HttpMethod.get;
 import static spark.route.HttpMethod.post;
 
@@ -46,19 +48,19 @@ public class V1Lobbies extends APIEndpoint {
 
     private String post(Request request, Response response) {
         String sessionJson = request.headers("session");
+        Optional<Session> session = JsonConverter.fromJson(sessionJson, Session.class);
 
-        if(sessionJson == null) {
+        if(sessionJson == null || session.isEmpty()) {
             response.status(401);
             return JsonConverter.toPrettyJson(new ApiError("NO_SESSION_HEADER"));
         }
-        Session session = JsonConverter.fromJson(sessionJson, Session.class);
 
-        if(!model.getSessions().validSession(session)) {
+        if(!model.getSessions().validSession(session.get())) {
             response.status(403);
             return JsonConverter.toPrettyJson(new ApiError("BAD_SESSION_HEADER"));
         }
 
         ChessLobby newLobby = model.spawnLobby();
-        return JsonConverter.toPrettyJson(newLobby);
+        return JsonConverter.toPrettyJson(newLobby.getLobbyId());
     }
 }

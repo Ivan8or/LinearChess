@@ -5,6 +5,8 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
+
 public class ReferenceTest {
 
     static final String RESOURCE_PATH = "model/mappings/reference/";
@@ -12,11 +14,12 @@ public class ReferenceTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        Reference generated = JsonConverter.fromJson(from, Reference.class);
+        Optional<Reference> generated = JsonConverter.fromJson(from, Reference.class);
+        Assert.assertTrue(generated.isPresent());
 
         Reference expectedReference = new Reference();
 
-        Assert.assertEquals(expectedReference, generated);
+        Assert.assertEquals(expectedReference, generated.get());
     }
 
     @Test
@@ -33,11 +36,12 @@ public class ReferenceTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Reference generated = JsonConverter.fromJson(from, Reference.class);
+        Optional<Reference> generated = JsonConverter.fromJson(from, Reference.class);
+        Assert.assertTrue(generated.isPresent());
 
         Reference expected = new Reference(new Endpoint("/api/v1", "GET"));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -54,7 +58,8 @@ public class ReferenceTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        Reference generated = JsonConverter.fromJson(from, Reference.class);
+        Optional<Reference> generated = JsonConverter.fromJson(from, Reference.class);
+        Assert.assertTrue(generated.isPresent());
 
         Reference expected = new Reference(
                 new Endpoint("/api/v1", "GET"),
@@ -63,7 +68,7 @@ public class ReferenceTest {
                 new Endpoint("/api/v1", "GET"),
                 new Endpoint("/api/v1", "GET"));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test

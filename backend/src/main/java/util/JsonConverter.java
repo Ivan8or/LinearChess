@@ -3,6 +3,8 @@ package util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Optional;
+
 public class JsonConverter {
 
     static final private Gson prettyGson;
@@ -22,8 +24,9 @@ public class JsonConverter {
         return prettyGson.toJson(object);
     }
 
-    public static <T> T fromJson(String json, Class<T> type) {
-        return prettyGson.fromJson(json, type);
+    public static <T> Optional<T> fromJson(String json, Class<T> type) {
+        T object = prettyGson.fromJson(json, type);
+        return (object == null) ? Optional.empty() : Optional.of(object);
     }
 
     public static String minimize(String json) {

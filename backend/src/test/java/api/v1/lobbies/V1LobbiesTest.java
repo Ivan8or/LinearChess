@@ -3,6 +3,7 @@ package api.v1.lobbies;
 import model.api.Model;
 import model.lobby.ChessLobby;
 import model.mappings.Item;
+import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
 import org.junit.Assert;
@@ -98,7 +99,7 @@ public class V1LobbiesTest {
     public void post() {
         V1Lobbies endpoint = new V1Lobbies(model);
         Session session = Session.spawn();
-        ChessLobby lobby = new ChessLobby("alabama", sessions);
+        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), sessions);
         lenient().when(request.requestMethod()).thenReturn("POST");
         lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
         lenient().when(model.getSessions()).thenReturn(sessions);

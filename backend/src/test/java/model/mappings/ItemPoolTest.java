@@ -5,6 +5,8 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
+
 public class ItemPoolTest {
 
     static final String RESOURCE_PATH = "model/mappings/itemPool/";
@@ -12,27 +14,30 @@ public class ItemPoolTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        ItemPool generated = JsonConverter.fromJson(from, ItemPool.class);
+        Optional<ItemPool> generated = JsonConverter.fromJson(from, ItemPool.class);
+        Assert.assertTrue(generated.isPresent());
 
         ItemPool expected = new ItemPool(new Item("", 0),0);
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        ItemPool generated = JsonConverter.fromJson(from, ItemPool.class);
+        Optional<ItemPool> generated = JsonConverter.fromJson(from, ItemPool.class);
+        Assert.assertTrue(generated.isPresent());
 
         ItemPool expected = new ItemPool(new Item("eval", 4001),3);
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
     public void readArray() {
         String from = ResourceAsString.at(RESOURCE_PATH+"array.json").get();
-        ItemPool[] generated = JsonConverter.fromJson(from, ItemPool[].class);
+        Optional<ItemPool[]> generated = JsonConverter.fromJson(from, ItemPool[].class);
+        Assert.assertTrue(generated.isPresent());
 
         ItemPool[] expected = new ItemPool[] {
                 new ItemPool(new Item("eval", 4001),12),
@@ -41,6 +46,6 @@ public class ItemPoolTest {
                 new ItemPool(new Item("multiplier", 3002),8)
         };
 
-        Assert.assertArrayEquals(expected, generated);
+        Assert.assertArrayEquals(expected, generated.get());
     }
 }

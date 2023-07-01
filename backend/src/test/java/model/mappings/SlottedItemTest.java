@@ -5,6 +5,8 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
+
 public class SlottedItemTest {
 
     static final String RESOURCE_PATH = "model/mappings/slottedItem/";
@@ -12,10 +14,11 @@ public class SlottedItemTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        SlottedItem generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Optional<SlottedItem> generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Assert.assertTrue(generated.isPresent());
 
         SlottedItem expected = new SlottedItem(0, new Item("", 0));
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -32,11 +35,12 @@ public class SlottedItemTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        SlottedItem generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Optional<SlottedItem> generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Assert.assertTrue(generated.isPresent());
 
         SlottedItem expected = new SlottedItem(101, new Item("eval", 3001));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -53,11 +57,12 @@ public class SlottedItemTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        SlottedItem generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Optional<SlottedItem> generated = JsonConverter.fromJson(from, SlottedItem.class);
+        Assert.assertTrue(generated.isPresent());
 
         SlottedItem expected = new SlottedItem(10003000, new Item("THIS_IS_AN_EXTREMELY_LONG_STRING_AAAAAAAAAAAAAAAAAAAAA",30001000));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test

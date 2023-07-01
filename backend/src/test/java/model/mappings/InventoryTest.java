@@ -14,10 +14,11 @@ public class InventoryTest {
     @Test
     public void readEmpty() {
         String from = ResourceAsString.at(RESOURCE_PATH+"empty.json").get();
-        Inventory generated = JsonConverter.fromJson(from, Inventory.class);
+        Optional<Inventory> generated = JsonConverter.fromJson(from, Inventory.class);
+        Assert.assertTrue(generated.isPresent());
 
         Inventory expected = new Inventory();
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -34,13 +35,14 @@ public class InventoryTest {
     @Test
     public void readSimple() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Inventory generated = JsonConverter.fromJson(from, Inventory.class);
+        Optional<Inventory> generated = JsonConverter.fromJson(from, Inventory.class);
+        Assert.assertTrue(generated.isPresent());
 
         Inventory expected = new Inventory(
                 new SlottedItem(101, new Item("eval", 3001)),
                 new SlottedItem(201, new Item("multiplier", 4001)));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
@@ -59,7 +61,8 @@ public class InventoryTest {
     @Test
     public void readLong() {
         String from = ResourceAsString.at(RESOURCE_PATH+"long.json").get();
-        Inventory generated = JsonConverter.fromJson(from, Inventory.class);
+        Optional<Inventory> generated = JsonConverter.fromJson(from, Inventory.class);
+        Assert.assertTrue(generated.isPresent());
 
         Inventory expected = new Inventory(
                 new SlottedItem(101, new Item("eval", 3001)),
@@ -68,7 +71,7 @@ public class InventoryTest {
                 new SlottedItem(203, new Item("multiplier", 40012)),
                 new SlottedItem(204, new Item("multiplier", 40013)));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test

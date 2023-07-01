@@ -5,6 +5,7 @@ import org.junit.Test;
 import util.JsonConverter;
 import util.ResourceAsString;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class SessionTest {
@@ -14,11 +15,12 @@ public class SessionTest {
     @Test
     public void readSession() {
         String from = ResourceAsString.at(RESOURCE_PATH+"simple.json").get();
-        Session generated = JsonConverter.fromJson(from, Session.class);
+        Optional<Session> generated = JsonConverter.fromJson(from, Session.class);
+        Assert.assertTrue(generated.isPresent());
 
         Session expected = new Session(UUID.fromString("7347bd1a-bc39-41db-b031-f2b306ac8c73"));
 
-        Assert.assertEquals(expected, generated);
+        Assert.assertEquals(expected, generated.get());
     }
 
     @Test
