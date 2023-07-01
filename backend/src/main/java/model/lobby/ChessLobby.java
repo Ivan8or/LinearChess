@@ -1,6 +1,7 @@
 package model.lobby;
 
 import chess.ChessGame;
+import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
 import model.shop.ItemShop;
@@ -12,22 +13,23 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ChessLobby {
 
-    private final String lobbyId;
+    private final LobbyID lobbyId;
     transient final private ItemShop shop;
     transient private ChessGame game;
 
     transient private Set<Session> players;
     transient private SessionTracker allSessions;
 
-    public ChessLobby(String lobbyId, SessionTracker allSessions) {
+    public ChessLobby(LobbyID lobbyId, SessionTracker allSessions) {
         this.lobbyId = lobbyId;
-        this.shop = new ItemShop(List.of());
-
         this.allSessions = allSessions;
+
+        this.shop = new ItemShop(List.of());
+        this.game = new ChessGame();
         this.players = ConcurrentHashMap.newKeySet();
     }
 
-    public String getLobbyId() {
+    public LobbyID getLobbyId() {
         return lobbyId;
     }
 

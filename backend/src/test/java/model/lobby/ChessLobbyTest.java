@@ -1,7 +1,7 @@
 package model.lobby;
 
 
-import model.mappings.Endpoint;
+import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
 import org.junit.Assert;
@@ -24,7 +24,7 @@ public class ChessLobbyTest {
 
     @Test
     public void write() {
-        String lobbyId = "alabama";
+        LobbyID lobbyId = new LobbyID("alabama");
         ChessLobby from = new ChessLobby(lobbyId, tracker);
         String generated = JsonConverter.toJson(from);
 
@@ -36,7 +36,7 @@ public class ChessLobbyTest {
 
     @Test
     public void lobbyCount() {
-        String lobbyId = "alabama";
+        LobbyID lobbyId = new LobbyID("alabama");
         ChessLobby lobby = new ChessLobby(lobbyId, tracker);
 
         Session player1 = new Session(UUID.randomUUID());
@@ -64,7 +64,7 @@ public class ChessLobbyTest {
 
     @Test
     public void hasPlayer() {
-        String lobbyId = "alabama";
+        LobbyID lobbyId = new LobbyID("alabama");
         ChessLobby lobby = new ChessLobby(lobbyId, tracker);
 
         UUID sessionId = UUID.randomUUID();
@@ -78,7 +78,7 @@ public class ChessLobbyTest {
 
     @Test
     public void lobbyId() {
-        String lobbyId = "alabama";
+        LobbyID lobbyId = new LobbyID("alabama");
         ChessLobby lobby = new ChessLobby(lobbyId, tracker);
 
         Assert.assertEquals(lobbyId, lobby.getLobbyId());
