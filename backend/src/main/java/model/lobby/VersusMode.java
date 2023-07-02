@@ -3,13 +3,11 @@ package model.lobby;
 import chess.ChessGame;
 import chess.board.LSide;
 import chess.eval.ChessEval;
-import model.mappings.Inventory;
-import model.mappings.Item;
-import model.mappings.Session;
-import model.mappings.SlottedItem;
+import model.mappings.*;
 import model.shop.ItemShop;
 import model.shop.ShopView;
 import util.JsonConverter;
+import util.ResourceAsString;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -25,7 +23,7 @@ public class VersusMode {
     final private ChessGame chessGame;
     final private ItemShop shop;
     final private int shopTimeMillis = 45000;
-    final private int playDelayMillis = 500;
+    final private int playDelayMillis = 1000;
 
     private GamePhase phase;
 
@@ -47,7 +45,11 @@ public class VersusMode {
     public VersusMode(Session white, Session black, ChessLobby lobby) {
         this.lobby = lobby;
         chessGame = new ChessGame();
-        shop = new ItemShop(List.of(new Item("eval", 1001)));
+
+        String itemPoolJson = ResourceAsString.at("model/shop/itemPool.json").get();
+        ItemPool[] shopPool = JsonConverter.fromJson(itemPoolJson, ItemPool[].class).get();
+        shop = new ItemShop(shopPool);
+
         players = Map.of(white, LSide.WHITE, black, LSide.BLACK);
         sockets = Map.of(white, new GameWebSocket(), black, new GameWebSocket());
         inventories = new HashMap<>(Map.of(white, new Inventory(), black, new Inventory()));
@@ -193,8 +195,8 @@ public class VersusMode {
                 spectatableInventories.put(playerSide, playerInventory);
             }
         }
-        ChessEval whiteEval = spectatableInventories.get(LSide.WHITE).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY);
-        ChessEval blackEval = spectatableInventories.get(LSide.BLACK).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY);
+        ChessEval whiteEval = spectatableInventories.get(LSide.WHITE).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY, LSide.WHITE);
+        ChessEval blackEval = spectatableInventories.get(LSide.BLACK).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY, LSide.BLACK);
 
         chessGame.setWhiteEval(whiteEval);
         chessGame.setBlackEval(blackEval);

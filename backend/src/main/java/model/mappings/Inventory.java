@@ -1,5 +1,6 @@
 package model.mappings;
 
+import chess.board.LSide;
 import chess.eval.ChessEval;
 import chess.eval.impl.CumulativeEval;
 import util.ItemCatalog;
@@ -64,10 +65,10 @@ public record Inventory(SlottedItem... items) {
         return getSlot(slot).isEmpty();
     }
 
-    public ChessEval translate(int[] evalSlots, int[] multiplierSlots) {
+    public ChessEval translate(int[] evalSlots, int[] multiplierSlots, LSide ownerSide) {
 
         List<ChessEval> components = new ArrayList<>(evalSlots.length);
-        components.add(ItemCatalog.eval(1000).get());
+        components.add(ItemCatalog.eval(1000, ownerSide).get());
 
         for(int i = 0; i < evalSlots.length; i++) {
             Optional<SlottedItem> nextEval = getSlot(evalSlots[i]);
@@ -78,7 +79,7 @@ public record Inventory(SlottedItem... items) {
             int evalId = nextEval.get().item().id();
             int multiplierId = nextMultiplier.map(slottedItem -> slottedItem.item().id()).orElse(-1);
 
-            Optional<ChessEval> chessEval = ItemCatalog.build(evalId, multiplierId);
+            Optional<ChessEval> chessEval = ItemCatalog.build(evalId, multiplierId, ownerSide);
             chessEval.ifPresent(components::add);
         }
 

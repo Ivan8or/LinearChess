@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import util.JsonConverter;
+import util.ResourceAsString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +16,23 @@ import java.util.UUID;
 import java.util.random.RandomGenerator;
 
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.spy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ItemShopTest {
 
+    static final String RESOURCE_PATH = "model/shop/";
+
     @Mock
     RandomGenerator random;
+
+    @Test
+    public void loadItemPool() {
+        String itemPoolJson = ResourceAsString.at(RESOURCE_PATH+"itemPool.json").get();
+        ItemPool[] poolTemplates = JsonConverter.fromJson(itemPoolJson, ItemPool[].class).get();
+        ItemShop shop = new ItemShop(poolTemplates, random);
+        Assert.assertEquals(216, shop.itemPool().size());
+    }
 
     @Test
     public void trackShopSession() {

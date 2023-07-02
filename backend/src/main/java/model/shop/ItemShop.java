@@ -1,14 +1,8 @@
 package model.shop;
 
-import model.mappings.Inventory;
-import model.mappings.Item;
-import model.mappings.Session;
-import model.mappings.SlottedItem;
+import model.mappings.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.SplittableRandom;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.random.RandomGenerator;
 
@@ -25,8 +19,24 @@ public class ItemShop {
         shopViews = new ConcurrentHashMap<>();
     }
 
+    public ItemShop(ItemPool[] pools) {
+        itemPool = new ArrayList<>(Arrays.stream(pools)
+                .flatMap(pool -> Arrays.stream(pool.expand()))
+                .toList());
+        random = new SplittableRandom();
+        shopViews = new ConcurrentHashMap<>();
+    }
+
     public ItemShop(List<Item> items, RandomGenerator random) {
         itemPool = new ArrayList<>(items);
+        this.random = random;
+        shopViews = new ConcurrentHashMap<>();
+    }
+
+    public ItemShop(ItemPool[] pools, RandomGenerator random) {
+        itemPool = new ArrayList<>(Arrays.stream(pools)
+                .flatMap(pool -> Arrays.stream(pool.expand()))
+                .toList());
         this.random = random;
         shopViews = new ConcurrentHashMap<>();
     }

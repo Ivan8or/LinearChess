@@ -119,7 +119,7 @@ public class RandomEvalTest {
                 0.2281800921528574};
 
         for(int i = 0; i < 100; i++) {
-            Assert.assertEquals(randList[i], randomEval.utility(board), 0.0);
+            Assert.assertEquals(randList[i] * 0.001, randomEval.utility(board), 0.0);
         }
     }
 

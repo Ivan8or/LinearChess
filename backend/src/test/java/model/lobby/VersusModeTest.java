@@ -25,19 +25,19 @@ public class VersusModeTest {
 
         Assert.assertEquals(0, game.getRound());
 
-        game.progressRound(400, 400);
+        game.progressRound(800, 800);
         Assert.assertEquals(1, game.getRound());
 
         try {
-            TimeUnit.MILLISECONDS.sleep(300);
+            TimeUnit.MILLISECONDS.sleep(600);
             Assert.assertEquals(1, game.getRound());
             Assert.assertEquals(GamePhase.SHOP, game.getPhase());
 
-            TimeUnit.MILLISECONDS.sleep(300);
+            TimeUnit.MILLISECONDS.sleep(600);
             Assert.assertEquals(1, game.getRound());
             Assert.assertEquals(GamePhase.PLAY, game.getPhase());
 
-            TimeUnit.MILLISECONDS.sleep(300);
+            TimeUnit.MILLISECONDS.sleep(600);
             Assert.assertEquals(2, game.getRound());
             Assert.assertEquals(GamePhase.SHOP, game.getPhase());
         } catch (InterruptedException e) {
