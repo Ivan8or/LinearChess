@@ -62,7 +62,7 @@ public class V1LobbiesBoardsTest {
     @Test
     public void get() {
         V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
-        String body = ResourceAsString.at(RESOURCE_PATH+"get/body.json").get();
+        String body = ResourceAsString.at(RESOURCE_PATH+"get/lobbyHeader.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
         lenient().when(request.headers("lobby")).thenReturn(body);
@@ -101,7 +101,7 @@ public class V1LobbiesBoardsTest {
     @Test
     public void getBadLobbyId() {
         V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
-        String body = ResourceAsString.at(RESOURCE_PATH+"getBadLobbyId/body.json").get();
+        String body = ResourceAsString.at(RESOURCE_PATH+"getBadLobbyId/lobbyHeader.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
         lenient().when(request.headers("lobby")).thenReturn(body);
@@ -119,7 +119,7 @@ public class V1LobbiesBoardsTest {
     @Test
     public void getLobbyNotStarted() {
         V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
-        String body = ResourceAsString.at(RESOURCE_PATH+"getLobbyNotStarted/body.json").get();
+        String body = ResourceAsString.at(RESOURCE_PATH+"getLobbyNotStarted/lobbyHeader.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
         lenient().when(request.headers("lobby")).thenReturn(body);

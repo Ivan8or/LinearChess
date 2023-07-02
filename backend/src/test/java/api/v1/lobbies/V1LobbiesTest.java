@@ -37,7 +37,7 @@ public class V1LobbiesTest {
     @Test
     public void unsupportedMethod() {
         V1Lobbies endpoint = new V1Lobbies(model);
-        lenient().when(request.requestMethod()).thenReturn("DELETE");
+        lenient().when(request.requestMethod()).thenReturn("PATCH");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
