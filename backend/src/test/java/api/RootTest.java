@@ -9,7 +9,7 @@ import spark.Request;
 import spark.Response;
 import util.ResourceAsString;
 
-import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RootTest {
@@ -25,7 +25,7 @@ public class RootTest {
     @Test
     public void unsupported() {
         Root endpoint = new Root();
-        lenient().when(request.requestMethod()).thenReturn("TRACE");
+        when(request.requestMethod()).thenReturn("TRACE");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
@@ -38,7 +38,7 @@ public class RootTest {
     @Test
     public void get(){
         Root endpoint = new Root();
-        lenient().when(request.requestMethod()).thenReturn("GET");
+        when(request.requestMethod()).thenReturn("GET");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 

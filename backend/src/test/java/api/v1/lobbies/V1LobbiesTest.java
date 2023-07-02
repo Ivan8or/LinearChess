@@ -15,7 +15,7 @@ import spark.Response;
 import util.JsonConverter;
 import util.ResourceAsString;
 
-import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,7 +41,7 @@ public class V1LobbiesTest {
     @Test
     public void unsupportedMethod() {
         V1Lobbies endpoint = new V1Lobbies(model);
-        lenient().when(request.requestMethod()).thenReturn("CONNECT");
+        when(request.requestMethod()).thenReturn("CONNECT");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
@@ -54,7 +54,7 @@ public class V1LobbiesTest {
     @Test
     public void get() {
         V1Lobbies endpoint = new V1Lobbies(model);
-        lenient().when(request.requestMethod()).thenReturn("GET");
+        when(request.requestMethod()).thenReturn("GET");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
@@ -67,8 +67,8 @@ public class V1LobbiesTest {
     @Test
     public void postNoSession() {
         V1Lobbies endpoint = new V1Lobbies(model);
-        lenient().when(request.requestMethod()).thenReturn("POST");
-        lenient().when(request.headers("session")).thenReturn(null);
+        when(request.requestMethod()).thenReturn("POST");
+        when(request.headers("session")).thenReturn(null);
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
@@ -82,10 +82,10 @@ public class V1LobbiesTest {
     public void postBadSession() {
         V1Lobbies endpoint = new V1Lobbies(model);
         Session session = Session.spawn();
-        lenient().when(request.requestMethod()).thenReturn("POST");
-        lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
-        lenient().when(model.getSessions()).thenReturn(sessions);
-        lenient().when(sessions.validSession(session)).thenReturn(false);
+        when(request.requestMethod()).thenReturn("POST");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(false);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -101,11 +101,11 @@ public class V1LobbiesTest {
         V1Lobbies endpoint = new V1Lobbies(model);
         Session session = Session.spawn();
         ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), sessions, model);
-        lenient().when(request.requestMethod()).thenReturn("POST");
-        lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
-        lenient().when(model.getSessions()).thenReturn(sessions);
-        lenient().when(sessions.validSession(session)).thenReturn(true);
-        lenient().when(model.spawnLobby()).thenReturn(lobby);
+        when(request.requestMethod()).thenReturn("POST");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(true);
+        when(model.spawnLobby()).thenReturn(lobby);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -125,16 +125,16 @@ public class V1LobbiesTest {
         Session session = JsonConverter.fromJson(sessionHeader, Session.class).get();
         LobbyID lobbyID = JsonConverter.fromJson(lobbyHeader, LobbyID.class).get();
 
-        lenient().when(request.requestMethod()).thenReturn("PATCH");
-        lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
-        lenient().when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
-        lenient().when(model.getSessions()).thenReturn(sessions);
-        lenient().when(sessions.validSession(session)).thenReturn(true);
-        lenient().when(model.lobbyExists(lobbyID)).thenReturn(true);
-        lenient().when(model.getLobby(lobbyID)).thenReturn(lobby);
-        lenient().when(lobby.hasStarted()).thenReturn(false);
-        lenient().when(lobby.full()).thenReturn(true);
-        lenient().when(lobby.hasPlayer(session)).thenReturn(true);
+        when(request.requestMethod()).thenReturn("PATCH");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(true);
+        when(model.lobbyExists(lobbyID)).thenReturn(true);
+        when(model.getLobby(lobbyID)).thenReturn(lobby);
+        when(lobby.hasStarted()).thenReturn(false);
+        when(lobby.full()).thenReturn(true);
+        when(lobby.hasPlayer(session)).thenReturn(true);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -155,15 +155,15 @@ public class V1LobbiesTest {
         Session session = JsonConverter.fromJson(sessionHeader, Session.class).get();
         LobbyID lobbyID = JsonConverter.fromJson(lobbyHeader, LobbyID.class).get();
 
-        lenient().when(request.requestMethod()).thenReturn("PUT");
-        lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
-        lenient().when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
-        lenient().when(model.getSessions()).thenReturn(sessions);
-        lenient().when(sessions.validSession(session)).thenReturn(true);
-        lenient().when(model.lobbyExists(lobbyID)).thenReturn(true);
-        lenient().when(model.getLobby(lobbyID)).thenReturn(lobby);
-        lenient().when(lobby.hasStarted()).thenReturn(false);
-        lenient().when(lobby.full()).thenReturn(false);
+        when(request.requestMethod()).thenReturn("PUT");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(true);
+        when(model.lobbyExists(lobbyID)).thenReturn(true);
+        when(model.getLobby(lobbyID)).thenReturn(lobby);
+        when(lobby.hasStarted()).thenReturn(false);
+        when(lobby.full()).thenReturn(false);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");

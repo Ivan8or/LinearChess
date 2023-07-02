@@ -20,7 +20,6 @@ import util.ResourceAsString;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,7 +48,7 @@ public class V1LobbiesInventoriesTest {
     @Test
     public void unsupportedMethod() {
         V1LobbiesInventories endpoint = new V1LobbiesInventories(model);
-        lenient().when(request.requestMethod()).thenReturn("TRACE");
+        when(request.requestMethod()).thenReturn("TRACE");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
@@ -68,19 +67,19 @@ public class V1LobbiesInventoriesTest {
         Session session = JsonConverter.fromJson(sessionHeader, Session.class).get();
         LobbyID lobbyID = JsonConverter.fromJson(lobbyHeader, LobbyID.class).get();
 
-        lenient().when(request.requestMethod()).thenReturn("GET");
-        lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
-        lenient().when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
-        lenient().when(model.getSessions()).thenReturn(sessions);
-        lenient().when(sessions.validSession(session)).thenReturn(true);
-        lenient().when(model.lobbyExists(lobbyID)).thenReturn(true);
-        lenient().when(model.getLobby(lobbyID)).thenReturn(lobby);
-        lenient().when(lobby.hasStarted()).thenReturn(true);
-        lenient().when(lobby.getGame()).thenReturn(Optional.of(game));
+        when(request.requestMethod()).thenReturn("GET");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(true);
+        when(model.lobbyExists(lobbyID)).thenReturn(true);
+        when(model.getLobby(lobbyID)).thenReturn(lobby);
+        when(lobby.hasStarted()).thenReturn(true);
+        when(lobby.getGame()).thenReturn(Optional.of(game));
 
         String inventoryJson = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
         Inventory inventory = JsonConverter.fromJson(inventoryJson, Inventory.class).get();
-        lenient().when(game.getInventory(session)).thenReturn(inventory);
+        when(game.getInventory(session)).thenReturn(inventory);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
