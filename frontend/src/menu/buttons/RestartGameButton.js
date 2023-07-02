@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import restartGame from '../../api/v0/restartGame.js'
-import extractFen from '../../api/v0/util/extractFen.js'
+import restartGame from 'api/v0/restartGame.js'
+import extractFen from 'api/util/extractFen.js'
 
 function handler(setFenState, setLoadingState) {
     return () => {

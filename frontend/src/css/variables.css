@@ -1,0 +1,33 @@
+
+:root {
+
+    /*
+    All global color variables declared here:
+    */
+    --text: #222;
+
+    --focus: #aaa;
+    --semifocus: #bbb;
+    --nofocus: #efefef;
+
+    --lighttile: #E2BC7B;
+    --darktile: #7D591B;
+    --hovertile: #47501A;
+    --clicktile: #2A2F0F;
+    --piece-shadow: #432;
+    --piece-hover-shadow: #210;
+    --gem-hover-shadow: #214;
+    --inner-border: rgb(53, 35, 14);
+    --outer-border: rgb(66, 63, 59);
+
+    --button: #888;
+    --hoverbutton: #777;
+    --clickbutton: #666;
+
+
+    /*
+    All size variables declared here:display:
+    */
+
+    --board-size: 33vw;
+}

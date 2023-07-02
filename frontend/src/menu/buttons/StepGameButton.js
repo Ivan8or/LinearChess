@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import stepGame from '../../api/v0/stepGame.js'
-import extractFen from '../../api/v0/util/extractFen.js'
+import stepGame from 'api/v0/stepGame.js'
+import extractFen from 'api/util/extractFen.js'
 
 function handler(setFenState, setLoadingState) {
     return () => {

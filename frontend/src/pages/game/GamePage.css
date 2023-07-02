@@ -1,0 +1,6 @@
+
+body {
+  background-color: var(--nofocus);
+  margin: 0px;
+  position: fixed;
+}

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import getBoardFen from '../../api/v0/getBoardFen.js'
-import extractFen from '../../api/v0/util/extractFen.js'
+import getBoardFen from 'api/v0/getBoardFen.js'
+import extractFen from 'api/util/extractFen.js'
 
 function handler(setFenState, setLoadingState) {
     return () => {
