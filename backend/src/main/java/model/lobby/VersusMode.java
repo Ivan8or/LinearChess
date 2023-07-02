@@ -121,24 +121,30 @@ public class VersusMode {
     }
 
     public boolean purchaseItem(Session player, int shopSlotFrom, int slotTo) {
+        System.out.println(1);
         if(!canChangeInventory())
             return false;
 
+        System.out.println(2);
         if(!SHOP_SLOTS.contains(shopSlotFrom))
             return false;
 
+        System.out.println(3);
         Inventory playerInventory = inventories.get(player);
         if(playerInventory.getSlot(slotTo).isPresent())
             return false;
 
+        System.out.println(4);
         ShopView shop = getShop(player);
         Optional<SlottedItem> shopSlot = shop.getWares().getSlot(shopSlotFrom);
         if(shopSlot.isEmpty())
             return false;
 
+        System.out.println(5);
         if(!shop.canAffordBuy(shopSlotFrom))
             return false;
 
+        System.out.println(6);
         SlottedItem ware = shopSlot.get();
         if( (ware.item().type().equals("eval") && EVAL_SLOTS.contains(slotTo))
         ||  (ware.item().type().equals("multiplier") && MULT_SLOTS.contains(slotTo)) ) {
@@ -147,6 +153,7 @@ public class VersusMode {
             inventories.put(player, newInventory);
             return true;
         }
+        System.out.println(7);
         return false;
     }
 

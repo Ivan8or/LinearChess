@@ -1,4 +1,4 @@
-package api.v1.lobbies.shops.view;
+package api.v1.lobbies.shops.refresh;
 
 import api.util.APIEndpoint;
 import api.util.validator.LobbyValidator;
@@ -10,25 +10,24 @@ import model.mappings.ApiResponse;
 import model.mappings.Inventory;
 import model.mappings.LobbyID;
 import model.mappings.Session;
-import model.shop.ShopView;
 import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
 import java.util.Optional;
 
-import static spark.route.HttpMethod.get;
+import static spark.route.HttpMethod.patch;
 
-public class V1LobbiesShopsView extends APIEndpoint {
+public class V1LobbiesShopsRefresh extends APIEndpoint {
 
     final private Model model;
 
-    public V1LobbiesShopsView(Model model) {
-        super("/api/v1/lobbies/shops/view", get);
+    public V1LobbiesShopsRefresh(Model model) {
+        super("/api/v1/lobbies/shops/refresh", patch);
         this.model = model;
     }
 
-    protected Object get(Request request, Response response) {
+    protected Object patch(Request request, Response response) {
         String sessionJson = request.headers("session");
         Optional<Session> session = JsonConverter.fromJson(sessionJson, Session.class);
 
@@ -47,7 +46,11 @@ public class V1LobbiesShopsView extends APIEndpoint {
             return new ApiResponse(404,"LOBBY_NOT_YET_STARTED");
 
         VersusMode game = model.getLobby(lobbyId.get()).getGame().get();
-        ShopView shop = game.getShop(session.get());
-        return shop;
+        boolean success = game.getShop(session.get()).restockWares();
+
+        if(!success)
+            return new ApiResponse(400,"MODIFICATION_DENIED_NONSENSICAL");
+
+        return new ApiResponse(200,"SUCCESS");
     }
 }

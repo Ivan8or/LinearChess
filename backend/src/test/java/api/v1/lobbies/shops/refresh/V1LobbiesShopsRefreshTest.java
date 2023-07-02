@@ -1,19 +1,19 @@
-package api.v1.lobbies.shops.view;
+package api.v1.lobbies.shops.refresh;
 
+import api.v1.lobbies.shops.view.V1LobbiesShopsView;
 import model.api.Model;
 import model.lobby.ChessLobby;
 import model.lobby.VersusMode;
 import model.mappings.Inventory;
 import model.mappings.LobbyID;
+import model.mappings.MoveItem;
 import model.mappings.Session;
 import model.session.SessionTracker;
-import model.shop.ItemShop;
 import model.shop.ShopView;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import spark.Request;
 import spark.Response;
@@ -25,9 +25,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class V1LobbiesShopsViewTest {
+public class V1LobbiesShopsRefreshTest {
 
-    static final String RESOURCE_PATH = "api/v1/lobbies/shops/view/endpoint/";
+    static final String RESOURCE_PATH = "api/v1/lobbies/shops/refresh/endpoint/";
 
     @Mock
     Model model;
@@ -42,7 +42,7 @@ public class V1LobbiesShopsViewTest {
     VersusMode game;
 
     @Mock
-    ItemShop shop;
+    ShopView shop;
 
     @Mock
     Request request;
@@ -52,7 +52,7 @@ public class V1LobbiesShopsViewTest {
 
     @Test
     public void unsupportedMethod() {
-        V1LobbiesShopsView endpoint = new V1LobbiesShopsView(model);
+        V1LobbiesShopsRefresh endpoint = new V1LobbiesShopsRefresh(model);
         when(request.requestMethod()).thenReturn("CONNECT");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -64,18 +64,16 @@ public class V1LobbiesShopsViewTest {
     }
 
     @Test
-    public void get() {
-        V1LobbiesShopsView endpoint = new V1LobbiesShopsView(model);
+    public void patch() {
+        V1LobbiesShopsRefresh endpoint = new V1LobbiesShopsRefresh(model);
 
-        String sessionHeader = ResourceAsString.at(RESOURCE_PATH+"get/sessionHeader.json").get();
-        String lobbyHeader = ResourceAsString.at(RESOURCE_PATH+"get/lobbyHeader.json").get();
-        String inventoryJson = ResourceAsString.at(RESOURCE_PATH+"get/wares.json").get();
+        String sessionHeader = ResourceAsString.at(RESOURCE_PATH+"patch/sessionHeader.json").get();
+        String lobbyHeader = ResourceAsString.at(RESOURCE_PATH+"patch/lobbyHeader.json").get();
 
         Session session = JsonConverter.fromJson(sessionHeader, Session.class).get();
         LobbyID lobbyID = JsonConverter.fromJson(lobbyHeader, LobbyID.class).get();
-        Inventory wares = JsonConverter.fromJson(inventoryJson, Inventory.class).get();
 
-        when(request.requestMethod()).thenReturn("GET");
+        when(request.requestMethod()).thenReturn("PATCH");
         when(request.headers("session")).thenReturn(sessionHeader);
         when(request.headers("lobby")).thenReturn(lobbyHeader);
         when(model.getSessions()).thenReturn(sessions);
@@ -84,16 +82,14 @@ public class V1LobbiesShopsViewTest {
         when(model.getLobby(lobbyID)).thenReturn(lobby);
         when(lobby.getGame()).thenReturn(Optional.of(game));
         when(lobby.hasStarted()).thenReturn(true);
-        when(shop.startingGold()).thenReturn(4);
-        when(shop.borrowItems()).thenReturn(wares);
-        ShopView view = new ShopView(shop);
-
-        when(game.getShop(session)).thenReturn(view);
+        when(game.getShop(session)).thenReturn(shop);
+        when(game.canChangeInventory()).thenReturn(true);
+        when(shop.restockWares()).thenReturn(true);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"patch/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

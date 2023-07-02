@@ -1,18 +1,21 @@
 {
-  "items": [
-    {
-      "slot": 101,
-      "item": {
-        "type": "eval",
-        "id": 3001
+  "gold": 4,
+  "wares": {
+    "items": [
+      {
+        "slot": 101,
+        "item": {
+          "type": "eval",
+          "id": 3001
+        }
+      },
+      {
+        "slot": 201,
+        "item": {
+          "type": "multiplier",
+          "id": 4001
+        }
       }
-    },
-    {
-      "slot": 201,
-      "item": {
-        "type": "multiplier",
-        "id": 4001
-      }
-    }
-  ]
+    ]
+  }
 }

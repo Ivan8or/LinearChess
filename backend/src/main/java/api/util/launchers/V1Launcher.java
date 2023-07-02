@@ -7,6 +7,9 @@ import api.v1.lobbies.V1Lobbies;
 import api.v1.lobbies.boards.V1LobbiesBoards;
 import api.v1.lobbies.inventories.V1LobbiesInventories;
 import api.v1.lobbies.shops.V1LobbiesShops;
+import api.v1.lobbies.shops.buy.V1LobbiesShopsBuy;
+import api.v1.lobbies.shops.refresh.V1LobbiesShopsRefresh;
+import api.v1.lobbies.shops.sell.V1LobbiesShopsSell;
 import api.v1.lobbies.shops.view.V1LobbiesShopsView;
 import api.v1.sessions.V1Sessions;
 import model.api.Model;
@@ -26,6 +29,9 @@ public class V1Launcher {
                 .withEndpoint(new V1LobbiesInventories(model))
                 .withEndpoint(new V1LobbiesShops())
                 .withEndpoint(new V1LobbiesShopsView(model))
+                .withEndpoint(new V1LobbiesShopsBuy(model))
+                .withEndpoint(new V1LobbiesShopsSell(model))
+                .withEndpoint(new V1LobbiesShopsRefresh(model))
                 .start();
     }
 }
