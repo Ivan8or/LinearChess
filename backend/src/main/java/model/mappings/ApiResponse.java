@@ -2,7 +2,7 @@ package model.mappings;
 
 import util.JsonConverter;
 
-public record ApiError(int status, String message) {
+public record ApiResponse(int status, String message) {
 
     @Override
     public String toString() {

@@ -1,3 +1,4 @@
 {
+  "status":401,
   "message": "NO_SESSION_HEADER"
 }

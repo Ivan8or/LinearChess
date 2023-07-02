@@ -1,6 +1,6 @@
 package api.util;
 
-import model.mappings.ApiError;
+import model.mappings.ApiResponse;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -29,68 +29,59 @@ public abstract class APIEndpoint implements Route {
 
     @Override
     public Object handle(Request request, Response response) {
+
+        Object result = null;
+        
         try {
             response.header("Content-Type", "application/json");
             response.header("Server-Version", "1.1.0");
             HttpMethod method = HttpMethod.get(request.requestMethod().toLowerCase());
-            switch (method) {
-                case get:
-                    return get(request, response);
-                case post:
-                    return post(request, response);
-                case patch:
-                    return patch(request, response);
-                case delete:
-                    return delete(request, response);
-                case put:
-                    return put(request, response);
-                case head:
-                    return head(request, response);
-                case options:
-                    return options(request, response);
-                default:
-                    response.status(405);
-                    return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
-            }
+            result = switch (method) {
+                case get -> get(request, response);
+                case post -> post(request, response);
+                case patch -> patch(request, response);
+                case delete -> delete(request, response);
+                case put -> put(request, response);
+                case head -> head(request, response);
+                case options -> options(request, response);
+                default -> new ApiResponse(405, "METHOD_NOT_SUPPORTED");
+            };
         }catch(Exception e) {
             e.printStackTrace();
-            response.status(500);
-            return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+            result = new ApiResponse(500, "INTERNAL_ERROR_OCCURED");
         }
+
+        if(result instanceof ApiResponse)
+            response.status(((ApiResponse) result).status());
+
+        return JsonConverter.toPrettyJson(result);
     }
 
     protected Object get(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object post(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object patch(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object delete(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object options(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object put(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 
     protected Object head(Request request, Response response) {
-        response.status(405);
-        return JsonConverter.toPrettyJson(new ApiError("METHOD_NOT_SUPPORTED"));
+        return new ApiResponse(405,"METHOD_NOT_SUPPORTED");
     }
 }

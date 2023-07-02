@@ -1,15 +1,14 @@
 package api.v1.lobbies;
 
 import api.util.APIEndpoint;
+import api.util.validator.SessionValidator;
 import model.api.Model;
 import model.lobby.ChessLobby;
-import model.mappings.ApiError;
+import model.mappings.ApiResponse;
 import model.mappings.Endpoint;
 import model.mappings.Reference;
-import model.mappings.Session;
 import spark.Request;
 import spark.Response;
-import spark.route.HttpMethod;
 import util.JsonConverter;
 
 import java.util.Optional;
@@ -26,29 +25,23 @@ public class V1Lobbies extends APIEndpoint {
         this.model = model;
     }
 
-    protected String get(Request request, Response response) {
+    @Override
+    protected Object get(Request request, Response response) {
         Reference rootReference = new Reference(
                 new Endpoint("/api/v1/lobbies/boards", "GET"),
                 new Endpoint("/api/v1/lobbies/inventories", "GET", "PATCH"),
                 new Endpoint("/api/v1/lobbies/shops", "GET"));
-        return JsonConverter.toPrettyJson(rootReference);
+        return rootReference;
     }
 
-    protected String post(Request request, Response response) {
-        String sessionJson = request.headers("session");
-        Optional<Session> session = JsonConverter.fromJson(sessionJson, Session.class);
+    @Override
+    protected Object post(Request request, Response response) {
+        Optional<ApiResponse> invalid = SessionValidator.validate(request, model);
 
-        if(sessionJson == null || session.isEmpty()) {
-            response.status(401);
-            return JsonConverter.toPrettyJson(new ApiError("NO_SESSION_HEADER"));
-        }
-
-        if(!model.getSessions().validSession(session.get())) {
-            response.status(403);
-            return JsonConverter.toPrettyJson(new ApiError("BAD_SESSION_HEADER"));
-        }
+        if(invalid.isPresent())
+            return invalid.get();
 
         ChessLobby newLobby = model.spawnLobby();
-        return JsonConverter.toPrettyJson(newLobby.getLobbyId());
+        return newLobby.getLobbyId();
     }
 }
