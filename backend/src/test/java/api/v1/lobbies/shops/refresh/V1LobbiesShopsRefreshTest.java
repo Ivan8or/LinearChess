@@ -82,9 +82,7 @@ public class V1LobbiesShopsRefreshTest {
         when(model.getLobby(lobbyID)).thenReturn(lobby);
         when(lobby.getGame()).thenReturn(Optional.of(game));
         when(lobby.hasStarted()).thenReturn(true);
-        when(game.getShop(session)).thenReturn(shop);
-        when(game.canChangeInventory()).thenReturn(true);
-        when(shop.restockWares()).thenReturn(true);
+        when(game.restockShop(session)).thenReturn(true);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");

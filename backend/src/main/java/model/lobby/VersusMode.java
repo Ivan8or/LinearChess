@@ -172,6 +172,13 @@ public class VersusMode {
         return true;
     }
 
+    public boolean restockShop(Session player) {
+        if(!canChangeInventory())
+            return false;
+
+        return getShop(player).restockWares();
+    }
+
     public void phaseChange(GamePhase newPhase) {
         synchronized(this) {
             phase = newPhase;

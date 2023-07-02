@@ -46,10 +46,10 @@ public class V1LobbiesShopsRefresh extends APIEndpoint {
             return new ApiResponse(404,"LOBBY_NOT_YET_STARTED");
 
         VersusMode game = model.getLobby(lobbyId.get()).getGame().get();
-        boolean success = game.getShop(session.get()).restockWares();
+        boolean success = game.restockShop(session.get());
 
         if(!success)
-            return new ApiResponse(400,"MODIFICATION_DENIED_NONSENSICAL");
+            return new ApiResponse(423,"MODIFICATION_DENIED_UNTIMELY");
 
         return new ApiResponse(200,"SUCCESS");
     }
