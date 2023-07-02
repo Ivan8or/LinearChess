@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class RootTest {
 
-    static final String RESOURCE_PATH = "api/root/";
+    static final String RESOURCE_PATH = "api/endpoint/";
 
     @Mock
     Request request;

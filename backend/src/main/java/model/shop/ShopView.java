@@ -39,7 +39,7 @@ public class ShopView {
         return true;
     }
 
-    public void refresh() {
+    public void refreshShopStatus() {
         gold = 4;
         forceRestockWares();
     }

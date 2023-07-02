@@ -1,0 +1,28 @@
+{
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/lobbies/shops/view",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/lobbies/shops/buy",
+      "methods": [
+        "PATCH"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/lobbies/shops/sell",
+      "methods": [
+        "PATCH"
+      ]
+    },
+    {
+      "endpoint": "/api/v1/lobbies/shops/refresh",
+      "methods": [
+        "PATCH"
+      ]
+    }
+  ]
+}

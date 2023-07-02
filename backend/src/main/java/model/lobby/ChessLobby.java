@@ -82,6 +82,10 @@ public class ChessLobby {
 
         players.add(session);
         allSessions.joinLobby(session, this);
+
+        if(full())
+            start();
+
         return true;
     }
 

@@ -60,7 +60,7 @@ public class ItemShop {
 
     public void refreshShops() {
         for(ShopView shop : shopViews.values())
-            shop.refresh();
+            shop.refreshShopStatus();
     }
 
     public Inventory borrowItems() {
@@ -78,7 +78,7 @@ public class ItemShop {
 
         SlottedItem[] slottedItems = new SlottedItem[amount];
         for(int i = 0; i < amount; i++)
-            slottedItems[i] = new SlottedItem(i, borrowing[i]);
+            slottedItems[i] = new SlottedItem(500 + i, borrowing[i]);
 
         return new Inventory(slottedItems);
     }

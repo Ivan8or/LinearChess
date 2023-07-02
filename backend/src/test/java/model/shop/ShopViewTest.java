@@ -102,7 +102,7 @@ public class ShopViewTest {
         from.buy(501);
         Assert.assertEquals(1, from.getGold());
 
-        from.refresh();
+        from.refreshShopStatus();
 
         Assert.assertEquals(4, from.getGold());
         Assert.assertArrayEquals(

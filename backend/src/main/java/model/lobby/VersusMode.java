@@ -93,6 +93,10 @@ public class VersusMode {
         return players.get(player);
     }
 
+    public boolean modifyInventory(Session player, MoveItem move) {
+        return modifyInventory(player, move.slotFrom(), move.slotTo());
+    }
+
     public boolean modifyInventory(Session player, int slotFrom, int slotTo) {
         if(!canChangeInventory())
             return false;
@@ -176,12 +180,18 @@ public class VersusMode {
     }
 
     public void progressRound(int shopTime, int playDelay) {
+
         if(chessGame.isOver()) {
             phaseChange(GamePhase.STANDBY);
             lobby.end();
             return;
         }
         round++;
+
+        for(Session player : players.keySet()) {
+            shop.playerView(player).refreshShopStatus();
+        }
+
         phaseChange(GamePhase.SHOP);
         scheduler.schedule(() -> playPhase(shopTime, playDelay), shopTime, TimeUnit.MILLISECONDS);
     }

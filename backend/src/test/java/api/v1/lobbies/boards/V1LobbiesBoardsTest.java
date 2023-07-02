@@ -23,7 +23,7 @@ import static org.mockito.Mockito.lenient;
 @RunWith(MockitoJUnitRunner.class)
 public class V1LobbiesBoardsTest {
 
-    static final String RESOURCE_PATH = "api/v1/lobbies/boards/v1LobbiesBoards/";
+    static final String RESOURCE_PATH = "api/v1/lobbies/boards/endpoint/";
 
     @Mock
     Model model;

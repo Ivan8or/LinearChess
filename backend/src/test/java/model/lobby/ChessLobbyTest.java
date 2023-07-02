@@ -36,7 +36,7 @@ public class ChessLobbyTest {
         Assert.assertFalse(lobby.hasStarted());
 
         lobby.addPlayer(player2);
-        Assert.assertFalse(lobby.hasStarted());
+        Assert.assertTrue(lobby.hasStarted());
 
         lobby.start();
         Assert.assertTrue(lobby.hasStarted());

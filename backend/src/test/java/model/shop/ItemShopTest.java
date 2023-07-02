@@ -74,9 +74,9 @@ public class ItemShopTest {
         Inventory generated = shop.borrowItems(3);
 
         Inventory expected = new Inventory(
-                new SlottedItem(0, new Item("eval", 4003)),
-                new SlottedItem(1, new Item("eval", 4001)),
-                new SlottedItem(2, new Item("multiplier", 3001)));
+                new SlottedItem(500, new Item("eval", 4003)),
+                new SlottedItem(501, new Item("eval", 4001)),
+                new SlottedItem(502, new Item("multiplier", 3001)));
 
         Assert.assertEquals(expected, generated);
         Assert.assertEquals(37, shop.itemPool().size());
@@ -86,9 +86,9 @@ public class ItemShopTest {
     public void returnItems() {
         ItemShop shop = new ItemShop(new ArrayList<>());
         Inventory from = new Inventory(
-                new SlottedItem(0, new Item("eval", 4003)),
-                new SlottedItem(1, new Item("eval", 4001)),
-                new SlottedItem(2, new Item("multiplier", 3001)));
+                new SlottedItem(500, new Item("eval", 4003)),
+                new SlottedItem(501, new Item("eval", 4001)),
+                new SlottedItem(502, new Item("multiplier", 3001)));
 
         List<Item> expected = List.of(
                 new Item("eval", 4003),
