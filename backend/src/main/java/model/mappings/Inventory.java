@@ -1,9 +1,13 @@
 package model.mappings;
 
 import chess.eval.ChessEval;
+import chess.eval.impl.CumulativeEval;
+import util.ItemCatalog;
 import util.JsonConverter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public record Inventory(SlottedItem... items) {
@@ -60,7 +64,24 @@ public record Inventory(SlottedItem... items) {
         return getSlot(slot).isEmpty();
     }
 
-    public ChessEval translate() {
-        return null;
+    public ChessEval translate(int[] evalSlots, int[] multiplierSlots) {
+
+        List<ChessEval> components = new ArrayList<>(evalSlots.length);
+        components.add(ItemCatalog.eval(1000).get());
+
+        for(int i = 0; i < evalSlots.length; i++) {
+            Optional<SlottedItem> nextEval = getSlot(evalSlots[i]);
+            Optional<SlottedItem> nextMultiplier = getSlot(multiplierSlots[i]);
+            if(nextEval.isEmpty())
+                continue;
+
+            int evalId = nextEval.get().item().id();
+            int multiplierId = nextMultiplier.map(slottedItem -> slottedItem.item().id()).orElse(-1);
+
+            Optional<ChessEval> chessEval = ItemCatalog.build(evalId, multiplierId);
+            chessEval.ifPresent(components::add);
+        }
+
+        return new CumulativeEval(components.toArray(ChessEval[]::new));
     }
 }

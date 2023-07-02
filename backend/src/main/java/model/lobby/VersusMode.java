@@ -2,6 +2,7 @@ package model.lobby;
 
 import chess.ChessGame;
 import chess.board.LSide;
+import chess.eval.ChessEval;
 import model.mappings.Inventory;
 import model.mappings.Item;
 import model.mappings.Session;
@@ -39,6 +40,9 @@ public class VersusMode {
     final private Set<Integer> EVAL_SLOTS = Set.of(100,101,102,103);
     final private Set<Integer> MULT_SLOTS = Set.of(200,201,202,203);
     final private Set<Integer> SHOP_SLOTS = Set.of(500,501,502);
+
+    final private int[] EVAL_SLOTS_ARRAY = {100,101,102,103};
+    final private int[] MULT_SLOTS_ARRAY = {200,201,202,203};
 
     public VersusMode(Session white, Session black, ChessLobby lobby) {
         this.lobby = lobby;
@@ -189,6 +193,12 @@ public class VersusMode {
                 spectatableInventories.put(playerSide, playerInventory);
             }
         }
+        ChessEval whiteEval = spectatableInventories.get(LSide.WHITE).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY);
+        ChessEval blackEval = spectatableInventories.get(LSide.BLACK).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY);
+
+        chessGame.setWhiteEval(whiteEval);
+        chessGame.setBlackEval(blackEval);
+
         for(int i = 0; i < 10; i++) {
             if(!chessGame.isOver()) {
                 chessGame.increment();

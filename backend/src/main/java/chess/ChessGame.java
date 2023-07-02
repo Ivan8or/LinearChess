@@ -5,6 +5,7 @@ import chess.agent.impl.AlphaBetaAgent;
 import chess.board.LBoard;
 import chess.board.LMove;
 import chess.board.LSide;
+import chess.eval.ChessEval;
 import chess.eval.impl.RandomEval;
 
 import java.util.Random;
@@ -27,6 +28,14 @@ public class ChessGame {
     }
     public void setBlackAgent(ChessAgent blackAgent) {
         this.blackAgent = blackAgent;
+    }
+
+    public void setWhiteEval(ChessEval newEval) {
+        whiteAgent.setEvaluation(newEval);
+    }
+
+    public void setBlackEval(ChessEval newEval) {
+        blackAgent.setEvaluation(newEval);
     }
 
     public void setAgent(ChessAgent agent, LSide side) {

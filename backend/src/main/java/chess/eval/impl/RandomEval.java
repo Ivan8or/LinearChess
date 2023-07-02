@@ -16,6 +16,6 @@ public class RandomEval implements ChessEval {
 
     @Override
     public double utility(LBoard board) {
-        return random.nextDouble();
+        return random.nextDouble() * 0.001;
     }
 }
