@@ -1,7 +1,11 @@
 package api.v1.lobbies.boards;
 
 import api.util.APIEndpoint;
+import chess.ChessGame;
+import chess.board.LBoard;
 import model.api.Model;
+import model.lobby.ChessLobby;
+import model.lobby.VersusMode;
 import model.mappings.ApiError;
 import model.mappings.BoardFEN;
 import model.mappings.LobbyID;
@@ -23,7 +27,7 @@ public class V1LobbiesBoards extends APIEndpoint {
     }
 
     protected String get(Request request, Response response) {
-        String lobbyJson = request.body();
+        String lobbyJson = request.headers("lobby");
         Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
 
         if(lobbyId.isEmpty()) {
@@ -36,7 +40,17 @@ public class V1LobbiesBoards extends APIEndpoint {
             return JsonConverter.toPrettyJson(new ApiError("BAD_LOBBY_ID"));
         }
 
-        BoardFEN board = new BoardFEN(model.getLobby(lobbyId.get()).getGame().getBoard().getFen());
-        return JsonConverter.toPrettyJson(board);
+        ChessLobby lobby = model.getLobby(lobbyId.get());
+        Optional<VersusMode> possibleGame = lobby.getGame();
+        if(possibleGame.isEmpty()) {
+            response.status(404);
+            return JsonConverter.toPrettyJson(new ApiError("LOBBY_NOT_YET_STARTED"));
+        }
+        VersusMode game = possibleGame.get();
+        ChessGame chess = game.getChess();
+        LBoard board = chess.getBoard();
+        BoardFEN fen = new BoardFEN(board.getFen());
+
+        return JsonConverter.toPrettyJson(fen);
     }
 }

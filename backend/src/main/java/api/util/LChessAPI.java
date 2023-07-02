@@ -74,7 +74,7 @@ public class LChessAPI {
             res.header("Access-Control-Allow-Methods", allowedMethods);
             res.header("Access-Control-Allow-Headers", "*");
             res.header("Access-Control-Allow-Credentials", "true");
-            return res;
+            return "";
         });
         sparkService.addRoute(HttpMethod.options, optionsHandler);
     }

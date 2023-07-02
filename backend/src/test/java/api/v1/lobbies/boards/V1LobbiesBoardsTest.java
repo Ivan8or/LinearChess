@@ -4,6 +4,7 @@ import chess.ChessGame;
 import chess.board.LBoard;
 import model.api.Model;
 import model.lobby.ChessLobby;
+import model.lobby.VersusMode;
 import model.mappings.LobbyID;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,8 @@ import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 import util.ResourceAsString;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.lenient;
 
@@ -29,7 +32,10 @@ public class V1LobbiesBoardsTest {
     ChessLobby lobby;
 
     @Mock
-    ChessGame game;
+    VersusMode game;
+
+    @Mock
+    ChessGame chess;
 
     @Mock
     LBoard board;
@@ -59,11 +65,13 @@ public class V1LobbiesBoardsTest {
         String body = ResourceAsString.at(RESOURCE_PATH+"get/body.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
-        lenient().when(request.body()).thenReturn(body);
+        lenient().when(request.headers("lobby")).thenReturn(body);
         lenient().when(model.lobbyExists(lobbyId)).thenReturn(true);
         lenient().when(model.getLobby(lobbyId)).thenReturn(lobby);
-        lenient().when(lobby.getGame()).thenReturn(game);
-        lenient().when(game.getBoard()).thenReturn(board);
+        lenient().when(lobby.hasStarted()).thenReturn(true);
+        lenient().when(lobby.getGame()).thenReturn(Optional.of(game));
+        lenient().when(game.getChess()).thenReturn(chess);
+        lenient().when(chess.getBoard()).thenReturn(board);
         lenient().when(board.getFen()).thenReturn("8/board/fen/8");
 
         String generated = (String) endpoint.handle(request, response);
@@ -79,7 +87,7 @@ public class V1LobbiesBoardsTest {
     public void getNoLobbyId() {
         V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
         lenient().when(request.requestMethod()).thenReturn("GET");
-        lenient().when(request.body()).thenReturn(null);
+        lenient().when(request.headers("lobby")).thenReturn(null);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
@@ -96,13 +104,32 @@ public class V1LobbiesBoardsTest {
         String body = ResourceAsString.at(RESOURCE_PATH+"getBadLobbyId/body.json").get();
         LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
         lenient().when(request.requestMethod()).thenReturn("GET");
-        lenient().when(request.body()).thenReturn(body);
+        lenient().when(request.headers("lobby")).thenReturn(body);
         lenient().when(model.getLobby(lobbyId)).thenReturn(null);
 
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"getBadLobbyId/result.json").get();
+        expected = expected.replaceAll("\\s", "");
+
+        Assert.assertEquals(expected, generated);
+    }
+
+    @Test
+    public void getLobbyNotStarted() {
+        V1LobbiesBoards endpoint = new V1LobbiesBoards(model);
+        String body = ResourceAsString.at(RESOURCE_PATH+"getLobbyNotStarted/body.json").get();
+        LobbyID lobbyId = JsonConverter.fromJson(body, LobbyID.class).get();
+        lenient().when(request.requestMethod()).thenReturn("GET");
+        lenient().when(request.headers("lobby")).thenReturn(body);
+        lenient().when(model.getLobby(lobbyId)).thenReturn(lobby);
+        lenient().when(lobby.hasStarted()).thenReturn(false);
+
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
+
+        String expected = ResourceAsString.at(RESOURCE_PATH+"getLobbyNotStarted/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

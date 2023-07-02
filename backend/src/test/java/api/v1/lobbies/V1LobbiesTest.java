@@ -96,7 +96,7 @@ public class V1LobbiesTest {
     public void post() {
         V1Lobbies endpoint = new V1Lobbies(model);
         Session session = Session.spawn();
-        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), sessions);
+        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), sessions, model);
         lenient().when(request.requestMethod()).thenReturn("POST");
         lenient().when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
         lenient().when(model.getSessions()).thenReturn(sessions);
