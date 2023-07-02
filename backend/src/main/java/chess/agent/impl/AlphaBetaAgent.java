@@ -5,7 +5,9 @@ import chess.board.LBoard;
 import chess.board.LMove;
 import chess.eval.ChessEval;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AlphaBetaAgent extends ChessAgent {
 

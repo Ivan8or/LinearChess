@@ -1,6 +1,5 @@
 package chess.board;
 
-import chess.board.LSide;
 import org.junit.Assert;
 import org.junit.Test;
 

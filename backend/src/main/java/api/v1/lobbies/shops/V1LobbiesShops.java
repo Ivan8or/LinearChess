@@ -1,11 +1,10 @@
 package api.v1.lobbies.shops;
 
 import api.util.APIEndpoint;
-import model.api.Model;
-import model.mappings.*;
+import model.mappings.Endpoint;
+import model.mappings.Reference;
 import spark.Request;
 import spark.Response;
-import util.JsonConverter;
 
 import static spark.route.HttpMethod.get;
 

@@ -4,12 +4,12 @@ import spark.RouteImpl;
 import spark.Service;
 import spark.route.HttpMethod;
 
-import static spark.Service.ignite;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static spark.Service.ignite;
 
 
 public class LChessAPI {

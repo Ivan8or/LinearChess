@@ -11,7 +11,8 @@ import util.JsonConverter;
 
 import java.util.Optional;
 
-import static spark.route.HttpMethod.*;
+import static spark.route.HttpMethod.delete;
+import static spark.route.HttpMethod.post;
 
 public class V1Sessions extends APIEndpoint {
 

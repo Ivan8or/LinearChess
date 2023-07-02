@@ -1,16 +1,10 @@
 package chess.agent;
 
-import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;
-import chess.agent.ChessAgent;
-import chess.board.LPieceType;
-import chess.board.LSide;
-import chess.eval.*;
-import chess.eval.impl.*;
-import org.junit.Test;
+import chess.eval.ChessEval;
+import chess.eval.impl.ConstantEval;
 import org.junit.Assert;
-
-import java.util.Random;
+import org.junit.Test;
 
 public class AlphaBetaAgentTest {
 

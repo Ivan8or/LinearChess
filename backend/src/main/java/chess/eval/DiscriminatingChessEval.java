@@ -2,9 +2,6 @@ package chess.eval;
 
 import chess.board.LPieceType;
 import chess.board.LSide;
-import chess.eval.ChessEval;
-
-import java.util.List;
 
 public abstract class DiscriminatingChessEval implements ChessEval {
 

@@ -1,17 +1,11 @@
 package chess.agent;
 
-import chess.ChessGame;
 import chess.agent.impl.AlphaBetaAgent;
-import chess.agent.ChessAgent;
 import chess.agent.impl.MiniMaxAgent;
-import chess.board.LPieceType;
-import chess.board.LSide;
-import chess.eval.*;
-import chess.eval.impl.*;
+import chess.eval.ChessEval;
+import chess.eval.impl.ConstantEval;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Random;
 
 public class MiniMaxAgentTest {
 

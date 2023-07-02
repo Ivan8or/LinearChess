@@ -2,11 +2,7 @@ package chess.eval.builder;
 
 import chess.board.LPieceType;
 import chess.board.LSide;
-import chess.eval.ChessEval;
-import chess.eval.builder.JsonParser;
-import chess.eval.builder.LogicBoard;
 import chess.eval.impl.*;
-import com.github.bhlangonijr.chesslib.game.Game;
 import org.junit.Assert;
 import org.junit.Test;
 import util.ResourceAsString;

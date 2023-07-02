@@ -6,7 +6,6 @@ import model.mappings.Reference;
 import spark.Request;
 import spark.Response;
 import spark.route.HttpMethod;
-import util.JsonConverter;
 
 public class Root extends APIEndpoint {
 

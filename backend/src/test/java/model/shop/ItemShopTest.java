@@ -16,7 +16,6 @@ import java.util.UUID;
 import java.util.random.RandomGenerator;
 
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.spy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ItemShopTest {

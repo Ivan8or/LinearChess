@@ -1,6 +1,5 @@
 package chess.eval.builder;
 
-import chess.eval.builder.JsonParser;
 import org.junit.Assert;
 import org.junit.Test;
 
