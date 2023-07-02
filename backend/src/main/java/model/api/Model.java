@@ -37,7 +37,7 @@ public class Model {
 
     public ChessLobby spawnLobby() {
         LobbyID lobbyId = generateLobbyId(7);
-        ChessLobby newLobby = new ChessLobby(lobbyId, sessions);
+        ChessLobby newLobby = new ChessLobby(lobbyId, sessions, this);
         lobbies.put(lobbyId, newLobby);
         return newLobby;
     }
@@ -48,6 +48,10 @@ public class Model {
 
     public ChessLobby getLobby(LobbyID lobbyId) {
         return lobbies.get(lobbyId);
+    }
+
+    public void closeLobby(LobbyID lobbyId) {
+        lobbies.remove(lobbyId);
     }
 
     public SessionTracker getSessions() {

@@ -1,49 +1,64 @@
 package model.lobby;
 
-import chess.ChessGame;
-import model.mappings.Inventory;
+import model.api.Model;
 import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
-import model.shop.ItemShop;
-import model.shop.ShopView;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChessLobby {
 
+    private final Model api;
+
     private final LobbyID lobbyId;
-    final private ItemShop shop;
-    private ChessGame game;
+    private Optional<VersusMode> game;
+    private boolean started;
 
-    private Map<Session, Inventory> players;
-    private SessionTracker allSessions;
+    final private Set<Session> players;
+    final private SessionTracker allSessions;
 
-    public ChessLobby(LobbyID lobbyId, SessionTracker allSessions) {
+    public ChessLobby(LobbyID lobbyId, SessionTracker allSessions, Model api) {
+        this.api = api;
         this.lobbyId = lobbyId;
         this.allSessions = allSessions;
 
-        this.shop = new ItemShop(List.of());
-        this.game = new ChessGame();
-        this.players = new ConcurrentHashMap<>();
+        this.game = Optional.empty();
+        this.started = false;
+        this.players = ConcurrentHashMap.newKeySet();
+    }
+
+    public boolean hasStarted() {
+        return started;
+    }
+
+    public boolean start() {
+        if(!full())
+            return false;
+
+        started = true;
+        Session[] indexable = players.toArray(Session[]::new);
+        int whitePlayer = (int) (Math.random() * 2);
+        this.game = Optional.of(new VersusMode(indexable[whitePlayer], indexable[(whitePlayer + 1) % 2], this));
+        game.get().progressRound();
+
+        return true;
+    }
+
+    public void end() {
+        for(Session player : players)
+            allSessions.leaveLobby(player);
+        api.closeLobby(lobbyId);
     }
 
     public LobbyID getLobbyId() {
         return lobbyId;
     }
 
-    public ItemShop getShop() {
-        return shop;
-    }
-
-    public ChessGame getGame() {
+    public Optional<VersusMode> getGame() {
         return game;
-    }
-
-    public ShopView getShop(Session player) {
-        return shop.playerView(player);
     }
 
     public int numPlayers() {
@@ -51,7 +66,7 @@ public class ChessLobby {
     }
 
     public boolean hasPlayer(Session session) {
-        return players.containsKey(session);
+        return players.contains(session);
     }
 
     public boolean full() {
@@ -65,7 +80,7 @@ public class ChessLobby {
         if(hasPlayer(session))
             return false;
 
-        players.put(session, new Inventory());
+        players.add(session);
         allSessions.joinLobby(session, this);
         return true;
     }

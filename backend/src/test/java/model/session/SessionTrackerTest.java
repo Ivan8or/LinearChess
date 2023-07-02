@@ -11,8 +11,9 @@ public class SessionTrackerTest {
 
     @Test
     public void sessionsLobbies() {
-        ChessLobby lobby = new ChessLobby(null, null);
         SessionTracker tracker = new SessionTracker();
+        ChessLobby lobby = new ChessLobby(null, tracker, null);
+
         Session session = tracker.startSession();
         Assert.assertEquals(Optional.empty(), tracker.sessionLobby(session));
 
