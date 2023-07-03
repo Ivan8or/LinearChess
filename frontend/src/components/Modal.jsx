@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 
 import 'css/Modal.css'
 
-export default function Modal({ isOpen, children }) {
-    if (!isOpen)
-        return null;
+export default function Modal({ children }) {
 
     return ReactDOM.createPortal(
         <>
