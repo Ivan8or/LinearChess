@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Modal from 'components/Modal'
 
+import { validCodeFormat } from 'api/util/isValidLobby';
+
 import 'css/JoinLobbyModal.css'
 
 export default function JoinLobbyModal({ isOpen, disable }) {
@@ -22,8 +24,7 @@ export default function JoinLobbyModal({ isOpen, disable }) {
     const submit = useCallback((event) => {
         event.preventDefault();
         const content = event.target.elements.code.value
-
-        if (!/^[a-z]{7}$/.test(content)) {
+        if (!validCodeFormat(content)) {
             focusPrompt()
             return;
         }

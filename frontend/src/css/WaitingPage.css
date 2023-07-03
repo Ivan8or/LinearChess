@@ -1,0 +1,67 @@
+#player-count {
+    font-size: max(2.2vh, 2.2vw);
+
+    padding: 0;
+    margin: 0;
+    margin-top: 1vh;
+    margin-bottom: 0vh;
+}
+
+#lobby-id-title {
+    font-size: max(7vh, 7vw);
+    width: auto;
+    display: inline-block;
+
+    padding: 0;
+    margin: 0;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+
+    &:active {
+        color: var(--primary-5);
+    }
+}
+
+#lobby-link {
+    display: inline-block;
+
+    padding: 0;
+    margin: 0;
+    margin-top: 0.6vh;
+    margin-bottom: 30vh;
+
+    font-size: max(1vh, 1vw);
+
+    &:active {
+        color: var(--primary-5);
+    }
+}
+
+#left-banner-ad {
+    position: fixed;
+
+    top: 10vh;
+    bottom: 10vh;
+    left: 4vw;
+    width: 12vw;
+
+    background-color: var(--primary-3);
+}
+
+#right-banner-ad {
+    position: fixed;
+
+    top: 10vh;
+    bottom: 10vh;
+    right: 4vw;
+    width: 12vw;
+
+    background-color: var(--primary-3);
+}
+
+#websocket-status {
+    font-size: max(1vh, 1vw);
+
+    padding: 0;
+    margin: 0;
+}

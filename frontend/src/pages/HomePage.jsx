@@ -9,16 +9,15 @@ import 'css/HomePage.css';
 
 export default function HomePage() {
 
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false)
 
     return (
         <div>
-
             <NavBar template={"2% 1fr 1fr 1fr 4fr 1fr 2%"} spacing={"1%"} >
                 <span></span>
-                <Link draggable="false" to="/alabama">alabama</Link>
-                <Link draggable="false" to="/texas">texas</Link>
-                <Link draggable="false" to="/mississipi">mississipi</Link>
+                <Link draggable="false" to="/rules">Rules</Link>
+                <Link draggable="false" to="/discord">Discord</Link>
+                <Link draggable="false" to="/donate">Donate</Link>
                 <span></span>
                 <ThemeToggle>Theme</ThemeToggle>
             </NavBar>
