@@ -34,7 +34,6 @@ export default function HomePage() {
             </button>
 
             <JoinLobbyModal isOpen={modal} disable={() => setModal(false)}></JoinLobbyModal>
-
         </div>
     )
 }
