@@ -3,30 +3,15 @@
     height: 100%;
 }
 
-body {
-    background-color: var(--background);
-    margin: 0px;
-}
-
-body * {
+:root * {
     color: var(--text);
     font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
 }
 
-button {
-    background-color: var(--secondary);
-    border-radius: 0.2em;
-    border-color: var(--border-1);
-    
-    &:hover {
-        background-color: var(--tertiary);
-        border-color: var(--border-2);
-    }
-    
-    &:active {
-        background-color: var(--focus);
-        border-color: var(--border-2);
-    }
+body {
+    background-color: var(--primary-1);
+    margin: 0px;
 }
 
 .title {
@@ -51,4 +36,16 @@ button {
     margin-left: auto;
     margin-right: auto;
     padding: 0;
+
+    border: none;
+    border-radius: 0.2em;
+    background-color: var(--primary-2);
+    
+    &:hover {
+        background-color: var(--primary-3);
+    }
+    
+    &:active {
+        background-color: var(--primary-4);
+    }
 }

@@ -1,0 +1,22 @@
+.light-theme {
+    --primary-1: #e0daff;
+    --primary-2: #cabcf1;
+    --primary-3: #b7ace9;
+    --primary-4: #908fd6;
+    
+    --primary-5: #7d74f5;
+    --primary-6: #504eb4;
+
+    --text: #07081f;
+}
+
+.dark-theme {
+    --primary-1: #170520;
+    --primary-2: #290d36;
+    --primary-3: #3e1850;
+    --primary-4: #602279;
+    --primary-5: #9a65af;
+    --primary-6: #d6ade6;
+
+    --text: #d9b9e6;
+}

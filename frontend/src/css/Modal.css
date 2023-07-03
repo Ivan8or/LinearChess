@@ -2,12 +2,16 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    z-index: 1000;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+
     width: 60%;
     height: 60%;
-    z-index: 1000;
+    background-color: var(--primary-1);
+    border-radius: 0.1em;
+
     font-size: 10em;
+
 }
 
 .overlay {
@@ -16,6 +20,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(12, 3, 17, 0.6);
+    background-color: rgba(0, 0, 0, 60%);
     z-index: 1000;
 }
