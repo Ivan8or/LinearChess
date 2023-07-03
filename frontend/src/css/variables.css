@@ -1,33 +1,23 @@
+.light-theme {
+    --background: #f2daff;
+    --secondary: #e2bcf1;
+    --tertiary: #d7ace9;
+    --focus: #c28fd6;
 
-:root {
+    --border-1: #d074f5;
+    --border-2: #974eb4;
 
-    /*
-    All global color variables declared here:
-    */
-    --text: #222;
+    --text: #3b134b;
+}
 
-    --focus: #aaa;
-    --semifocus: #bbb;
-    --nofocus: #efefef;
+.dark-theme {
+    --background: #170520;
+    --secondary: #290d36;
+    --tertiary: #3e1850;
+    --focus: #602279;
 
-    --lighttile: #E2BC7B;
-    --darktile: #7D591B;
-    --hovertile: #47501A;
-    --clicktile: #2A2F0F;
-    --piece-shadow: #432;
-    --piece-hover-shadow: #210;
-    --gem-hover-shadow: #214;
-    --inner-border: rgb(53, 35, 14);
-    --outer-border: rgb(66, 63, 59);
+    --border-1: #563264;
+    --border-2: #796581;
 
-    --button: #888;
-    --hoverbutton: #777;
-    --clickbutton: #666;
-
-
-    /*
-    All size variables declared here:display:
-    */
-
-    --board-size: 33vw;
+    --text: #b89ac4;
 }

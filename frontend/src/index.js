@@ -6,7 +6,9 @@ import App from './App';
 const boardRootElement = document.getElementById('root');
 const boardRoot = createRoot(boardRootElement);
 boardRoot.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
 );
