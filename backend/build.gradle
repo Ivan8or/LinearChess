@@ -38,7 +38,7 @@ tasks.withType(JavaCompile) {
 
 jar {
   manifest {
-     attributes "Main-Class": "api.Main"
+     attributes "Main-Class": "Main"
   }
 }
 targetCompatibility = JavaVersion.VERSION_17
