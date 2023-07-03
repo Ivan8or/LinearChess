@@ -1,26 +1,31 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+
+const THEME = {
+    NAME: 'theme',
+    DARK: 'dark',
+    LIGHT: 'light'
+}
 
 export default function ThemeToggle ({ children }) {
 
-    const [dark, setDark] = useState(false);
+    const [theme, setTheme] = useState(() => {
+        const themeCookie = window.localStorage.getItem(THEME.NAME);
 
-    useEffect(() => {
-        let initialTheme = JSON.parse(window.localStorage.getItem('dark'))
-        if(initialTheme == null) {
-            initialTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            document.documentElement.classList.add(initialTheme ? "dark-theme" : "light-theme")
+        if(themeCookie === null) {
+            const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            return preferDark ? THEME.DARK : THEME.LIGHT
         }
-        setDark(initialTheme);
-    }, []);
+        return themeCookie
+    });
     
     useEffect(() => {
-        const tog = document.documentElement.classList.toggle("dark-theme")
-        document.documentElement.classList.toggle("light-theme", !tog)
-        window.localStorage.setItem('dark', JSON.stringify(dark));
-    }, [dark])
+        document.documentElement.classList.add(theme === THEME.DARK ? "dark-theme" : "light-theme")
+        document.documentElement.classList.remove(theme === THEME.DARK ? "light-theme" : "dark-theme")
+        window.localStorage.setItem(THEME.NAME, theme);
+    }, [theme])
     
     return (
-        <button className="theme-toggle" onClick={() => setDark(d => !d)}>
+        <button className="theme-toggle" onClick={() => setTheme(t => t === THEME.DARK ? THEME.LIGHT : THEME.DARK)}>
             {children}
         </button>
     )
