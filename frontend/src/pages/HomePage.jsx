@@ -14,7 +14,7 @@ export default function HomePage() {
     return (
         <div>
 
-            <NavBar template={"2% 1fr 1fr 1fr 60% 1fr 2%"} spacing={"1%"} >
+            <NavBar template={"2% 1fr 1fr 1fr 4fr 1fr 2%"} spacing={"1%"} >
                 <span></span>
                 <Link draggable="false" to="/alabama">alabama</Link>
                 <Link draggable="false" to="/texas">texas</Link>
