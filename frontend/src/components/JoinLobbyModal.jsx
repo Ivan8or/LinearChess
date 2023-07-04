@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import Modal from 'components/Modal'
@@ -10,6 +10,7 @@ import 'css/JoinLobbyModal.css'
 export default function JoinLobbyModal({ isOpen, disable }) {
 
     const navigate = useNavigate();
+    const [error, setError] = useState(false);
 
     const focusPrompt = useCallback(() => {
         if (!isOpen)
@@ -21,21 +22,24 @@ export default function JoinLobbyModal({ isOpen, disable }) {
         }
     }, [isOpen]);
 
+    useEffect(focusPrompt, [isOpen, focusPrompt]);
+
     const submit = useCallback((event) => {
         event.preventDefault();
         const content = event.target.elements.code.value
         if (!validCodeFormat(content)) {
-            focusPrompt()
+            setError(true);
             return;
         }
 
         navigate(`/${content}`);
     }, [navigate, focusPrompt]);
 
-    useEffect(focusPrompt, [isOpen, focusPrompt]);
-
-    if (!isOpen)
+    if (!isOpen) {
         return null;
+    }
+
+    const errorMessage = error ? <div id="invalid-lobby-code">lobby does not exist</div> : null;
 
     return (
         <Modal>
@@ -45,10 +49,12 @@ export default function JoinLobbyModal({ isOpen, disable }) {
                 Enter Lobby Code:
             </label>
 
-            <form id="lobby-code" onSubmit={submit}>
-                <input type="text" maxLength="7" spellCheck="false" autoComplete="off" id="lobby-code-prompt" name="code"></input>
+            <form id="lobby-code-form" onSubmit={submit}>
+                <input type="text" onInput={() => setError(false)} maxLength="7" spellCheck="false" autoComplete="off" id="lobby-code-prompt" name="code"></input>
                 <input type="submit" value=">" id="lobby-code-submit" />
             </form>
+            {errorMessage}
+            
         </Modal>
     );
 }

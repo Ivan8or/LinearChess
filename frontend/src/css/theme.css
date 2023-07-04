@@ -7,6 +7,7 @@
     --primary-6: #504eb4;
 
     --text: #44235f;
+    --error-text: #5a182c;
 }
 
 .dark-theme {
@@ -18,4 +19,5 @@
     --primary-6: #d6ade6;
 
     --text: #d9b9e6;
+    --error-text: #ff9090;
 }
