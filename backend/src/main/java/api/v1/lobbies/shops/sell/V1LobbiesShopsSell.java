@@ -37,17 +37,20 @@ public class V1LobbiesShopsSell extends APIEndpoint {
         if(invalid.isPresent())
             return invalid.get();
 
+        LobbyID lobbyId = optionalLobbyID.get();
+        ChessLobby lobby = model.getLobby(lobbyId);
+
+        if(!lobby.hasPlayer(optionalSession.get()))
+            return new ApiResponse(403, "SESSION_NOT_IN_LOBBY");
+
+        if(!lobby.hasStarted() || model.getLobby(lobbyId).getGame().isEmpty())
+            return new ApiResponse(423,"LOBBY_NOT_YET_STARTED");
+
         String bodyJson = request.body();
         Optional<MoveItem> optionalTransaction = JsonConverter.fromJson(bodyJson, MoveItem.class);
 
         if(optionalTransaction.isEmpty())
             return new ApiResponse(400,"NO_TRANSACTION_BODY");
-
-        LobbyID lobbyId = optionalLobbyID.get();
-        ChessLobby lobby = model.getLobby(lobbyId);
-
-        if(!lobby.hasStarted() || model.getLobby(lobbyId).getGame().isEmpty())
-            return new ApiResponse(423,"LOBBY_NOT_YET_STARTED");
 
         VersusMode game = model.getLobby(lobbyId).getGame().get();
 

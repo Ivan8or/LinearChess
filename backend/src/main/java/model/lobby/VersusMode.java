@@ -13,24 +13,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class VersusMode {
 
-    private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+    final private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+    final private static ExecutorService executor = Executors.newCachedThreadPool();
 
-    final private ChessLobby lobby;
+    final private Set<Integer> EVAL_SLOTS = Set.of(100,101,102,103);
+    final private int[] EVAL_SLOTS_ARRAY = {100,101,102,103};
 
-    final private ChessGame chessGame;
-    final private ItemShop shop;
+    final private Set<Integer> MULT_SLOTS = Set.of(200,201,202,203);
+    final private int[] MULT_SLOTS_ARRAY = {200,201,202,203};
+
+    final private Set<Integer> SHOP_SLOTS = Set.of(500,501,502);
+
     final private int shopTimeMillis = 45000;
     final private int playDelayMillis = 1000;
 
-    private GamePhase phase;
+    final private ChessLobby lobby;
+    final private ChessGame chessGame;
+    final private ItemShop shop;
 
     private int round;
+    private GamePhase phase;
+    private long phaseStarted;
 
     final private Map<Session, LSide> players;
     final private Map<LSide, Inventory> spectatableInventories;
@@ -38,12 +48,7 @@ public class VersusMode {
     final private Map<Session, Inventory> inventories;
     final private Map<Session, GameWebSocket> sockets;
 
-    final private Set<Integer> EVAL_SLOTS = Set.of(100,101,102,103);
-    final private Set<Integer> MULT_SLOTS = Set.of(200,201,202,203);
-    final private Set<Integer> SHOP_SLOTS = Set.of(500,501,502);
 
-    final private int[] EVAL_SLOTS_ARRAY = {100,101,102,103};
-    final private int[] MULT_SLOTS_ARRAY = {200,201,202,203};
 
     public VersusMode(Session white, Session black, ChessLobby lobby) {
         this.lobby = lobby;
@@ -58,6 +63,8 @@ public class VersusMode {
         inventories = new HashMap<>(Map.of(white, new Inventory(), black, new Inventory()));
         spectatableInventories = new HashMap<>(Map.of(LSide.WHITE, new Inventory(), LSide.BLACK, new Inventory()));
         round = 0;
+        phase = GamePhase.STANDBY;
+        phaseStarted = System.currentTimeMillis();
     }
 
     public ChessGame getChess() {
@@ -90,6 +97,14 @@ public class VersusMode {
 
     public GamePhase getPhase() {
         return phase;
+    }
+
+    public int getShopTime() {
+        return shopTimeMillis;
+    }
+
+    public int getPhaseDeltaTime() {
+        return (int) (System.currentTimeMillis() - phaseStarted);
     }
 
     public LSide getSide(Session player) {
@@ -177,6 +192,7 @@ public class VersusMode {
             phase = newPhase;
             for (GameWebSocket socket : sockets.values())
                 socket.send(JsonConverter.toPrettyJson(phase));
+            phaseStarted = System.currentTimeMillis();
         }
     }
 
@@ -198,35 +214,37 @@ public class VersusMode {
         }
         round++;
 
-        for(Session player : players.keySet()) {
+        for(Session player : players.keySet())
             shop.playerView(player).refreshShopStatus();
-        }
 
         phaseChange(GamePhase.SHOP);
         scheduler.schedule(() -> playPhase(shopTime, playDelay), shopTime, TimeUnit.MILLISECONDS);
     }
 
     public void playPhase(int shopTime, int playDelay) {
-        phaseChange(GamePhase.PLAY);
         synchronized(this) {
-            for(Session player : players.keySet()) {
+            phaseChange(GamePhase.PLAY);
+            for (Session player : players.keySet()) {
                 LSide playerSide = players.get(player);
                 Inventory playerInventory = inventories.get(player);
                 spectatableInventories.put(playerSide, playerInventory);
             }
         }
+
         ChessEval whiteEval = spectatableInventories.get(LSide.WHITE).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY, LSide.WHITE);
         ChessEval blackEval = spectatableInventories.get(LSide.BLACK).translate(EVAL_SLOTS_ARRAY, MULT_SLOTS_ARRAY, LSide.BLACK);
 
         chessGame.setWhiteEval(whiteEval);
         chessGame.setBlackEval(blackEval);
 
-        for(int i = 0; i < 10; i++) {
-            if(!chessGame.isOver()) {
-                chessGame.increment();
-                boardChange();
+        executor.submit(() -> {
+            for(int i = 0; i < 10; i++) {
+                if(!chessGame.isOver()) {
+                    chessGame.increment();
+                    boardChange();
+                }
             }
-        }
-        scheduler.schedule(() -> progressRound(shopTime, playDelay), playDelay, TimeUnit.MILLISECONDS);
+            scheduler.schedule(() -> progressRound(shopTime, playDelay), playDelay, TimeUnit.MILLISECONDS);
+        });
     }
 }

@@ -40,6 +40,10 @@ public class V1LobbiesInventories extends APIEndpoint {
             return invalid.get();
 
         ChessLobby lobby = model.getLobby(lobbyId.get());
+
+        if(!lobby.hasPlayer(session.get()))
+            return new ApiResponse(403, "SESSION_NOT_IN_LOBBY");
+
         if(!lobby.hasStarted())
             return new ApiResponse(404,"LOBBY_NOT_YET_STARTED");
 

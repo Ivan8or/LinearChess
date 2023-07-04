@@ -5,7 +5,6 @@ import api.util.validator.LobbyValidator;
 import api.util.validator.SessionValidator;
 import model.api.Model;
 import model.lobby.ChessLobby;
-import model.lobby.VersusMode;
 import model.mappings.*;
 import spark.Request;
 import spark.Response;
@@ -39,32 +38,30 @@ public class V1Lobbies extends APIEndpoint {
     @Override
     protected Object get(Request request, Response response) {
         String lobbyJson = request.headers("lobby");
-        Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
+        Optional<LobbyID> lobbyID = JsonConverter.fromJson(lobbyJson, LobbyID.class);
 
-        Optional<ApiResponse> invalid = LobbyValidator.validate(lobbyId, model);
+        String sessionJson = request.headers("session");
+        Optional<Session> sessionID = JsonConverter.fromJson(sessionJson, Session.class);
 
-        if(invalid.isPresent())
-            return invalid.get();
+        Optional<ApiResponse> error = SessionValidator.validate(sessionID, model)
+                .or(() -> LobbyValidator.validate(lobbyID, model));
 
-        ChessLobby lobby = model.getLobby(lobbyId.get());
+        if(error.isPresent())
+            return error.get();
 
+        ChessLobby lobby = model.getLobby(lobbyID.get());
 
-        if(!lobby.hasStarted()) {
-            return Map.of("status", 200,
-                    "message", "VALID_LOBBY",
-                    "type", "VERSUS",
-                    "started", lobby.hasStarted());
-        }
+        if(!lobby.hasPlayer(sessionID.get()))
+            return new ApiResponse(403, "SESSION_NOT_IN_LOBBY");
 
-        VersusMode game = lobby.getGame().get();
-        return Map.of("status", 200,
+        boolean readyState = lobby.isReady(sessionID.get());
+
+        return Map.of(
+                "status", 200,
                 "message", "VALID_LOBBY",
                 "type", "VERSUS",
                 "started", lobby.hasStarted(),
-                "round",  game.getRound(),
-                "phase", game.getPhase()
-                );
-
+                "ready", readyState);
     }
 
     @Override
@@ -100,11 +97,11 @@ public class V1Lobbies extends APIEndpoint {
         if(lobby.hasStarted())
             return new ApiResponse(423, "LOBBY_ALREADY_STARTED");
 
-        if(!lobby.full())
-            return new ApiResponse(423, "LOBBY_NOT_FULL");
-
-        lobby.start();
-        return new ApiResponse(200, "SUCCESS");
+        boolean newReadyState = lobby.toggleReady(session.get());
+        return Map.of(
+                "status", 200,
+                "message", "SUCCESS",
+                "ready", newReadyState);
     }
 
     @Override
