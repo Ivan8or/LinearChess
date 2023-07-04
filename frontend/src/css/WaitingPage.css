@@ -17,6 +17,9 @@
     margin-top: 2vh;
     margin-bottom: 0vh;
 
+    &:hover {
+        color: var(--primary-6);
+    }
     &:active {
         color: var(--primary-5);
     }
@@ -32,6 +35,9 @@
 
     font-size: max(1vh, 1vw);
 
+    &:hover {
+        color: var(--primary-6);
+    }
     &:active {
         color: var(--primary-5);
     }

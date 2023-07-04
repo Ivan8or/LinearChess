@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import Modal from 'components/Modal'
@@ -12,21 +12,17 @@ export default function JoinLobbyModal({ isOpen, disable }) {
 
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-    const [codes, setCodes] = useState([]);
+    const codes = useRef([]);
 
     const focusPrompt = useCallback(() => {
         setError(false)
-        
         if (!isOpen)
             return;
             
         const prompt = document.getElementById("lobby-code-prompt");
-        if (prompt !== null) {
-            prompt.focus();
-            prompt.select();
-        }
+        prompt.focus?.()
+        prompt.select?.()
     }, [isOpen]);
-
     useEffect(focusPrompt, [isOpen, focusPrompt]);
 
     function submit(event) {
@@ -35,20 +31,17 @@ export default function JoinLobbyModal({ isOpen, disable }) {
         if(content === "") {
             return
         }
-        if (!validCodeFormat(content) || codes.includes(content)) {
+        if (!validCodeFormat(content) || codes.current.includes(content)) {
             setError(true)
             return
         }
         getLobby(content).then((res) => {
-            if (res && res.message === "VALID_LOBBY") {
+            if (res?.message === "VALID_LOBBY") {
                 navigate(`/${content}`)
                 return
             }
             setError(true)
-            setCodes(c => {
-                c.push(content)
-                return c
-            })
+            codes.current.push(content)
         })
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from 'components/NavBar';
@@ -12,6 +12,7 @@ export default function WaitingPage({ sessionID, lobbyID }) {
 
     const lobbyUrl = window.location.href
     const navigate = useNavigate();
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         if (sessionID === null || lobbyID === null) {
@@ -22,7 +23,6 @@ export default function WaitingPage({ sessionID, lobbyID }) {
             removePlayer(sessionID, lobbyID)
         }
     }, [sessionID, lobbyID])
-
 
     return (
         <div style={{ "textAlign": "center" }}>
@@ -43,7 +43,7 @@ export default function WaitingPage({ sessionID, lobbyID }) {
             <div id={"right-banner-ad"}>Ad</div>
 
             <h3 id="websocket-status"> status: connected </h3>
-            <button onClick={() => startLobby(sessionID)} className="big-button"> Ready </button>
+            <button onClick={() => setReady(r => !r)} className="big-button">{ready ? <b>Ready!</b> : "Ready?"} </button>
             <button onClick={() => navigate('/')} className="big-button"> Leave </button>
         </div>
     );

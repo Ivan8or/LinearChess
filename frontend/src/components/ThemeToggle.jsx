@@ -7,12 +7,11 @@ const THEME = {
 }
 
 export default function ThemeToggle ({ children }) {
-
     const [theme, setTheme] = useState(() => {
         const themeCookie = window.localStorage.getItem(THEME.KEY);
 
         if(themeCookie === null) {
-            const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            const preferDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches
             return preferDark ? THEME.DARK : THEME.LIGHT
         }
         return themeCookie
