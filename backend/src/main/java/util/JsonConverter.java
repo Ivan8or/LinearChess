@@ -25,8 +25,13 @@ public class JsonConverter {
     }
 
     public static <T> Optional<T> fromJson(String json, Class<T> type) {
-        T object = prettyGson.fromJson(json, type);
-        return (object == null) ? Optional.empty() : Optional.of(object);
+        try {
+            T object = prettyGson.fromJson(json, type);
+            return (object == null) ? Optional.empty() : Optional.of(object);
+        }catch(Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     public static String minimize(String json) {

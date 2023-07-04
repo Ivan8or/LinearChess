@@ -33,7 +33,7 @@ export default function JoinLobbyModal({ isOpen, disable }) {
         }
 
         navigate(`/${content}`);
-    }, [navigate, focusPrompt]);
+    }, [navigate]);
 
     if (!isOpen) {
         return null;

@@ -6,5 +6,6 @@ export default function startSession() {
         {
             method: METHOD
         })
-        .then((response) => response.json());
+        .then((response) => response.json())
+        .catch(() => null);
 }
