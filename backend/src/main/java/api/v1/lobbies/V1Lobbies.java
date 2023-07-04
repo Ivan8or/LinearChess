@@ -5,11 +5,13 @@ import api.util.validator.LobbyValidator;
 import api.util.validator.SessionValidator;
 import model.api.Model;
 import model.lobby.ChessLobby;
+import model.lobby.VersusMode;
 import model.mappings.*;
 import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static spark.route.HttpMethod.*;
@@ -19,7 +21,7 @@ public class V1Lobbies extends APIEndpoint {
     final private Model model;
 
     public V1Lobbies(Model model) {
-        super("/api/v1/lobbies", options, post, put, patch);
+        super("/api/v1/lobbies", options, get, post, put, patch, delete);
         this.model = model;
     }
 
@@ -32,6 +34,37 @@ public class V1Lobbies extends APIEndpoint {
                 new Endpoint("/api/v1/lobbies/inventories", "OPTIONS", "GET", "PATCH"),
                 new Endpoint("/api/v1/lobbies/shops", "OPTIONS"));
         return rootReference;
+    }
+
+    @Override
+    protected Object get(Request request, Response response) {
+        String lobbyJson = request.headers("lobby");
+        Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
+
+        Optional<ApiResponse> invalid = LobbyValidator.validate(lobbyId, model);
+
+        if(invalid.isPresent())
+            return invalid.get();
+
+        ChessLobby lobby = model.getLobby(lobbyId.get());
+
+
+        if(!lobby.hasStarted()) {
+            return Map.of("status", 200,
+                    "message", "VALID_LOBBY",
+                    "type", "VERSUS",
+                    "started", lobby.hasStarted());
+        }
+
+        VersusMode game = lobby.getGame().get();
+        return Map.of("status", 200,
+                "message", "VALID_LOBBY",
+                "type", "VERSUS",
+                "started", lobby.hasStarted(),
+                "round",  game.getRound(),
+                "phase", game.getPhase()
+                );
+
     }
 
     @Override
@@ -100,6 +133,29 @@ public class V1Lobbies extends APIEndpoint {
             return new ApiResponse(423, "LOBBY_FULL");
 
         lobby.addPlayer(session.get());
+        return new ApiResponse(200,"SUCCESS");
+    }
+
+    @Override
+    protected Object delete(Request request, Response response) {
+        String sessionJson = request.headers("session");
+        Optional<Session> session = JsonConverter.fromJson(sessionJson, Session.class);
+
+        String lobbyJson = request.headers("lobby");
+        Optional<LobbyID> lobbyId = JsonConverter.fromJson(lobbyJson, LobbyID.class);
+
+        Optional<ApiResponse> invalid = SessionValidator.validate(session, model)
+                .or(() -> LobbyValidator.validate(lobbyId, model));
+
+        if(invalid.isPresent())
+            return invalid.get();
+
+        ChessLobby lobby = model.getLobby(lobbyId.get());
+
+        if(!lobby.hasPlayer(session.get()))
+            return new ApiResponse(400, "SESSION_NOT_IN_LOBBY");
+
+        lobby.removePlayer(session.get());
         return new ApiResponse(200,"SUCCESS");
     }
 }

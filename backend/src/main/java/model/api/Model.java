@@ -18,8 +18,8 @@ public class Model {
     }
 
     private LobbyID generateLobbyId(int length) {
-        String from = "aeiou";
-        String sideline = "bcdfghjklmnpqrstvwxyz";
+        String from = "bcdfghjklmnpqrstvwxyz";
+        String sideline = "aeiou";
 
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < length; i++) {

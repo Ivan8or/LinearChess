@@ -19,7 +19,7 @@ public class V1 extends APIEndpoint {
 
         Reference rootReference = new Reference(
                 new Endpoint("/api/v1/lobbies", "OPTIONS", "POST", "PATCH", "PUT"),
-                new Endpoint("/api/v1/sessions", "OPTIONS", "POST", "DELETE"));
+                new Endpoint("/api/v1/sessions", "OPTIONS", "GET", "POST", "DELETE"));
         return rootReference;
     }
 }
