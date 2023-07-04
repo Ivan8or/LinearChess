@@ -8,7 +8,9 @@ import isValidLobby from 'api/util/isValidLobby';
 
 import 'css/LobbyPage.css'
 
-export default function LobbyPage() {
+export default function LobbyPage({ sessionID }) {
     const { id } = useParams()
-    return isValidLobby(id) ? <GamePage lobbyId={id}></GamePage> : <WaitingPage lobbyId={id}></WaitingPage>
+    return isValidLobby(id)
+        ? <GamePage sessionID={sessionID} lobbyID={id}></GamePage>
+        : <WaitingPage sessionID={sessionID} lobbyID={id}></WaitingPage>
 }

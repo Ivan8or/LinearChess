@@ -4,9 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import LobbyPage from 'pages/LobbyPage'
 import HomePage from 'pages/HomePage'
 
-import startSession from "api/v1/sessions/startSession";
-import getSession from "api/v1/sessions/getSession";
-
+import { startSession, getSession } from "api/v1/sessions/sessions";
 
 const SESSION = {
     KEY: "session",
@@ -38,8 +36,8 @@ export default function App() {
 
     return (
         <Routes>
-            <Route index element={<HomePage />} />
-            <Route path="/:id" element={<LobbyPage />} />
+            <Route index element={<HomePage sessionID={sessionID} />} />
+            <Route path="/:id" element={<LobbyPage sessionID={sessionID} />} />
         </Routes>
     );
 }       
