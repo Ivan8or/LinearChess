@@ -2,7 +2,7 @@ package model.mappings;
 
 import util.JsonConverter;
 
-public record LobbyID(String lobbyId) {
+public record LobbyID(String lobbyID) {
 
     @Override
     public String toString() {

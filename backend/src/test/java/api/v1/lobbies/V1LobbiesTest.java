@@ -174,4 +174,32 @@ public class V1LobbiesTest {
         Assert.assertEquals(expected, generated);
         verify(lobby).addPlayer(session);
     }
+
+    @Test
+    public void delete() {
+        V1Lobbies endpoint = new V1Lobbies(model);
+        String sessionHeader = ResourceAsString.at(RESOURCE_PATH+"delete/sessionHeader.json").get();
+        String lobbyHeader = ResourceAsString.at(RESOURCE_PATH+"delete/lobbyHeader.json").get();
+
+        Session session = JsonConverter.fromJson(sessionHeader, Session.class).get();
+        LobbyID lobbyID = JsonConverter.fromJson(lobbyHeader, LobbyID.class).get();
+
+        when(request.requestMethod()).thenReturn("DELETE");
+        when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
+        when(request.headers("lobby")).thenReturn(JsonConverter.toJson(lobbyID));
+        when(model.getSessions()).thenReturn(sessions);
+        when(sessions.validSession(session)).thenReturn(true);
+        when(model.lobbyExists(lobbyID)).thenReturn(true);
+        when(model.getLobby(lobbyID)).thenReturn(lobby);
+        when(lobby.hasPlayer(session)).thenReturn(true);
+
+        String generated = (String) endpoint.handle(request, response);
+        generated = generated.replaceAll("\\s", "");
+
+        String expected = ResourceAsString.at(RESOURCE_PATH+"delete/result.json").get();
+        expected = expected.replaceAll("\\s", "");
+
+        Assert.assertEquals(expected, generated);
+        verify(lobby).removePlayer(session);
+    }
 }

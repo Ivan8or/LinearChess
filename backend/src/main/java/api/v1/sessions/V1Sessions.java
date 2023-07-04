@@ -37,7 +37,9 @@ public class V1Sessions extends APIEndpoint {
         if(lobby.isEmpty())
             return new ApiResponse(200, "VALID_SESSION");
 
-        return Map.of("status", 200, "message","VALID_SESSION","lobby", lobby.get().getLobbyId());
+        return Map.of("status", 200,
+                "message","VALID_SESSION",
+                "lobby", lobby.get().getLobbyId());
     }
 
     protected Object post(Request request, Response response) {
