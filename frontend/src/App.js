@@ -16,13 +16,10 @@ export default function App() {
     const [sessionID, setSessionID] = useState(null)
 
     const spawnNew = () => startSession()
-        .then((session) => setSessionID(session.sessionID))
-
-    useEffect(() => {
-        if (sessionID) {
-            window.localStorage.setItem(SESSION.KEY, sessionID)
-        }
-    }, [sessionID])
+        .then((session) => {
+            setSessionID(session.sessionID)
+            window.localStorage.setItem(SESSION.KEY, session.sessionID)
+        })
 
     useEffect(() => {
         const cachedSessionID = window.localStorage.getItem(SESSION.KEY)
@@ -32,6 +29,7 @@ export default function App() {
         }
         getSession(cachedSessionID)
             .then((res) => res.message === SESSION.MESSAGE_VALID ? setSessionID(cachedSessionID) : spawnNew())
+            
     }, [setSessionID])
 
     return (

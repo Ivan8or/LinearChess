@@ -5,6 +5,7 @@ import api.util.validator.LobbyValidator;
 import api.util.validator.SessionValidator;
 import chess.ChessGame;
 import chess.board.LBoard;
+import chess.board.LSide;
 import model.api.Model;
 import model.lobby.ChessLobby;
 import model.lobby.VersusMode;
@@ -16,6 +17,7 @@ import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static spark.route.HttpMethod.get;
@@ -52,22 +54,22 @@ public class V1LobbiesBoards extends APIEndpoint {
         if(possibleGame.isEmpty()) {
             return new ApiResponse(404, "LOBBY_NOT_YET_STARTED");
         }
+
         VersusMode game = possibleGame.get();
         ChessGame chess = game.getChess();
         LBoard board = chess.getBoard();
         BoardFEN fen = new BoardFEN(board.getFen());
+        LSide side = game.getSide(player);
 
-//        if(lobby.hasStarted()) {
-//            VersusMode game = lobby.getGame().get();
-//            toReturn.putAll(Map.of(
-//                    "round",  game.getRound(),
-//                    "phase", game.getPhase(),
-//                    "shop-time", game.getShopTime(),
-//                    "timePassed", game.getPhaseDeltaTime(),
-//                    game.get
-//            ));
-//        }
+        return Map.of(
+                "fen", fen,
+                "round", game.getRound(),
+                "phase", game.getPhase(),
+                "side", side,
+                "my-inventory", game.getSpectatableInventory(side),
+                "opp-inventory", game.getSpectatableInventory(side.flip())
+        );
 
-        return fen;
+
     }
 }

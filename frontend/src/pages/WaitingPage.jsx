@@ -4,25 +4,45 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from 'components/NavBar';
 import ThemeToggle from 'components/ThemeToggle';
 
-import { startLobby, addPlayer, removePlayer } from "api/v1/lobbies/lobbies";
+import { addPlayer, removePlayer, getLobby, toggleReady } from "api/v1/lobbies/lobbies";
 
 import 'css/WaitingPage.css'
+
+const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 
 export default function WaitingPage({ sessionID, lobbyID }) {
 
     const lobbyUrl = window.location.href
     const navigate = useNavigate();
-    const [ready, setReady] = useState(false);
+    const [info, setInfo] = useState({ players: 1, ready: false })
+
+
+    function readyButton() {
+        toggleReady(sessionID, lobbyID).then(res => {
+            setInfo(old => ( { ...old, ready: res.isPlayerReady } ))
+        })
+    }
 
     useEffect(() => {
         if (sessionID === null || lobbyID === null) {
             return
         }
-        addPlayer(sessionID, lobbyID)
-        return () => {
-            removePlayer(sessionID, lobbyID)
-        }
-    }, [sessionID, lobbyID])
+        addPlayer(sessionID, lobbyID).then(added => {
+            if (!JOIN_MSGS.includes(added.message)) {
+                throw new Error()
+            }
+            return getLobby(sessionID, lobbyID)
+        }).then(res => {
+            setInfo( { players: res.playerCount, ready: res.isPlayerReady } )
+        }).catch()
+        
+        return () => removePlayer(sessionID, lobbyID)
+    }, [sessionID, lobbyID, navigate])
+
+    useEffect(() => {
+    },[])
+
+    const readyButtonText = info.ready ? <b>Ready!</b> : "Ready?"
 
     return (
         <div style={{ "textAlign": "center" }}>
@@ -35,7 +55,7 @@ export default function WaitingPage({ sessionID, lobbyID }) {
                 <ThemeToggle>Theme</ThemeToggle>
             </NavBar>
 
-            <h2 id="player-count">1 / 2 Players</h2><br></br>
+            <h2 id="player-count"> {info.players} / 2 Players</h2><br></br>
             <h1 onClick={() => navigator.clipboard.writeText(lobbyID)} id="lobby-id-title">{lobbyID}</h1><br></br>
             <h3 onClick={() => navigator.clipboard.writeText(lobbyUrl)} id="lobby-link"> {lobbyUrl} </h3>
 
@@ -43,7 +63,7 @@ export default function WaitingPage({ sessionID, lobbyID }) {
             <div id={"right-banner-ad"}>Ad</div>
 
             <h3 id="websocket-status"> status: connected </h3>
-            <button onClick={() => setReady(r => !r)} className="big-button">{ready ? <b>Ready!</b> : "Ready?"} </button>
+            <button onClick={readyButton} className="big-button"> {readyButtonText} </button>
             <button onClick={() => navigate('/')} className="big-button"> Leave </button>
         </div>
     );

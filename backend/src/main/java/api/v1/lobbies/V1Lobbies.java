@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,29 +40,35 @@ public class V1Lobbies extends APIEndpoint {
     protected Object get(Request request, Response response) {
         String lobbyJson = request.headers("lobby");
         Optional<LobbyID> lobbyID = JsonConverter.fromJson(lobbyJson, LobbyID.class);
-
-        String sessionJson = request.headers("session");
-        Optional<Session> sessionID = JsonConverter.fromJson(sessionJson, Session.class);
-
-        Optional<ApiResponse> error = SessionValidator.validate(sessionID, model)
-                .or(() -> LobbyValidator.validate(lobbyID, model));
+        Optional<ApiResponse> error = LobbyValidator.validate(lobbyID, model);
 
         if(error.isPresent())
             return error.get();
 
         ChessLobby lobby = model.getLobby(lobbyID.get());
 
-        if(!lobby.hasPlayer(sessionID.get()))
-            return new ApiResponse(403, "SESSION_NOT_IN_LOBBY");
-
-        boolean readyState = lobby.isReady(sessionID.get());
-
-        return Map.of(
+        Map<String, Object> toReturn = new HashMap<>(Map.of(
                 "status", 200,
                 "message", "VALID_LOBBY",
-                "type", "VERSUS",
-                "started", lobby.hasStarted(),
-                "ready", readyState);
+                "gameType", "VERSUS",
+                "isLobbyStarted", lobby.hasStarted(),
+                "playerCount", lobby.numPlayers(),
+                "isPlayerInLobby", false));
+
+        String sessionJson = request.headers("session");
+        Optional<Session> sessionID = JsonConverter.fromJson(sessionJson, Session.class);
+
+        synchronized(lobby) {
+            Optional<ApiResponse> sessionError = SessionValidator.validate(sessionID, model);
+
+            if (sessionError.isEmpty()) {
+                boolean readyState = lobby.isReady(sessionID.get());
+                toReturn.putAll(Map.of(
+                        "isPlayerInLobby", true,
+                        "isPlayerReady", readyState));
+            }
+        }
+        return toReturn;
     }
 
     @Override
@@ -91,17 +98,18 @@ public class V1Lobbies extends APIEndpoint {
 
         ChessLobby lobby = model.getLobby(lobbyId.get());
 
-        if(!lobby.hasPlayer(session.get()))
+        if (!lobby.hasPlayer(session.get()))
             return new ApiResponse(403, "SESSION_NOT_IN_LOBBY");
 
-        if(lobby.hasStarted())
+        if (lobby.hasStarted())
             return new ApiResponse(423, "LOBBY_ALREADY_STARTED");
 
         boolean newReadyState = lobby.toggleReady(session.get());
+
         return Map.of(
                 "status", 200,
                 "message", "SUCCESS",
-                "ready", newReadyState);
+                "isPlayerReady", newReadyState);
     }
 
     @Override
@@ -119,17 +127,18 @@ public class V1Lobbies extends APIEndpoint {
             return invalid.get();
 
         ChessLobby lobby = model.getLobby(lobbyId.get());
+        synchronized(lobby) {
+            if (lobby.hasPlayer(session.get()))
+                return new ApiResponse(400, "SESSION_ALREADY_IN_LOBBY");
 
-        if(lobby.hasPlayer(session.get()))
-            return new ApiResponse(400, "SESSION_ALREADY_IN_LOBBY");
+            if (lobby.hasStarted())
+                return new ApiResponse(423, "LOBBY_ALREADY_STARTED");
 
-        if(lobby.hasStarted())
-            return new ApiResponse(423, "LOBBY_ALREADY_STARTED");
+            if (lobby.full())
+                return new ApiResponse(423, "LOBBY_FULL");
 
-        if(lobby.full())
-            return new ApiResponse(423, "LOBBY_FULL");
-
-        lobby.addPlayer(session.get());
+            lobby.addPlayer(session.get());
+        }
         return new ApiResponse(200,"SUCCESS");
     }
 
@@ -148,11 +157,12 @@ public class V1Lobbies extends APIEndpoint {
             return invalid.get();
 
         ChessLobby lobby = model.getLobby(lobbyId.get());
+        synchronized(lobby) {
+            if (!lobby.hasPlayer(session.get()))
+                return new ApiResponse(400, "SESSION_NOT_IN_LOBBY");
 
-        if(!lobby.hasPlayer(session.get()))
-            return new ApiResponse(400, "SESSION_NOT_IN_LOBBY");
-
-        lobby.removePlayer(session.get());
+            lobby.removePlayer(session.get());
+        }
         return new ApiResponse(200,"SUCCESS");
     }
 }

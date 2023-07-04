@@ -6,8 +6,6 @@ import GamePage from './GamePage';
 
 import isValidLobby from 'api/util/isValidLobby';
 
-import 'css/LobbyPage.css'
-
 export default function LobbyPage({ sessionID }) {
     const { id } = useParams()
     return isValidLobby(id)

@@ -27,21 +27,21 @@ export default function JoinLobbyModal({ isOpen, disable }) {
 
     function submit(event) {
         event.preventDefault();
-        const content = event.target.elements.code.value
-        if(content === "") {
+        const lobbyCode = event.target.elements.code.value
+        if(lobbyCode === "") {
             return
         }
-        if (!validCodeFormat(content) || codes.current.includes(content)) {
+        if (!validCodeFormat(lobbyCode) || codes.current.includes(lobbyCode)) {
             setError(true)
             return
         }
-        getLobby(content).then((res) => {
+        getLobby(null, lobbyCode).then((res) => {
             if (res?.message === "VALID_LOBBY") {
-                navigate(`/${content}`)
+                navigate(`/${lobbyCode}`)
                 return
             }
             setError(true)
-            codes.current.push(content)
+            codes.current.push(lobbyCode)
         })
     };
 

@@ -15,6 +15,7 @@ import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static spark.route.HttpMethod.get;
@@ -51,6 +52,10 @@ public class V1LobbiesShopsView extends APIEndpoint {
 
         VersusMode game = model.getLobby(lobbyId.get()).getGame().get();
         ShopView shop = game.getShop(session.get());
-        return shop;
+        return Map.of(
+                "shop", shop,
+                "shopTimeMillis", game.getShopTime(),
+                "timePassedMillis", game.getPhaseDeltaTime()
+        );
     }
 }

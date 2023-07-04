@@ -8,9 +8,9 @@ import 'css/theme.css'
 const boardRootElement = document.getElementById('root');
 const boardRoot = createRoot(boardRootElement);
 boardRoot.render(
-    <React.StrictMode>
+    //<React.StrictMode>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </React.StrictMode>
+    //</React.StrictMode>
 );
