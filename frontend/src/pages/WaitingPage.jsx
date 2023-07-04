@@ -8,7 +8,7 @@ import 'css/WaitingPage.css'
 
 export default function WaitingPage( { lobbyId } ) {
 
-    const lobbyUrl = `http://www.linearchess.com/${lobbyId}`
+    const lobbyUrl = window.location.href
     const navigate = useNavigate();
 
     return (
@@ -26,8 +26,8 @@ export default function WaitingPage( { lobbyId } ) {
             <h1 onClick={() => navigator.clipboard.writeText(lobbyId)} id="lobby-id-title">{lobbyId}</h1><br></br>
             <h3 onClick={() => navigator.clipboard.writeText(lobbyUrl)} id="lobby-link"> {lobbyUrl} </h3>
 
-            <div id={"left-banner-ad"}></div>
-            <div id={"right-banner-ad"}></div>
+            <div id={"left-banner-ad"}>Ad</div>
+            <div id={"right-banner-ad"}>Ad</div>
 
             <h3 id="websocket-status"> status: connected </h3>
             <button className="big-button"> Ready </button>
