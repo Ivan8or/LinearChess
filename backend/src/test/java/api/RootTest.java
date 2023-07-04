@@ -36,13 +36,13 @@ public class RootTest {
     }
 
     @Test
-    public void get(){
+    public void options(){
         Root endpoint = new Root();
-        when(request.requestMethod()).thenReturn("GET");
+        when(request.requestMethod()).thenReturn("OPTIONS");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"options/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

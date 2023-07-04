@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const THEME = {
+    KEY: 'theme',
     DARK: 'dark',
     LIGHT: 'light'
 }
@@ -8,7 +9,7 @@ const THEME = {
 export default function ThemeToggle ({ children }) {
 
     const [theme, setTheme] = useState(() => {
-        const themeCookie = window.localStorage.getItem('theme');
+        const themeCookie = window.localStorage.getItem(THEME.KEY);
 
         if(themeCookie === null) {
             const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -20,7 +21,7 @@ export default function ThemeToggle ({ children }) {
     useEffect(() => {
         document.documentElement.classList.add(theme === THEME.DARK ? "dark-theme" : "light-theme")
         document.documentElement.classList.remove(theme === THEME.DARK ? "light-theme" : "dark-theme")
-        window.localStorage.setItem('theme', theme);
+        window.localStorage.setItem(THEME.KEY, theme);
     }, [theme])
     
     return (

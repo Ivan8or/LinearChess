@@ -3,35 +3,41 @@ import { useNavigate } from 'react-router-dom';
 
 import Modal from 'components/Modal'
 
+import { validCodeFormat } from 'api/util/isValidLobby';
+
 import 'css/JoinLobbyModal.css'
 
 export default function JoinLobbyModal({ isOpen, disable }) {
 
     const navigate = useNavigate();
 
-    const submit = useCallback((content) => {
-        if(!/^[a-z]{7}$/.test(content))
+    const focusPrompt = useCallback(() => {
+        if (!isOpen)
             return;
-        
-        navigate(`/${content}`);
-    },[navigate]);
-    
-    useEffect(() => {
-        const input = document.querySelector("#lobby-code-prompt");
-        if(!input) 
-            return;
-            
-        function onKeyup(event) {
-            if (event.key === "Enter") {
-                submit(input.value)
-                console.log('submitting ',input.value)
-            }
+        const prompt = document.getElementById("lobby-code-prompt");
+        if (prompt !== null) {
+            prompt.focus();
+            prompt.select();
         }
-        input.addEventListener("keyup", onKeyup)
-        return () => input.removeEventListener("keyup", onKeyup)
-    },[isOpen, submit]);
+    }, [isOpen]);
 
-    return !isOpen ? null : (
+    const submit = useCallback((event) => {
+        event.preventDefault();
+        const content = event.target.elements.code.value
+        if (!validCodeFormat(content)) {
+            focusPrompt()
+            return;
+        }
+
+        navigate(`/${content}`);
+    }, [navigate, focusPrompt]);
+
+    useEffect(focusPrompt, [isOpen, focusPrompt]);
+
+    if (!isOpen)
+        return null;
+
+    return (
         <Modal>
             <button onClick={disable} className="modal-close">X</button>
 
@@ -39,7 +45,10 @@ export default function JoinLobbyModal({ isOpen, disable }) {
                 Enter Lobby Code:
             </label>
 
-            <input type="text" maxLength="7" spellCheck="false" id="lobby-code-prompt" name="lobby-code-prompt"></input>
+            <form id="lobby-code" onSubmit={submit}>
+                <input type="text" maxLength="7" spellCheck="false" autoComplete="off" id="lobby-code-prompt" name="code"></input>
+                <input type="submit" value=">" id="lobby-code-submit" />
+            </form>
         </Modal>
     );
 }
