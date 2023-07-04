@@ -17,15 +17,11 @@ export default function WaitingPage({ sessionID, lobbyID }) {
         if (sessionID === null || lobbyID === null) {
             return
         }
-        console.log('added player to lobby')
         addPlayer(sessionID, lobbyID)
         return () => {
-            console.log('removed player from lobby')
             removePlayer(sessionID, lobbyID)
         }
     }, [sessionID, lobbyID])
-
-
 
 
     return (

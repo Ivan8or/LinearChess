@@ -15,8 +15,11 @@ export default function JoinLobbyModal({ isOpen, disable }) {
     const [codes, setCodes] = useState([]);
 
     const focusPrompt = useCallback(() => {
+        setError(false)
+        
         if (!isOpen)
             return;
+            
         const prompt = document.getElementById("lobby-code-prompt");
         if (prompt !== null) {
             prompt.focus();
@@ -29,23 +32,36 @@ export default function JoinLobbyModal({ isOpen, disable }) {
     function submit(event) {
         event.preventDefault();
         const content = event.target.elements.code.value
+        if(content === "") {
+            return
+        }
         if (!validCodeFormat(content) || codes.includes(content)) {
-            setError(true);
-            return;
+            setError(true)
+            return
         }
         getLobby(content).then((res) => {
             if (res && res.message === "VALID_LOBBY") {
                 navigate(`/${content}`)
+                return
             }
-            else {
-                setError(true)
-                setCodes(c => {
-                    c.push(content)
-                    return c
-                })
-            }
+            setError(true)
+            setCodes(c => {
+                c.push(content)
+                return c
+            })
         })
     };
+
+    useEffect(() => {
+        const keyDownHandler = event => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                disable()
+            }
+        };
+        document.addEventListener('keydown', keyDownHandler);
+        return () => document.removeEventListener('keydown', keyDownHandler)
+    }, [disable]);
 
     if (!isOpen) {
         return null;
@@ -57,16 +73,16 @@ export default function JoinLobbyModal({ isOpen, disable }) {
         <Modal>
             <button onClick={disable} className="modal-close">X</button>
 
-            <label className="join-modal-title" htmlFor="lobby-code-prompt">
+            <div className="join-modal-title">
                 Enter Lobby Code:
-            </label>
+            </div>
 
             <form id="lobby-code-form" onSubmit={submit}>
                 <input type="text" onInput={() => setError(false)} maxLength="7" spellCheck="false" autoComplete="off" id="lobby-code-prompt" name="code"></input>
                 <input type="submit" value=">" id="lobby-code-submit" />
             </form>
             {errorMessage}
-            
+
         </Modal>
     );
 }

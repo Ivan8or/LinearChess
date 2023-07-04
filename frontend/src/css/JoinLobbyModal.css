@@ -7,15 +7,19 @@
 
     width: 3vw;
     height: 3vw;
-    border: none;
     font-size: 1vw;
+    border: none;
     border-radius: 0.5em;
     background-color: var(--primary-4);
+
+    &:hover {
+        background-color: var(--primary-5);
+    }
 }
 
 .join-modal-title {
     display: block;
-
+    width: auto;
     margin-top: 0.9em;
     
     font-size: 5vw;
@@ -43,9 +47,14 @@
 #lobby-code-submit {
     font-size: 3vw;
     width: 4vw;
+    border: none;
     border-radius: 0.5vw;
     background-color: var(--primary-5);
     grid-column: 3;
+
+    &:hover {
+        background-color: var(--primary-6);
+    }
 }
 
 #invalid-lobby-code {
