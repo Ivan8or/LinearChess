@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'components/Modal'
 
 import { validCodeFormat } from 'api/util/isValidLobby';
+import { getLobby } from "api/v1/lobbies/lobbies";
 
 import 'css/JoinLobbyModal.css'
 
@@ -11,6 +12,7 @@ export default function JoinLobbyModal({ isOpen, disable }) {
 
     const navigate = useNavigate();
     const [error, setError] = useState(false);
+    const [codes, setCodes] = useState([]);
 
     const focusPrompt = useCallback(() => {
         if (!isOpen)
@@ -24,16 +26,26 @@ export default function JoinLobbyModal({ isOpen, disable }) {
 
     useEffect(focusPrompt, [isOpen, focusPrompt]);
 
-    const submit = useCallback((event) => {
+    function submit(event) {
         event.preventDefault();
         const content = event.target.elements.code.value
-        if (!validCodeFormat(content)) {
+        if (!validCodeFormat(content) || codes.includes(content)) {
             setError(true);
             return;
         }
-
-        navigate(`/${content}`);
-    }, [navigate]);
+        getLobby(content).then((res) => {
+            if (res && res.message === "VALID_LOBBY") {
+                navigate(`/${content}`)
+            }
+            else {
+                setError(true)
+                setCodes(c => {
+                    c.push(content)
+                    return c
+                })
+            }
+        })
+    };
 
     if (!isOpen) {
         return null;
