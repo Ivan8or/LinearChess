@@ -2,27 +2,19 @@
   "endpoints": [
     {
       "endpoint": "/api/v1/lobbies/shops/view",
-      "methods": [
-        "GET"
-      ]
+      "methods": ["OPTIONS", "GET"]
     },
     {
       "endpoint": "/api/v1/lobbies/shops/buy",
-      "methods": [
-        "PATCH"
-      ]
+      "methods": ["OPTIONS", "PATCH"]
     },
     {
       "endpoint": "/api/v1/lobbies/shops/sell",
-      "methods": [
-        "PATCH"
-      ]
+      "methods": ["OPTIONS", "PATCH"]
     },
     {
       "endpoint": "/api/v1/lobbies/shops/refresh",
-      "methods": [
-        "PATCH"
-      ]
+      "methods": ["OPTIONS", "PATCH"]
     }
   ]
 }

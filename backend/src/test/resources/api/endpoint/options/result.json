@@ -2,9 +2,7 @@
   "endpoints": [
     {
       "endpoint": "/api/v1",
-      "methods": [
-        "GET"
-      ]
+      "methods": ["OPTIONS"]
     }
   ]
 }

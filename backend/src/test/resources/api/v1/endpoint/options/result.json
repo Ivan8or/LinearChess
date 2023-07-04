@@ -2,11 +2,11 @@
   "endpoints": [
     {
       "endpoint": "/api/v1/lobbies",
-      "methods": ["GET", "POST", "PUT"]
+      "methods": ["OPTIONS", "POST", "PATCH", "PUT"]
     },
     {
       "endpoint": "/api/v1/sessions",
-      "methods": ["POST", "DELETE"]
+      "methods": ["OPTIONS", "POST", "DELETE"]
     }
   ]
 }

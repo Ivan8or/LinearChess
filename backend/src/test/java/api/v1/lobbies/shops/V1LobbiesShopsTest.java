@@ -36,13 +36,13 @@ public class V1LobbiesShopsTest {
     }
 
     @Test
-    public void get() {
+    public void options() {
         V1LobbiesShops endpoint = new V1LobbiesShops();
-        when(request.requestMethod()).thenReturn("GET");
+        when(request.requestMethod()).thenReturn("OPTIONS");
         String generated = (String) endpoint.handle(request, response);
         generated = generated.replaceAll("\\s", "");
 
-        String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
+        String expected = ResourceAsString.at(RESOURCE_PATH+"options/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
         Assert.assertEquals(expected, generated);

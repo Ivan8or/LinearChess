@@ -2,22 +2,15 @@
   "endpoints": [
     {
       "endpoint": "/api/v1/lobbies/boards",
-      "methods": [
-        "GET"
-      ]
+      "methods": ["OPTIONS"]
     },
     {
       "endpoint": "/api/v1/lobbies/inventories",
-      "methods": [
-        "GET",
-        "PATCH"
-      ]
+      "methods": ["OPTIONS","PATCH"]
     },
     {
       "endpoint": "/api/v1/lobbies/shops",
-      "methods": [
-        "GET"
-      ]
+      "methods": ["OPTIONS"]
     }
   ]
 }

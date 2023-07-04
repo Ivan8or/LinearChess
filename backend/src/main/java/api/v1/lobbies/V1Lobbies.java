@@ -19,16 +19,18 @@ public class V1Lobbies extends APIEndpoint {
     final private Model model;
 
     public V1Lobbies(Model model) {
-        super("/api/v1/lobbies", get, post, put, patch);
+        super("/api/v1/lobbies", options, post, put, patch);
         this.model = model;
     }
 
     @Override
-    protected Object get(Request request, Response response) {
+    protected Object options(Request request, Response response) {
+        super.options(request, response);
+
         Reference rootReference = new Reference(
-                new Endpoint("/api/v1/lobbies/boards", "GET"),
-                new Endpoint("/api/v1/lobbies/inventories", "GET", "PATCH"),
-                new Endpoint("/api/v1/lobbies/shops", "GET"));
+                new Endpoint("/api/v1/lobbies/boards", "OPTIONS"),
+                new Endpoint("/api/v1/lobbies/inventories", "OPTIONS", "PATCH"),
+                new Endpoint("/api/v1/lobbies/shops", "OPTIONS"));
         return rootReference;
     }
 
