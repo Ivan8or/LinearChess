@@ -44,6 +44,18 @@ public class V1LobbiesBoards extends APIEndpoint {
         ChessGame chess = game.getChess();
         LBoard board = chess.getBoard();
         BoardFEN fen = new BoardFEN(board.getFen());
+
+//        if(lobby.hasStarted()) {
+//            VersusMode game = lobby.getGame().get();
+//            toReturn.putAll(Map.of(
+//                    "round",  game.getRound(),
+//                    "phase", game.getPhase(),
+//                    "shop-time", game.getShopTime(),
+//                    "timePassed", game.getPhaseDeltaTime(),
+//                    game.get
+//            ));
+//        }
+
         return fen;
     }
 }

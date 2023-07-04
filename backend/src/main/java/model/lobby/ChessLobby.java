@@ -5,8 +5,8 @@ import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
 
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChessLobby {
@@ -14,10 +14,10 @@ public class ChessLobby {
     private final Model api;
 
     private final LobbyID lobbyId;
-    private Optional<VersusMode> game;
+    private VersusMode game;
     private boolean started;
 
-    final private Set<Session> players;
+    final private Map<Session,Boolean> players;
     final private SessionTracker allSessions;
 
     public ChessLobby(LobbyID lobbyId, SessionTracker allSessions, Model api) {
@@ -25,9 +25,9 @@ public class ChessLobby {
         this.lobbyId = lobbyId;
         this.allSessions = allSessions;
 
-        this.game = Optional.empty();
+        this.game = null;
         this.started = false;
-        this.players = ConcurrentHashMap.newKeySet();
+        this.players = new ConcurrentHashMap<>(2);
     }
 
     public boolean hasStarted() {
@@ -39,16 +39,15 @@ public class ChessLobby {
             return false;
 
         started = true;
-        Session[] indexable = players.toArray(Session[]::new);
+        Session[] indexable = players.keySet().toArray(Session[]::new);
         int whitePlayer = (int) (Math.random() * 2);
-        this.game = Optional.of(new VersusMode(indexable[whitePlayer], indexable[(whitePlayer + 1) % 2], this));
-        game.get().progressRound();
-
+        this.game = new VersusMode(indexable[whitePlayer], indexable[(whitePlayer + 1) % 2], this);
+        game.progressRound();
         return true;
     }
 
     public void end() {
-        for(Session player : players)
+        for(Session player : players.keySet())
             allSessions.leaveLobby(player);
         api.closeLobby(lobbyId);
     }
@@ -58,7 +57,7 @@ public class ChessLobby {
     }
 
     public Optional<VersusMode> getGame() {
-        return game;
+        return Optional.ofNullable(game);
     }
 
     public int numPlayers() {
@@ -66,7 +65,7 @@ public class ChessLobby {
     }
 
     public boolean hasPlayer(Session session) {
-        return players.contains(session);
+        return players.containsKey(session);
     }
 
     public boolean full() {
@@ -80,19 +79,25 @@ public class ChessLobby {
         if(hasPlayer(session))
             return false;
 
-        players.add(session);
+        players.put(session, false);
         allSessions.joinLobby(session, this);
-
-        if(full())
-            start();
-
         return true;
     }
 
-    public void removePlayer(Session session) {
+    public boolean toggleReady(Session session) {
+        return players.merge(session, false, (old,i) -> !old);
+    }
+
+    public boolean isReady(Session session) {
+        return players.get(session);
+    }
+
+    public boolean removePlayer(Session session) {
         if(hasPlayer(session)) {
             players.remove(session);
             allSessions.leaveLobby(session);
+            return true;
         }
+        return false;
     }
 }
