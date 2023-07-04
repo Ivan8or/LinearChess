@@ -33,7 +33,6 @@ public class LogicBoard {
 
             ChessEval originalEval = chessEvals.get(multiplierSlot);
             if(!chessEvals.containsKey(multiplierSlot)) {
-                System.err.println("MULTIPLIER DOES NOT HAVE A VALID EVAL");
                 continue;
             }
 
