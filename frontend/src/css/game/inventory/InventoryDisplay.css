@@ -1,5 +1,48 @@
 .inventory-display {
-    height: 10%;
-    text-align: center;
     background-color: var(--primary-5);
+
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template:
+        "eval-1 eval-2 eval-3 eval-4" 100fr
+        ". . . ." 3fr
+        "mult-1 mult-2 mult-3 mult-4" 100fr / 1fr 1fr 1fr 1fr;
+}
+.inventory-display-child {
+    background-color: var(--primary-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    width: 92%;
+    height: 5dvw;
+    margin: 4%;
+}
+
+
+
+.inventory-eval-1 {
+    grid-area: eval-1;
+}
+.inventory-eval-2 {
+    grid-area: eval-2;
+}
+.inventory-eval-3 {
+    grid-area: eval-3;
+}
+.inventory-eval-4 {
+    grid-area: eval-4;
+}
+.inventory-mult-1 {
+    grid-area: mult-1;
+}
+.inventory-mult-2 {
+    grid-area: mult-2;
+}
+.inventory-mult-3 {
+    grid-area: mult-3;
+}
+.inventory-mult-4 {
+    grid-area: mult-4;
 }

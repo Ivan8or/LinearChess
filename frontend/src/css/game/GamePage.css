@@ -7,17 +7,12 @@
     grid-template:
         "head head" 0.2fr
         "left right" 10fr
-        "foot foot" 0.2fr / 1fr 1fr;
+        "foot foot" 0.5fr / 10fr 6fr;
 }
 #main-navbar {
     grid-area: head;
 }
-#game-body {
-    grid-area: body;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-}
+
 #main-footer {
     grid-area: foot;
 }

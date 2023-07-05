@@ -1,5 +1,5 @@
 :root {
-    --board-size: min(67dvh,67dvw);
+    --board-size: min(78dvh,78dvw);
     --piece-shadow: var(--text);
     --piece-hover-shadow: #210;
     --gem-hover-shadow: #214;

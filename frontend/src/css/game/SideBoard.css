@@ -1,17 +1,35 @@
-#sideboard {
-    height: 80%;
-    width: 80%;
+#sideboard-spacing {
+    height: 78dvh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#sideboard-outline {
+    height: 100%;
+    width: 100%;
     background-color: var(--primary-3);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2%;
+    /* margin-bottom: 8%; */
+    margin-right: 12%;
+    padding: 6%;
 }
-#sideboard > * {
-    width: 90%;
+
+#sideboard-outline > * {
+    width: 100%;
 }
-#sideboard > .sideboard-button {
+#sideboard-outline > .sideboard-button {
+    margin: 0;
     background-color: var(--primary-4);
     &:hover {
         background-color: var(--primary-5);
     }
+}
+#sideboard-outline > .sideboard-time {
+    text-align: center;
+    font-size: max(4dvh, 4dvw);
 }
