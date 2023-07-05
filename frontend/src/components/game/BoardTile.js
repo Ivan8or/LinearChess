@@ -1,5 +1,8 @@
 import React from 'react';
 
+
+import 'css/chessboard.css'
+
 export default function BoardTile( {tile} ) {
 
     if(tile === ' ')

@@ -1,0 +1,7 @@
+#sideboard {
+    height: 60%;
+    width: 90%;
+    border-radius: min(0.8vw, 0.8vh);
+    margin: 2dvh 2dvw 2dvw 2dvh;
+    background-color: var(--primary-2);
+}

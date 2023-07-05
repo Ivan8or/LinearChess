@@ -8,41 +8,30 @@ import { addPlayer, removePlayer, getLobby, toggleReady } from "api/v1/lobbies/l
 
 import 'css/WaitingPage.css'
 
+
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 
 export default function WaitingPage({ sessionID, lobbyID }) {
 
-    const lobbyUrl = window.location.href
     const navigate = useNavigate();
     const [info, setInfo] = useState({ players: 1, ready: false })
 
-
-    function readyButton() {
-        toggleReady(sessionID, lobbyID).then(res => {
-            setInfo(old => ( { ...old, ready: res.isPlayerReady } ))
-        })
-    }
+    const readyButton = () => toggleReady(sessionID, lobbyID).then(res => setInfo(old => ( { ...old, ready: res.isPlayerReady } )))
 
     useEffect(() => {
-        if (sessionID === null || lobbyID === null) {
-            return
-        }
         addPlayer(sessionID, lobbyID).then(added => {
             if (!JOIN_MSGS.includes(added.message)) {
                 throw new Error()
             }
             return getLobby(sessionID, lobbyID)
-        }).then(res => {
-            setInfo( { players: res.playerCount, ready: res.isPlayerReady } )
-        }).catch()
-        
-        return () => removePlayer(sessionID, lobbyID)
-    }, [sessionID, lobbyID, navigate])
+        }).then(res => setInfo( { players: res.playerCount, ready: res.isPlayerReady } )).catch()
 
-    useEffect(() => {
-    },[])
+        return () => removePlayer(sessionID, lobbyID)
+    }, [sessionID, lobbyID])
+
 
     const readyButtonText = info.ready ? <b>Ready!</b> : "Ready?"
+    const lobbyUrl = window.location.href
 
     return (
         <div style={{ "textAlign": "center" }}>
@@ -55,7 +44,7 @@ export default function WaitingPage({ sessionID, lobbyID }) {
                 <ThemeToggle>Theme</ThemeToggle>
             </NavBar>
 
-            <h2 id="player-count"> {info.players} / 2 Players</h2><br></br>
+            <h2 id="player-count"> {info.players} / 2 Players </h2><br></br>
             <h1 onClick={() => navigator.clipboard.writeText(lobbyID)} id="lobby-id-title">{lobbyID}</h1><br></br>
             <h3 onClick={() => navigator.clipboard.writeText(lobbyUrl)} id="lobby-link"> {lobbyUrl} </h3>
 

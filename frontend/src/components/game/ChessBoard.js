@@ -4,6 +4,9 @@ import BoardTile from './BoardTile';
 import getBoardFen from 'api/v0/getBoardFen.js'
 import extractFen from 'api/util/extractFen.js'
 
+
+import 'css/chessboard.css'
+
 export default function ChessBoard() {
 
     const [fen, updateFen] = useState("8/8/8/8/8/8/8/8");
@@ -20,7 +23,7 @@ export default function ChessBoard() {
     const tileComponents = tileKinds.map((t, i) => <BoardTile key={i} tile={t} />);
 
     return (
-        <div className='chessboard'>
+        <div id='chessboard'>
             {tileComponents}
         </div>
     );
