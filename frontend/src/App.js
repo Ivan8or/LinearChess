@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import LobbyPage from 'pages/LobbyPage'
-import HomePage from 'pages/HomePage'
+import LobbyPage from 'components/lobby/LobbyPage'
+import HomePage from 'components/home/HomePage'
 
 import { startSession, getSession } from "api/v1/sessions/sessions";
 

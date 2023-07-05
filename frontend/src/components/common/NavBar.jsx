@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 
-import 'css/NavBar.css'
+import 'css/common/NavBar.css'
 
 export default function NavBar({ template, spacing, children }) {
 

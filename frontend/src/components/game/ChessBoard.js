@@ -5,7 +5,7 @@ import getBoardFen from 'api/v0/getBoardFen.js'
 import extractFen from 'api/util/extractFen.js'
 
 
-import 'css/chessboard.css'
+import 'css/game/ChessBoard.css'
 
 export default function ChessBoard() {
 

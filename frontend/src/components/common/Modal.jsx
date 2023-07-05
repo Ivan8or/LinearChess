@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 
-import 'css/Modal.css'
+import 'css/common/Modal.css'
 
 export default function Modal({ children }) {
 

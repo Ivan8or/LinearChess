@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import 'css/chessboard.css'
+import 'css/game/ChessBoard.css'
 
 export default function BoardTile( {tile} ) {
 

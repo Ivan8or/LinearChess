@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NavBar from 'components/NavBar';
-import ThemeToggle from 'components/ThemeToggle';
+import NavBar from 'components/common/NavBar';
+import ThemeToggle from 'components/common/ThemeToggle';
 import ChessBoard from 'components/game/ChessBoard';
 import SideBoard from 'components/game/SideBoard';
 
-import 'css/GamePage.css'
+import 'css/game/GamePage.css'
 
 export default function GamePage() {
 

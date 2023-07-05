@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import JoinLobbyModal from 'components/JoinLobbyModal';
-import NavBar from 'components/NavBar';
-import ThemeToggle from 'components/ThemeToggle';
+import JoinLobbyModal from './JoinLobbyModal';
+import NavBar from 'components/common/NavBar';
+import ThemeToggle from 'components/common/ThemeToggle';
 
 import { startLobby } from "api/v1/lobbies/lobbies";
 
-import 'css/HomePage.css';
+import 'css/home/HomePage.css';
 
 export default function HomePage( {sessionID} ) {
 

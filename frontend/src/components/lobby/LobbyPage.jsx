@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from "react-router-dom"
 
 import WaitingPage from './WaitingPage';
-import GamePage from './GamePage';
+import GamePage from '../game/GamePage';
 
 import isValidLobby from 'api/util/isValidLobby';
 
