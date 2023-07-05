@@ -1,5 +1,5 @@
 .inventory-display {
-    background-color: var(--primary-5);
+    background-color: var(--primary-4);
 
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@
         "mult-1 mult-2 mult-3 mult-4" 100fr / 1fr 1fr 1fr 1fr;
 }
 .inventory-display-child {
-    background-color: var(--primary-4);
+    background-color: var(--primary-5);
     display: flex;
     justify-content: center;
     align-items: center;

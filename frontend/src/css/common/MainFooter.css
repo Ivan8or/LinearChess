@@ -4,12 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3%;
+    gap: 2%;
 
     margin: 0;
     padding: 0;
-    padding-bottom: 0.4%;
-    padding-top: 0.75%;
-    
+    padding-top: 0.1%;
     background-image: linear-gradient(0deg, var(--primary-2), var(--primary-2) 80%, var(--primary-1));
+}
+#main-footer * {
+    color: var(--primary-5);
 }
