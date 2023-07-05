@@ -8,11 +8,12 @@
     width: 3vw;
     height: 3vw;
     font-size: 1vw;
-    border: none;
-    border-radius: 0.5em;
-    background-color: var(--primary-4);
+    background-color: var(--primary-3);
 
     &:hover {
+        background-color: var(--primary-4);
+    }
+    &:active {
         background-color: var(--primary-5);
     }
 }
@@ -38,21 +39,20 @@
     display: inline;
     width: 30vw;
     font-size: 3vw;
-    border: none;
-    border-radius: 0.5vw;
-    background-color: var(--primary-4);
+    background-color: var(--primary-2);
     grid-column: 2;
 }
 
 #lobby-code-submit {
     font-size: 3vw;
     width: 4vw;
-    border: none;
-    border-radius: 0.5vw;
-    background-color: var(--primary-5);
+    background-color: var(--primary-4);
     grid-column: 3;
 
     &:hover {
+        background-color: var(--primary-5);
+    }
+    &:active {
         background-color: var(--primary-6);
     }
 }

@@ -1,5 +1,5 @@
 :root {
-    --board-size: min(70dvh,70dvw);
+    --board-size: min(67dvh,67dvw);
     --piece-shadow: var(--text);
     --piece-hover-shadow: #210;
     --gem-hover-shadow: #214;
@@ -12,7 +12,7 @@
 } */
 
 #chessboard {
-    margin-bottom: 10dvh;
+    /* margin-bottom: 10dvh; */
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows:    repeat(8, 1fr);
@@ -22,7 +22,7 @@
     height: var(--board-size);
 
     padding: 10px;
-    background-color: var(--primary-4);
+    background-color: var(--primary-5);
 }
 
 .chess-tile:nth-child(16n + 1),
@@ -33,11 +33,12 @@
 .chess-tile:nth-child(16n + 12),
 .chess-tile:nth-child(16n + 14),
 .chess-tile:nth-child(16n + 16){
-    background-color: var(--primary-2);
+    background-color: var(--primary-3);
 }
 .chess-tile {
     aspect-ratio : 1 / 1;
-    background-color: var(--primary-3);
+    BORDER-RADIUS: 0;
+    background-color: var(--primary-4);
     /* border: min(.8dvw,.8dvh) solid var(--primary-3); */
     margin: -2px;
     display: flex;
@@ -49,7 +50,7 @@
     font-family: monospace;
     font-weight: bolder;
 
-    &:hover {background-color: var(--primary-4);}
+    &:hover {background-color: var(--primary-5);}
     /* &:active {background-color: var(--primary-5);} */
 }
 .chess-tile > img {

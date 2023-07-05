@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import NavBar from 'components/common/NavBar';
+import NavBar from 'components/common/MainNavBar';
 import ThemeToggle from 'components/common/ThemeToggle';
 
 import { addPlayer, removePlayer, getLobby, toggleReady } from "api/v1/lobbies/lobbies";
 
-import 'css/lobby/WaitingPage.css'
+import 'css/game/WaitingPage.css'
 
 
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']

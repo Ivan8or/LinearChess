@@ -21,3 +21,5 @@
     --text: #d9b9e6;
     --error-text: #ff9090;
 }
+/* set dimensions with max(1.0dvh, 1.0dvw); */
+

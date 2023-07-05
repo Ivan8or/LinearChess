@@ -1,7 +1,17 @@
 #sideboard {
-    height: 60%;
+    height: 80%;
+    width: 80%;
+    background-color: var(--primary-3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#sideboard > * {
     width: 90%;
-    border-radius: min(0.8vw, 0.8vh);
-    margin: 2dvh 2dvw 2dvw 2dvh;
-    background-color: var(--primary-2);
+}
+#sideboard > .sideboard-button {
+    background-color: var(--primary-4);
+    &:hover {
+        background-color: var(--primary-5);
+    }
 }

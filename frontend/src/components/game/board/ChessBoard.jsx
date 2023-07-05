@@ -4,8 +4,7 @@ import BoardTile from './BoardTile';
 import getBoardFen from 'api/v0/getBoardFen.js'
 import extractFen from 'api/util/extractFen.js'
 
-
-import 'css/game/ChessBoard.css'
+import 'css/game/board/ChessBoard.css'
 
 export default function ChessBoard() {
 

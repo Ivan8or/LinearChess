@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import 'css/common/ThemeToggle.css'
+
 const THEME = {
     KEY: 'theme',
     DARK: 'dark',
@@ -24,7 +26,7 @@ export default function ThemeToggle ({ children }) {
     }, [theme])
     
     return (
-        <button className="theme-toggle" onClick={() => setTheme(t => t === THEME.DARK ? THEME.LIGHT : THEME.DARK)}>
+        <button id="theme-toggle" onClick={() => setTheme(t => t === THEME.DARK ? THEME.LIGHT : THEME.DARK)}>
             {children}
         </button>
     )

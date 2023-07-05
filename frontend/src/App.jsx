@@ -6,6 +6,8 @@ import HomePage from 'components/home/HomePage'
 
 import { startSession, getSession } from "api/v1/sessions/sessions";
 
+import 'css/common/App.css'
+
 const SESSION = {
     KEY: "session",
     MESSAGE_VALID: "VALID_SESSION"
