@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MainNavBar from 'components/common/MainNavBar';
+import MainFooter from 'components/common/MainFooter';
 import ChessBoard from 'components/game/board/ChessBoard';
 import SideBoard from 'components/game/SideBoard';
 
@@ -13,6 +14,7 @@ export default function GamePage() {
             <MainNavBar />
             <div id="game-left"><ChessBoard /></div>
             <div id="game-right"><SideBoard /></div>
+            <MainFooter/>
         </div>
     );
 }
