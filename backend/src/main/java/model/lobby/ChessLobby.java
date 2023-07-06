@@ -85,7 +85,12 @@ public class ChessLobby {
     }
 
     public boolean toggleReady(Session session) {
-        return players.merge(session, false, (old,i) -> !old);
+        boolean readyState = players.merge(session, false, (old,i) -> !old);
+
+        if(readyState && !players.containsValue(false))
+            start();
+
+        return readyState;
     }
 
     public boolean isReady(Session session) {
