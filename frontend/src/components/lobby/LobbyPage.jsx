@@ -8,7 +8,7 @@ import isValidLobby from 'api/util/isValidLobby';
 
 export default function LobbyPage({ sessionID }) {
     const { id } = useParams()
-    return !isValidLobby(id)
+    return id === "game"
         ? <GamePage sessionID={sessionID} lobbyID={id}></GamePage>
         : <WaitingPage sessionID={sessionID} lobbyID={id}></WaitingPage>
 }

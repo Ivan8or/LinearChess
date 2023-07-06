@@ -10,11 +10,11 @@ import 'css/game/GamePage.css'
 export default function GamePage() {
 
     return (
-        <div id="game-root">
+        <div className="page-root" id="game-root">
             <MainNavBar />
             <div id="game-left"><ChessBoard /></div>
             <div id="game-right"><SideBoard /></div>
-            <MainFooter/>
+            <MainFooter hidden={true} />
         </div>
     );
 }

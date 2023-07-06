@@ -21,11 +21,11 @@
     margin-right: auto;
     padding: 0;
 
-    background-color: var(--primary-2);
+    background-color: var(--primary-3);
     &:hover {
-        background-color: var(--primary-3);
+        background-color: var(--primary-4);
     }
     &:active {
-        background-color: var(--primary-4);
+        background-color: var(--primary-5);
     }
 }

@@ -4,7 +4,10 @@ import ThemeToggle from 'components/common/ThemeToggle';
 
 import 'css/common/MainFooter.css'
 
-export default function MainFooter() {
+export default function MainFooter( {hidden} ) {
+
+    if(hidden === true)
+        return <ul id="main-footer"></ul>
 
     return (
         <ul id="main-footer">
@@ -14,20 +17,4 @@ export default function MainFooter() {
             <Link draggable="false" to="/rules">Contact</Link>
         </ul>
     );
-
-    // let children = [
-    //     <Link draggable="false" to="/rules">Rules</Link>,
-    //     <a draggable="false" href="https://discord.com">Discord</a>,
-    //     <a draggable="false" href="https://donate.com">Donate</a>,
-    //     <ThemeToggle>Theme</ThemeToggle>
-    // ]
-
-    // const links = children.map((child,i) =>
-    //     <li className="main-footer-element" key={i}> {child} </li>);
-
-    // return (
-    //     <ul id="main-footer">
-    //         {links}
-    //     </ul>
-    // );
 }

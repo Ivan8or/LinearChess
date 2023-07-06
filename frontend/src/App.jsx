@@ -8,11 +8,6 @@ import useSession from "components/hooks/useSession";
 
 import 'css/common/App.css'
 
-const SESSION = {
-    KEY: "session",
-    MESSAGE_VALID: "VALID_SESSION"
-}
-
 export default function App() {
 
     const [sessionID, _] = useSession(null)
