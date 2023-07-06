@@ -12,7 +12,8 @@ import 'css/game/WaitingPage.css'
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 
 export default function WaitingPage({ sessionID, lobbyID }) {
-
+    
+    console.log('loaded waiting page')
     const navigate = useNavigate();
     const [info, setInfo] = useState({ players: 1, ready: false })
 

@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import LobbyPage from 'components/lobby/LobbyPage'
 import HomePage from 'components/home/HomePage'
 
-import { startSession, getSession } from "api/v1/sessions/sessions";
+import useSession from "components/hooks/useSession";
 
 import 'css/common/App.css'
 
@@ -15,24 +15,8 @@ const SESSION = {
 
 export default function App() {
 
-    const [sessionID, setSessionID] = useState(null)
-
-    const spawnNew = () => startSession()
-        .then((session) => {
-            setSessionID(session.sessionID)
-            window.localStorage.setItem(SESSION.KEY, session.sessionID)
-        })
-
-    useEffect(() => {
-        const cachedSessionID = window.localStorage.getItem(SESSION.KEY)
-        if (cachedSessionID === null) {
-            spawnNew()
-            return;
-        }
-        getSession(cachedSessionID)
-            .then((res) => res.message === SESSION.MESSAGE_VALID ? setSessionID(cachedSessionID) : spawnNew())
-            
-    }, [setSessionID])
+    const [sessionID, _] = useSession(null)
+    console.log('session is',sessionID)
 
     return (
         <Routes>
