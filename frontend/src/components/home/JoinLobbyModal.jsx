@@ -16,13 +16,13 @@ export default function JoinLobbyModal({ isOpen, disable }) {
 
     const focusPrompt = useCallback(() => {
         setError(false)
-        if (!isOpen)
-            return;
-            
+        if (!isOpen) return;
+    
         const prompt = document.getElementById("lobby-code-prompt");
         prompt.focus?.()
         prompt.select?.()
     }, [isOpen]);
+    
     useEffect(focusPrompt, [isOpen, focusPrompt]);
 
     function submit(event) {
@@ -45,30 +45,14 @@ export default function JoinLobbyModal({ isOpen, disable }) {
         })
     };
 
-    useEffect(() => {
-        const keyDownHandler = event => {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-                disable()
-            }
-        };
-        document.addEventListener('keydown', keyDownHandler);
-        return () => document.removeEventListener('keydown', keyDownHandler)
-    }, [disable]);
-
-    if (!isOpen) {
-        return null;
-    }
 
     const errorMessage = error ? <div id="invalid-lobby-code">lobby does not exist</div> : null;
 
     return (
-        <Modal>
-            <button onClick={disable} className="modal-close">X</button>
+        <Modal isOpen={isOpen} disable={disable}>
 
-            <div className="join-modal-title">
-                Enter Lobby Code:
-            </div>
+            <button onClick={disable} className="join-modal-close">X</button>
+            <div className="join-modal-title">Enter Lobby Code:</div>
 
             <form id="lobby-code-form" onSubmit={submit}>
                 <input type="text" onInput={() => setError(false)} maxLength="7" spellCheck="false" autoComplete="off" id="lobby-code-prompt" name="code"></input>

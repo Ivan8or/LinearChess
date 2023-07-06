@@ -6,8 +6,8 @@
     transform: translate(-50%, -50%);
 
     width: 60dvw;
-    height: min(60dvh, 40dvw);
-    background-color: var(--primary-1);
+    height: 60dvh;
+    background-color: var(--primary-3);
 }
 
 #modal-overlay {

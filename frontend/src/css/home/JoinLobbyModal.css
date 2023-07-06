@@ -1,4 +1,4 @@
-.modal-close {
+.join-modal-close {
     display: block;
 
     margin-left: auto;
@@ -8,13 +8,13 @@
     width: 3vw;
     height: 3vw;
     font-size: 1vw;
-    background-color: var(--primary-3);
+    background-color: var(--primary-4);
 
     &:hover {
-        background-color: var(--primary-4);
+        background-color: var(--primary-5);
     }
     &:active {
-        background-color: var(--primary-5);
+        background-color: var(--primary-6);
     }
 }
 

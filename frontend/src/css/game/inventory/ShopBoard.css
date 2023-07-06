@@ -1,0 +1,24 @@
+#shop-root {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template:
+        "wares stats" 40%
+        "inv inv" 60% / 80% 20%;
+}
+
+#shop-wares {
+    grid-area: wares;
+    background-color: aqua;
+}
+
+#shop-stats {
+    grid-area: stats;
+    background-color: aquamarine;
+}
+
+#shop-inv {
+    grid-area: inv;
+    background-color: bisque;
+}
