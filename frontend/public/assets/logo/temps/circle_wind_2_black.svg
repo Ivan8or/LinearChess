@@ -1,0 +1,17 @@
+<svg width="45" height="45" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_12">
+   <ellipse stroke="#000000" fill="#ffffff" stroke-width="1.5" cx="22.5" cy="22.5" id="svg_4" rx="21.72202" ry="21.72202"/>
+   <g stroke="null" id="svg_11">
+    <path stroke="#000000" d="m24.74366,10.75549c-1.51816,0 -2.7478,1.27835 -2.7478,2.85665c0,0.63561 0.19921,1.22122 0.53582,1.69971c-1.33956,0.79987 -2.25319,2.29246 -2.25319,4.01359c0,1.44975 0.64573,2.74238 1.65555,3.59223c-2.06085,0.75701 -5.0903,3.9636 -5.0903,9.61976l15.79985,0c0,-5.65617 -3.02945,-8.86275 -5.0903,-9.61976c1.00982,-0.84985 1.65555,-2.14248 1.65555,-3.59223c0,-1.72113 -0.91364,-3.21373 -2.25319,-4.01359c0.33661,-0.47848 0.53582,-1.0641 0.53582,-1.69971c0,-1.5783 -1.22964,-2.85665 -2.7478,-2.85665z" fill="#000000" fill-rule="nonzero" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="4" id="svg_1"/>
+    <g stroke="null" id="svg_10">
+     <path stroke="#000000" id="svg_6" d="m13.2633,27.68749l-4.00096,0" opacity="undefined" stroke-linecap="round" fill="#000000"/>
+     <path stroke="#000000" id="svg_8" d="m15.33206,21.81173l-4.00096,0" opacity="undefined" stroke-linecap="round" fill="#000000"/>
+     <path stroke="#000000" id="svg_9" d="m17.40083,15.60543l-4.00096,0" opacity="undefined" stroke-linecap="round" fill="#000000"/>
+    </g>
+   </g>
+  </g>
+ </g>
+
+</svg>
