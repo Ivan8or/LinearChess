@@ -37,7 +37,7 @@ public class Model {
 
     public ChessLobby spawnLobby() {
         LobbyID lobbyId = generateLobbyId(7);
-        ChessLobby newLobby = new ChessLobby(lobbyId, sessions, this);
+        ChessLobby newLobby = new ChessLobby(lobbyId, this);
         lobbies.put(lobbyId, newLobby);
         return newLobby;
     }
@@ -57,6 +57,5 @@ public class Model {
     public SessionTracker getSessions() {
         return sessions;
     }
-
 
 }

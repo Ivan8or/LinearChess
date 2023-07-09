@@ -16,10 +16,10 @@ import model.api.Model;
 
 public class V1Launcher {
 
-    public static void register(Model model) {
+    public static void register(Model model, int port) {
 
         new LChessAPI()
-                .withPort(3100)
+                .withPort(port)
                 .withTimeout(8000)
                 .withEndpoint(new Root())
                 .withEndpoint(new V1())

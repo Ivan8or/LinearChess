@@ -46,7 +46,6 @@ public class VersusMode {
     final private Map<LSide, Inventory> spectatableInventories;
 
     final private Map<Session, Inventory> inventories;
-    final private Map<Session, GameWebSocket> sockets;
 
 
 
@@ -59,7 +58,6 @@ public class VersusMode {
         shop = new ItemShop(shopPool);
 
         players = Map.of(white, LSide.WHITE, black, LSide.BLACK);
-        sockets = Map.of(white, new GameWebSocket(), black, new GameWebSocket());
         inventories = new HashMap<>(Map.of(white, new Inventory(), black, new Inventory()));
         spectatableInventories = new HashMap<>(Map.of(LSide.WHITE, new Inventory(), LSide.BLACK, new Inventory()));
         round = 0;
@@ -190,15 +188,17 @@ public class VersusMode {
     public void phaseChange(GamePhase newPhase) {
         synchronized(this) {
             phase = newPhase;
-            for (GameWebSocket socket : sockets.values())
-                socket.send(JsonConverter.toPrettyJson(phase));
+            lobby.getSocket().sendAll(Map.of(
+                    "key", "phase",
+                    "value", JsonConverter.toPrettyJson(phase)));
             phaseStarted = System.currentTimeMillis();
         }
     }
 
     public void boardChange() {
-        for(GameWebSocket socket : sockets.values())
-            socket.send(JsonConverter.toPrettyJson(chessGame.getBoard().getFen()));
+        lobby.getSocket().sendAll(Map.of(
+                "key", "board",
+                "value", chessGame.getBoard().getFen()));
     }
 
     public void progressRound() {

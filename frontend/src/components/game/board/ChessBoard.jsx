@@ -1,24 +1,15 @@
 import React, {useState, useEffect}  from 'react';
 import BoardTile from './BoardTile';
 
-import getBoardFen from 'api/v0/getBoardFen.js'
+import { getBoard } from 'api/v1/lobbies/boards/boards.js'
 import extractFen from 'api/util/extractFen.js'
 
 import 'css/game/board/ChessBoard.css'
 
-export default function ChessBoard() {
+export default function ChessBoard( {fen} ) {
 
-    const [fen, updateFen] = useState("8/8/8/8/8/8/8/8");
-    
-    useEffect(() => {
-        getBoardFen()
-            .then(extractFen)
-            .then(updateFen)
-            .then(() => console.log("got fen"))
-            .catch(e => console.log(e));
-    },[])
 
-    const tileKinds = parseFen(fen);
+    const tileKinds = parseFen(extractFen(fen));
     const tileComponents = tileKinds.map((t, i) => <BoardTile key={i} tile={t} />);
 
     return (

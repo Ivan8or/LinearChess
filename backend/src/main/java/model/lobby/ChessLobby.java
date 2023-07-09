@@ -4,6 +4,7 @@ import model.api.Model;
 import model.mappings.LobbyID;
 import model.mappings.Session;
 import model.session.SessionTracker;
+import model.socket.LobbySocket;
 
 import java.util.Map;
 import java.util.Optional;
@@ -19,11 +20,13 @@ public class ChessLobby {
 
     final private Map<Session,Boolean> players;
     final private SessionTracker allSessions;
+    final private LobbySocket socket;
 
-    public ChessLobby(LobbyID lobbyId, SessionTracker allSessions, Model api) {
+    public ChessLobby(LobbyID lobbyId, Model api) {
         this.api = api;
         this.lobbyId = lobbyId;
-        this.allSessions = allSessions;
+        this.allSessions = api.getSessions();
+        this.socket = new LobbySocket(this);
 
         this.game = null;
         this.started = false;
@@ -34,7 +37,12 @@ public class ChessLobby {
         return started;
     }
 
+    public LobbySocket getSocket() {
+        return socket;
+    }
+
     public boolean start() {
+        System.out.println("started game!");
         if(!full())
             return false;
 
@@ -94,13 +102,15 @@ public class ChessLobby {
     }
 
     public boolean isReady(Session session) {
-        return players.get(session);
+        return players.getOrDefault(session, false);
     }
 
     public boolean removePlayer(Session session) {
+
         if(hasPlayer(session)) {
             players.remove(session);
             allSessions.leaveLobby(session);
+            socket.removeClient(session);
             return true;
         }
         return false;

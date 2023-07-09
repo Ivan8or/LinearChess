@@ -71,3 +71,9 @@
     padding: 0;
     margin: 0;
 }
+
+
+#ready-button:disabled {
+    background-color: var(--primary-2);
+    color: var(--primary-3);
+}

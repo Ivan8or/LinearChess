@@ -34,7 +34,10 @@ public class SessionTracker {
             return false;
 
         Optional<ChessLobby> oldLobby = sessions.get(session);
-        oldLobby.ifPresent(l -> l.removePlayer(session));
+        oldLobby.ifPresent(l -> {
+            if(!lobby.getLobbyId().equals(l.getLobbyId()))
+                l.removePlayer(session);
+        });
 
         sessions.put(session, Optional.of(lobby));
         return true;

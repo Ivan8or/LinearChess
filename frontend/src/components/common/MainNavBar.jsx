@@ -9,7 +9,7 @@ export default function MainNavBar() {
     let children = [
         <span className="navbar-ignore"></span>,
         <Link draggable="false" to="/rules">Rules</Link>,
-        <a draggable="false" href="https://discord.com">Discord</a>,
+        <a draggable="false" href="https://discord.gg/5yBAySvMEc">Discord</a>,
         <a draggable="false" href="https://donate.com">Donate</a>,
         <span className="navbar-ignore"></span>,
         <ThemeToggle>Theme</ThemeToggle>

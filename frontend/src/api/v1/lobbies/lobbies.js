@@ -39,6 +39,7 @@ export function addPlayer(sessionID, lobbyID) {
 }
 
 export function removePlayer(sessionID, lobbyID) {
+    
     return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
         {
             method: "DELETE",
