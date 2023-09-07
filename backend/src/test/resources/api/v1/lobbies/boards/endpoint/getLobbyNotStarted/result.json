@@ -1,4 +1,4 @@
 {
-  "status":403,
-  "message": "BAD_LOBBY_ID"
+  "status":404,
+  "message": "LOBBY_NOT_YET_STARTED"
 }

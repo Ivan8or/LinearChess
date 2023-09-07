@@ -84,6 +84,7 @@ public class V1LobbiesShopsSellTest {
         when(model.lobbyExists(lobbyID)).thenReturn(true);
         when(model.getLobby(lobbyID)).thenReturn(lobby);
         when(lobby.getGame()).thenReturn(Optional.of(game));
+        when(lobby.hasPlayer(session)).thenReturn(true);
         when(lobby.hasStarted()).thenReturn(true);
         when(game.canChangeInventory()).thenReturn(true);
         when(game.sellItem(session, transaction.slotFrom())).thenReturn(true);

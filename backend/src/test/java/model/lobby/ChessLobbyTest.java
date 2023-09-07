@@ -13,6 +13,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.UUID;
 
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ChessLobbyTest {
 
@@ -20,15 +22,21 @@ public class ChessLobbyTest {
     Model model;
 
     @Mock
+    SessionTracker sessions;
+
+    @Mock
     SessionTracker tracker;
 
     @Test
     public void startGame() {
+        when(model.getSessions()).thenReturn(sessions);
+
         LobbyID lobbyId = new LobbyID("alabama");
-        ChessLobby lobby = new ChessLobby(lobbyId, tracker, model);
+        ChessLobby lobby = new ChessLobby(lobbyId, model);
 
         Session player1 = new Session(UUID.randomUUID());
         Session player2 = new Session(UUID.randomUUID());
+
 
         Assert.assertFalse(lobby.hasStarted());
 
@@ -36,7 +44,7 @@ public class ChessLobbyTest {
         Assert.assertFalse(lobby.hasStarted());
 
         lobby.addPlayer(player2);
-        Assert.assertTrue(lobby.hasStarted());
+        Assert.assertFalse(lobby.hasStarted());
 
         lobby.start();
         Assert.assertTrue(lobby.hasStarted());
@@ -44,8 +52,10 @@ public class ChessLobbyTest {
 
     @Test
     public void playerCount() {
+        when(model.getSessions()).thenReturn(sessions);
+
         LobbyID lobbyId = new LobbyID("alabama");
-        ChessLobby lobby = new ChessLobby(lobbyId, tracker, model);
+        ChessLobby lobby = new ChessLobby(lobbyId, model);
 
         Session player1 = new Session(UUID.randomUUID());
         Session player2 = new Session(UUID.randomUUID());
@@ -76,8 +86,10 @@ public class ChessLobbyTest {
 
     @Test
     public void hasPlayer() {
+        when(model.getSessions()).thenReturn(sessions);
+
         LobbyID lobbyId = new LobbyID("alabama");
-        ChessLobby lobby = new ChessLobby(lobbyId, tracker, model);
+        ChessLobby lobby = new ChessLobby(lobbyId, model);
 
         UUID sessionId = UUID.randomUUID();
         Session player1a = new Session(sessionId);
@@ -91,7 +103,7 @@ public class ChessLobbyTest {
     @Test
     public void lobbyId() {
         LobbyID lobbyId = new LobbyID("alabama");
-        ChessLobby lobby = new ChessLobby(lobbyId, tracker, model);
+        ChessLobby lobby = new ChessLobby(lobbyId, model);
 
         Assert.assertEquals(lobbyId, lobby.getLobbyId());
     }

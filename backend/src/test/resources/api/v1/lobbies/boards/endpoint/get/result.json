@@ -1,3 +1,10 @@
 {
-  "fen": "8/board/fen/8"
+  "my-inventory": {},
+  "opp-inventory": {},
+  "side": "WHITE",
+  "phase": "STANDBY",
+  "fen": {
+    "fen": "8/board/fen/8"
+  },
+  "round": 0
 }

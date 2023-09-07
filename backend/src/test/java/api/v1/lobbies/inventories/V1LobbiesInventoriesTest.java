@@ -74,6 +74,7 @@ public class V1LobbiesInventoriesTest {
         when(sessions.validSession(session)).thenReturn(true);
         when(model.lobbyExists(lobbyID)).thenReturn(true);
         when(model.getLobby(lobbyID)).thenReturn(lobby);
+        when(lobby.hasPlayer(session)).thenReturn(true);
         when(lobby.hasStarted()).thenReturn(true);
         when(lobby.getGame()).thenReturn(Optional.of(game));
 

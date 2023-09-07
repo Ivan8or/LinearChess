@@ -83,6 +83,7 @@ public class V1LobbiesShopsViewTest {
         when(model.lobbyExists(lobbyID)).thenReturn(true);
         when(model.getLobby(lobbyID)).thenReturn(lobby);
         when(lobby.getGame()).thenReturn(Optional.of(game));
+        when(lobby.hasPlayer(session)).thenReturn(true);
         when(lobby.hasStarted()).thenReturn(true);
         when(shop.startingGold()).thenReturn(4);
         when(shop.borrowItems()).thenReturn(wares);
@@ -96,6 +97,8 @@ public class V1LobbiesShopsViewTest {
         String expected = ResourceAsString.at(RESOURCE_PATH+"get/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
-        Assert.assertEquals(expected, generated);
+        System.out.println("received: \n"+generated);
+        System.out.println("expected: \n"+expected);
+        Assert.assertTrue(JsonConverter.equals(expected, generated));
     }
 }

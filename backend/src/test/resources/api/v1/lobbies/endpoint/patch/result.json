@@ -1,4 +1,5 @@
 {
-  "status": 200,
-  "message": "SUCCESS"
+  "isPlayerReady": false,
+  "message": "SUCCESS",
+  "status": 200
 }

@@ -2,6 +2,7 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 
 import java.util.Optional;
 
@@ -36,5 +37,9 @@ public class JsonConverter {
 
     public static String minimize(String json) {
         return json.replaceAll("\\s", "");
+    }
+
+    public static boolean equals(String a, String b) {
+        return JsonParser.parseString(a).equals(JsonParser.parseString(b));
     }
 }

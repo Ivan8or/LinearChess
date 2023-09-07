@@ -1,18 +1,31 @@
 package model.session;
 
+import model.api.Model;
 import model.lobby.ChessLobby;
+import model.mappings.LobbyID;
 import model.mappings.Session;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class SessionTrackerTest {
+
+    @Mock
+    Model api;
 
     @Test
     public void sessionsLobbies() {
         SessionTracker tracker = new SessionTracker();
-        ChessLobby lobby = new ChessLobby(null, tracker, null);
+        when(api.getSessions()).thenReturn(tracker);
+
+        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), api);
 
         Session session = tracker.startSession();
         Assert.assertEquals(Optional.empty(), tracker.sessionLobby(session));

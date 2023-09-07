@@ -1,21 +1,25 @@
 {
-  "gold": 4,
-  "wares": {
-    "items": [
-      {
-        "slot": 101,
-        "item": {
-          "type": "eval",
-          "id": 3001
+  "timePassedMillis": 0,
+  "shop": {
+    "gold": 4,
+    "wares": {
+      "items": [
+        {
+          "slot": 101,
+          "item": {
+            "type": "eval",
+            "id": 3001
+          }
+        },
+        {
+          "slot": 201,
+          "item": {
+            "type": "multiplier",
+            "id": 4001
+          }
         }
-      },
-      {
-        "slot": 201,
-        "item": {
-          "type": "multiplier",
-          "id": 4001
-        }
-      }
-    ]
-  }
+      ]
+    }
+  },
+  "shopTimeMillis": 0
 }

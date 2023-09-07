@@ -2,6 +2,7 @@ package model.lobby;
 
 import chess.board.LSide;
 import model.mappings.Session;
+import model.socket.LobbySocket;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +12,21 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class VersusModeTest {
 
     @Mock
     ChessLobby lobby;
 
+    @Mock
+    LobbySocket socket;
+
     @Test
     public void incrementRound() {
+        when(lobby.getSocket()).thenReturn(socket);
+
         Session player1 = new Session(UUID.randomUUID());
         Session player2 = new Session(UUID.randomUUID());
         VersusMode game = new VersusMode(player1, player2, lobby);

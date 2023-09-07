@@ -100,7 +100,7 @@ public class V1LobbiesTest {
     public void post() {
         V1Lobbies endpoint = new V1Lobbies(model);
         Session session = Session.spawn();
-        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), sessions, model);
+        ChessLobby lobby = new ChessLobby(new LobbyID("alabama"), model);
         when(request.requestMethod()).thenReturn("POST");
         when(request.headers("session")).thenReturn(JsonConverter.toJson(session));
         when(model.getSessions()).thenReturn(sessions);
@@ -133,17 +133,16 @@ public class V1LobbiesTest {
         when(model.lobbyExists(lobbyID)).thenReturn(true);
         when(model.getLobby(lobbyID)).thenReturn(lobby);
         when(lobby.hasStarted()).thenReturn(false);
-        when(lobby.full()).thenReturn(true);
         when(lobby.hasPlayer(session)).thenReturn(true);
 
         String generated = (String) endpoint.handle(request, response);
+        System.out.println(generated);
         generated = generated.replaceAll("\\s", "");
 
         String expected = ResourceAsString.at(RESOURCE_PATH+"patch/result.json").get();
         expected = expected.replaceAll("\\s", "");
 
-        Assert.assertEquals(expected, generated);
-        verify(lobby).start();
+        Assert.assertTrue(JsonConverter.equals(expected, generated));
     }
 
     @Test
