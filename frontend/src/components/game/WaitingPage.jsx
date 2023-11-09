@@ -11,7 +11,7 @@ import 'css/game/WaitingPage.css'
 
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 
-export default function WaitingPage({ session, lobby, connected, started }) {
+export default function WaitingPage({ session, lobby, connected }) {
 
     console.log('waiting page with',session,lobby)
 
