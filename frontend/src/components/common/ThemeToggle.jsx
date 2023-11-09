@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import 'css/common/ThemeToggle.css'
+import '/src/css/common/ThemeToggle.css'
 
 const THEME = {
     KEY: 'theme',

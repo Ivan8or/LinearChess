@@ -3,14 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
 
-import 'css/common/theme.css'
+import '/src/css/common/theme.css'
 
 const boardRootElement = document.getElementById('root');
 const boardRoot = createRoot(boardRootElement);
 boardRoot.render(
     //<React.StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
     //</React.StrictMode>
 );

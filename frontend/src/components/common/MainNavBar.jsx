@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ThemeToggle from 'components/common/ThemeToggle';
+import ThemeToggle from '/src/components/common/ThemeToggle';
 
-import 'css/common/MainNavBar.css'
+import '/src/css/common/MainNavBar.css'
 
 export default function MainNavBar() {
 

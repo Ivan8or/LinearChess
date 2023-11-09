@@ -1,8 +1,8 @@
 import React from 'react';
 
-import TileSlot from 'components/game/inventory/TileSlot'
+import TileSlot from '/src/components/game/inventory/TileSlot'
 
-import 'css/game/inventory/InventoryDisplay.css'
+import '/src/css/game/inventory/InventoryDisplay.css'
 
 export default function InventoryDisplay() {
 

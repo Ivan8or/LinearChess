@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from 'react-dom';
 
-import 'css/common/Modal.css'
+import '/src/css/common/Modal.css'
 
 
 function turnOffModal(disable) {

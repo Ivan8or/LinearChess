@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom"
 
 import WaitingPage from '../game/WaitingPage';
 import GamePage from '../game/GamePage';
-import { validCodeFormat } from 'api/util/isValidLobby';
-import { getLobby } from 'api/v1/lobbies/lobbies';
+import { validCodeFormat } from '/src/api/util/isValidLobby';
+import { getLobby } from '/src/api/v1/lobbies/lobbies';
 
 export default function LobbyPage({ sessionID }) {
 

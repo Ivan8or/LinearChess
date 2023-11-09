@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ThemeToggle from 'components/common/ThemeToggle';
+import ThemeToggle from '/src/components/common/ThemeToggle';
 
-import 'css/common/MainFooter.css'
+import '/src/css/common/MainFooter.css'
 
 export default function MainFooter( {hidden} ) {
 

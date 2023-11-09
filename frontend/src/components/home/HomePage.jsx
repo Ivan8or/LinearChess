@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import JoinLobbyModal from './JoinLobbyModal';
-import MainNavBar from 'components/common/MainNavBar';
-import MainFooter from 'components/common/MainFooter';
+import MainNavBar from '/src/components/common/MainNavBar';
+import MainFooter from '/src/components/common/MainFooter';
 
-import { startLobby } from "api/v1/lobbies/lobbies";
+import { startLobby } from "/src/api/v1/lobbies/lobbies";
 
-import 'css/home/HomePage.css';
+import '/src/css/home/HomePage.css';
 
 export default function HomePage({ sessionID }) {
 

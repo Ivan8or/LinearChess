@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'css/game/inventory/TileSlot.css'
+import '/src/css/game/inventory/TileSlot.css'
 
 export default function TileSlot() {
 

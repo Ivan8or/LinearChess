@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'css/game/inventory/ShopBoard.css'
+import '/src/css/game/inventory/ShopBoard.css'
 
 export default function ShopBoard() {
 

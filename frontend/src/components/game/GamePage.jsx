@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import MainNavBar from 'components/common/MainNavBar';
-import MainFooter from 'components/common/MainFooter';
-import ChessBoard from 'components/game/board/ChessBoard';
-import SideBoard from 'components/game/SideBoard';
+import MainNavBar from '/src/components/common/MainNavBar';
+import MainFooter from '/src/components/common/MainFooter';
+import ChessBoard from '/src/components/game/board/ChessBoard';
+import SideBoard from '/src/components/game/SideBoard';
 
-import 'css/game/GamePage.css'
-import { getBoard } from 'api/v1/lobbies/boards/boards';
+import '/src/css/game/GamePage.css'
+import { getBoard } from '/src/api/v1/lobbies/boards/boards';
 
 export default function GamePage( {session, lobby} ) {
     

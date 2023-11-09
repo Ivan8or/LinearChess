@@ -1,10 +1,10 @@
 import React, {useState, useEffect}  from 'react';
 import BoardTile from './BoardTile';
 
-import { getBoard } from 'api/v1/lobbies/boards/boards.js'
-import extractFen from 'api/util/extractFen.js'
+import { getBoard } from '/src/api/v1/lobbies/boards/boards.js'
+import extractFen from '/src/api/util/extractFen.js'
 
-import 'css/game/board/ChessBoard.css'
+import '/src/css/game/board/ChessBoard.css'
 
 export default function ChessBoard( {fen} ) {
 

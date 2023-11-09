@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import Modal from 'components/common/Modal'
+import Modal from '/src/components/common/Modal'
 
-import { validCodeFormat } from 'api/util/isValidLobby';
-import { getLobby } from "api/v1/lobbies/lobbies";
+import { validCodeFormat } from '/src/api/util/isValidLobby';
+import { getLobby } from "/src/api/v1/lobbies/lobbies";
 
-import 'css/home/JoinLobbyModal.css'
+import '/src/css/home/JoinLobbyModal.css'
 
 export default function JoinLobbyModal({ isOpen, disable }) {
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MainNavBar from 'components/common/MainNavBar';
-import MainFooter from 'components/common/MainFooter';
+import MainNavBar from '/src/components/common/MainNavBar';
+import MainFooter from '/src/components/common/MainFooter';
 
-import { addPlayer, removePlayer, getLobby, toggleReady } from "api/v1/lobbies/lobbies";
+import { addPlayer, removePlayer, getLobby, toggleReady } from '/src/api/v1/lobbies/lobbies';
 
-import 'css/game/WaitingPage.css'
+import '/src/css/game/WaitingPage.css'
 
 
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']

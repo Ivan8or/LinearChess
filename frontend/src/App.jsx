@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import LobbyPage from 'components/lobby/LobbyPage'
-import HomePage from 'components/home/HomePage'
+import LobbyPage from '/src/components/lobby/LobbyPage'
+import HomePage from '/src/components/home/HomePage'
 
-import useSession from "components/hooks/useSession";
+import useSession from "/src/components/hooks/useSession";
 
-import 'css/common/App.css'
+import '/src/css/common/App.css'
 
 export default function App() {
 

@@ -1,7 +1,7 @@
 const API_ENDPOINT = "/api/v1/lobbies"
 
 export function startLobby(sessionID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "POST",
             headers: {
@@ -13,7 +13,7 @@ export function startLobby(sessionID) {
 }
 
 export function getLobby(sessionID, lobbyID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "GET",
             headers: {
@@ -26,7 +26,7 @@ export function getLobby(sessionID, lobbyID) {
 }
 
 export function addPlayer(sessionID, lobbyID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "PUT",
             headers: {
@@ -40,7 +40,7 @@ export function addPlayer(sessionID, lobbyID) {
 
 export function removePlayer(sessionID, lobbyID) {
     
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "DELETE",
             headers: {
@@ -53,7 +53,7 @@ export function removePlayer(sessionID, lobbyID) {
 }
 
 export function toggleReady(sessionID, lobbyID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "PATCH",
             headers: {

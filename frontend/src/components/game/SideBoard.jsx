@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import InventoryDisplay from 'components/game/inventory/InventoryDisplay'
-import Modal from 'components/common/Modal';
+import InventoryDisplay from '/src/components/game/inventory/InventoryDisplay'
+import Modal from '/src/components/common/Modal';
 import ShopBoard from './inventory/ShopBoard';
 
-import 'css/game/SideBoard.css'
+import '/src/css/game/SideBoard.css'
 
 export default function ChessBoard() {
 

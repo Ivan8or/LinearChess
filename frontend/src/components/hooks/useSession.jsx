@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useLocalStorage from './useLocalStorage';
-import { startSession, getSession } from "api/v1/sessions/sessions";
+import { startSession, getSession } from "/src/api/v1/sessions/sessions";
 
 const SESSION = {
     KEY: "session",

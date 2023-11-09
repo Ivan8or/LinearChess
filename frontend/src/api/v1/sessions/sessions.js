@@ -1,7 +1,7 @@
 const API_ENDPOINT = "/api/v1/sessions"
 
 export function endSession(sessionID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "DELETE",
             headers: {
@@ -13,7 +13,7 @@ export function endSession(sessionID) {
 }
 
 export function getSession(sessionID) {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "GET",
             headers: {
@@ -26,7 +26,7 @@ export function getSession(sessionID) {
 
 
 export function startSession() {
-    return fetch(process.env.REACT_APP_API_URL + API_ENDPOINT,
+    return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "POST"
         })
