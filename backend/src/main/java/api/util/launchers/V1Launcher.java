@@ -12,6 +12,7 @@ import api.v1.lobbies.shops.refresh.V1LobbiesShopsRefresh;
 import api.v1.lobbies.shops.sell.V1LobbiesShopsSell;
 import api.v1.lobbies.shops.view.V1LobbiesShopsView;
 import api.v1.sessions.V1Sessions;
+import api.v1.sessions.updates.V1SessionsStatus;
 import model.api.Model;
 
 public class V1Launcher {
@@ -24,6 +25,7 @@ public class V1Launcher {
                 .withEndpoint(new Root())
                 .withEndpoint(new V1())
                 .withEndpoint(new V1Sessions(model))
+                .withEndpoint(new V1SessionsStatus(model))
                 .withEndpoint(new V1Lobbies(model))
                 .withEndpoint(new V1LobbiesBoards(model))
                 .withEndpoint(new V1LobbiesInventories(model))

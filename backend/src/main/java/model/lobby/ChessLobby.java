@@ -6,6 +6,7 @@ import model.mappings.Session;
 import model.session.SessionTracker;
 import model.socket.LobbySocket;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +43,6 @@ public class ChessLobby {
     }
 
     public boolean start() {
-        System.out.println("started game!");
         if(!full())
             return false;
 
@@ -103,6 +103,10 @@ public class ChessLobby {
 
     public boolean isReady(Session session) {
         return players.getOrDefault(session, false);
+    }
+
+    public int numReady() {
+        return Collections.frequency(players.values(), true);
     }
 
     public boolean removePlayer(Session session) {

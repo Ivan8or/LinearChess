@@ -5,6 +5,8 @@ import api.util.validator.SessionValidator;
 import model.api.Model;
 import model.lobby.ChessLobby;
 import model.mappings.ApiResponse;
+import model.mappings.Endpoint;
+import model.mappings.Reference;
 import model.mappings.Session;
 import spark.Request;
 import spark.Response;
@@ -20,8 +22,16 @@ public class V1Sessions extends APIEndpoint {
     final private Model model;
 
     public V1Sessions(Model model) {
-        super("/api/v1/sessions", get, post, delete);
+        super("/api/v1/sessions", options, get, post, delete);
         this.model = model;
+    }
+
+    public Object options(Request request, Response response) {
+        super.options(request, response);
+
+        Reference reference = new Reference(
+                new Endpoint("/api/v1/sessions/status", "PUT"));
+        return reference;
     }
 
     protected Object get(Request request, Response response) {

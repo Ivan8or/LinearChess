@@ -53,6 +53,7 @@ public class V1Lobbies extends APIEndpoint {
                 "gameType", "VERSUS",
                 "isLobbyStarted", lobby.hasStarted(),
                 "playerCount", lobby.numPlayers(),
+                "playersReady", lobby.numReady(),
                 "isPlayerInLobby", false));
 
         String sessionJson = request.headers("session");
@@ -138,6 +139,9 @@ public class V1Lobbies extends APIEndpoint {
                 return new ApiResponse(423, "LOBBY_FULL");
 
             lobby.addPlayer(session.get());
+            if(lobby.full()) {
+                lobby.start();
+            }
         }
         return new ApiResponse(200,"SUCCESS");
     }

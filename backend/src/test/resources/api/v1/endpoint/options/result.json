@@ -6,7 +6,7 @@
     },
     {
       "endpoint": "/api/v1/sessions",
-      "methods": ["OPTIONS", "GET", "POST", "DELETE"]
+      "methods": ["GET", "POST", "DELETE"]
     }
   ]
 }
