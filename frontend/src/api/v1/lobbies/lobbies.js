@@ -60,9 +60,9 @@ export function toggleReady(sessionID, lobbyID, isReady) {
                 "session": JSON.stringify({"sessionID": sessionID}),
                 "lobby": JSON.stringify({"lobbyID": lobbyID})
             },
-            body: {
+            body: JSON.stringify({
                 "ready": isReady
-            },
+            }),
         })
         .then((response) => response.json())
         .catch(() => null);
