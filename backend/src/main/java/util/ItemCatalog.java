@@ -230,71 +230,71 @@ public class ItemCatalog {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.PAWN, LSide.WHITE);
         
         if(ownerSide == LSide.WHITE)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval WHITE_BISHOPS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.BISHOP, LSide.WHITE);
-        
+
         if(ownerSide == LSide.WHITE)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval WHITE_KNIGHTS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.KNIGHT, LSide.WHITE);
-        
+
         if(ownerSide == LSide.WHITE)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval WHITE_ROOKS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.ROOK, LSide.WHITE);
-        
+
         if(ownerSide == LSide.WHITE)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval WHITE_QUEENS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.QUEEN, LSide.WHITE);
-        
+
         if(ownerSide == LSide.WHITE)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval BLACK_PAWNS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.PAWN, LSide.BLACK);
-        
+
         if(ownerSide == LSide.BLACK)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval BLACK_BISHOPS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.BISHOP, LSide.BLACK);
-        
+
         if(ownerSide == LSide.BLACK)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval BLACK_KNIGHTS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.KNIGHT, LSide.BLACK);
-        
+
         if(ownerSide == LSide.BLACK)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval BLACK_ROOKS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.ROOK, LSide.BLACK);
-        
+
         if(ownerSide == LSide.BLACK)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
     private static ChessEval BLACK_QUEENS_MIDDLE(LSide ownerSide) {
         ChessEval toReturn = new DistanceToMidEval(LPieceType.QUEEN, LSide.BLACK);
-        
+
         if(ownerSide == LSide.BLACK)
-            return toReturn;
-        return new WeightedEval(toReturn, -1);
+            return new WeightedEval(toReturn, -1);
+        return toReturn;
     }
 
     private static ChessEval DRAW_GAME() {

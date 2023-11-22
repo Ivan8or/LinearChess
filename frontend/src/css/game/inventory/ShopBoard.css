@@ -6,6 +6,7 @@
     grid-template:
         "wares stats" 40%
         "inv inv" 60% / 80% 20%;
+    
 }
 
 #shop-wares {

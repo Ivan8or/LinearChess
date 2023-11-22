@@ -12,6 +12,8 @@ export default function GamePage( {session, lobby} ) {
     
     const [fen, updateFen] = useState("8/8/8/8/8/8/8/8");
     const [time, setTime] = useState(0);
+    const [inv, setInv] = useState([{},{}]);
+    const [side, setSide] = useState("")
 
     const pollSpeed = 1000;
     useEffect(() => {
@@ -20,6 +22,8 @@ export default function GamePage( {session, lobby} ) {
             .then(e => {
                 updateFen(e.fen.fen)
                 setTime(e["time-left"])
+                setInv([e["my-inventory"], e["opp-inventory"]])
+                setSide(e["side"])
             })
             .catch(e => console.log(e));
         }, pollSpeed);
@@ -31,8 +35,8 @@ export default function GamePage( {session, lobby} ) {
     return (
         <div className="page-root" id="game-root">
             <MainNavBar />
-            <div id="game-left"><ChessBoard fen={fen} /></div>
-            <div id="game-right"><SideBoard time={time}/></div>
+            <div id="game-left"><ChessBoard fen={fen}/></div>
+            <div id="game-right"><SideBoard time={time} session={session} lobby={lobby} inv={inv} side={side}/></div>
             <MainFooter hidden={true} />
         </div>
     );
