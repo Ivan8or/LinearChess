@@ -10,11 +10,11 @@ import spark.Request;
 import spark.Response;
 import util.JsonConverter;
 
-import java.util.Map;
 import java.util.Optional;
 
 import static spark.route.HttpMethod.*;
 
+@Deprecated
 public class V1SessionsStatus extends APIEndpoint {
 
     final private Model model;

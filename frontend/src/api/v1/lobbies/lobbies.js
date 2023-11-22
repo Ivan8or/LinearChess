@@ -52,14 +52,17 @@ export function removePlayer(sessionID, lobbyID) {
         .catch(() => null);
 }
 
-export function toggleReady(sessionID, lobbyID) {
+export function toggleReady(sessionID, lobbyID, isReady) {
     return fetch(import.meta.env.VITE_API_URL + API_ENDPOINT,
         {
             method: "PATCH",
             headers: {
                 "session": JSON.stringify({"sessionID": sessionID}),
                 "lobby": JSON.stringify({"lobbyID": lobbyID})
-            }
+            },
+            body: {
+                "ready": isReady
+            },
         })
         .then((response) => response.json())
         .catch(() => null);

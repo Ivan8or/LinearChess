@@ -11,30 +11,45 @@ import '/src/css/game/WaitingPage.css'
 
 const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 
-export default function WaitingPage({ session, lobby, connected, started }) {
-
-    console.log('waiting page with',session,lobby)
+export default function WaitingPage({ session, lobby, setStarted }) {
 
     const navigate = useNavigate();
     const [info, setInfo] = useState({ players: 1, ready: false })
 
-    const readyButton = () => toggleReady(session, lobby).then(res => setInfo(old => ({ ...old, ready: res.isPlayerReady })))
+    const readyButton = () => toggleReady(session, lobby, !info.ready)
 
+    // run on load page
     useEffect(() => {
-        addPlayer(session, lobby).then(added => {
+        addPlayer(session, lobby)
+        .then(added => {
             if (!JOIN_MSGS.includes(added.message)) {
                 console.log(added.message)
                 throw new Error()
-            }
-            return getLobby(session, lobby)
-        }).then(res => setInfo({ players: res.playerCount, ready: res.isPlayerReady })).catch(e => navigate('/'))
-        return () => {
-            //console.log('checking... current is',started.current)
-            //if(!started.current) removePlayer(session, lobby)
-            // TODO FIX THIS !!!
-        }
+            } 
+        })
+        return () => {}
     }, [session, lobby])
 
+    // poll every X miliseconds
+    const pollSpeed = 1000;
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getLobby(session, lobby)
+            .then(res => {
+                if(res.playerCount == 2) {
+                    setStarted(true);
+                }
+                
+                setInfo({ players: res.playerCount, ready: res.isPlayerReady })
+            })
+            .catch(e => navigate('/'))
+        }, pollSpeed);
+    
+        return () => clearInterval(interval);
+    }, [session, lobby]);
+
+
+    const connected = true // TO REMOVE FOREVER??? MAYBE??
 
     const readyButtonText = info.ready ? <b>Ready!</b> : "Ready?"
     const connectStatus = connected ? "connected" : "connecting..."

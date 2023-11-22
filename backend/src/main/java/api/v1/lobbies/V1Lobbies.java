@@ -105,12 +105,18 @@ public class V1Lobbies extends APIEndpoint {
         if (lobby.hasStarted())
             return new ApiResponse(423, "LOBBY_ALREADY_STARTED");
 
-        boolean newReadyState = lobby.toggleReady(session.get());
+        String bodyJson = request.body();
+        Optional<ReadyStatus> optionalReadyStatus = JsonConverter.fromJson(bodyJson, ReadyStatus.class);
 
-        return Map.of(
-                "status", 200,
-                "message", "SUCCESS",
-                "isPlayerReady", newReadyState);
+        if(optionalReadyStatus.isEmpty())
+            return new ApiResponse(400,"NO_READY_STATUS_BODY");
+
+        boolean currentStatus = lobby.isReady(session.get());
+        if(currentStatus != optionalReadyStatus.get().ready()) {
+            lobby.toggleReady(session.get());
+        }
+
+        return new ApiResponse(200, "SUCCESS");
     }
 
     @Override
@@ -139,9 +145,6 @@ public class V1Lobbies extends APIEndpoint {
                 return new ApiResponse(423, "LOBBY_FULL");
 
             lobby.addPlayer(session.get());
-            if(lobby.full()) {
-                lobby.start();
-            }
         }
         return new ApiResponse(200,"SUCCESS");
     }
