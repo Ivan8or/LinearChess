@@ -242,7 +242,9 @@ public class VersusMode {
         executor.submit(() -> {
             for(int i = 0; i < 10; i++) {
                 if(!chessGame.isOver()) {
-                    chessGame.increment();
+                    synchronized (chessGame) {
+                        chessGame.increment();
+                    }
                     boardChange();
                 }
             }
