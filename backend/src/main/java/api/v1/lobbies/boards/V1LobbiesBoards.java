@@ -66,6 +66,7 @@ public class V1LobbiesBoards extends APIEndpoint {
                 "round", game.getRound(),
                 "phase", game.getPhase(),
                 "side", side,
+                "time-left", game.getPhaseTimeLeft(),
                 "my-inventory", game.getSpectatableInventory(side),
                 "opp-inventory", game.getSpectatableInventory(side.flip())
         );

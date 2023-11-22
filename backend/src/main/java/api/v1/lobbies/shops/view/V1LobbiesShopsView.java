@@ -55,7 +55,7 @@ public class V1LobbiesShopsView extends APIEndpoint {
         return Map.of(
                 "shop", shop,
                 "shopTimeMillis", game.getShopTime(),
-                "timePassedMillis", game.getPhaseDeltaTime()
+                "timeLeftMillis", game.getPhaseTimeLeft()
         );
     }
 }

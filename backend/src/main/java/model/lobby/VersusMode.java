@@ -101,8 +101,10 @@ public class VersusMode {
         return shopTimeMillis;
     }
 
-    public int getPhaseDeltaTime() {
-        return (int) (System.currentTimeMillis() - phaseStarted);
+    public int getPhaseTimeLeft() {
+        long curTime = System.currentTimeMillis();
+        long phaseTime = phase == GamePhase.PLAY ? playDelayMillis : shopTimeMillis;
+        return (int) (phaseTime + phaseStarted - curTime);
     }
 
     public LSide getSide(Session player) {

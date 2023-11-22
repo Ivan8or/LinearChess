@@ -6,9 +6,11 @@ import ShopBoard from './inventory/ShopBoard';
 
 import '/src/css/game/SideBoard.css'
 
-export default function ChessBoard() {
+export default function ChessBoard( {time} ) {
 
     const [shop, setShop] = useState(false)
+
+    const secondsTime = `0:${Math.floor(millis / 1000)}`
 
     return (
         <>
@@ -20,7 +22,7 @@ export default function ChessBoard() {
                     <InventoryDisplay />
                     <button onClick={() => setShop(true)} className="sideboard-button big-button">Shop</button>
                     <button className="sideboard-button big-button">Ready</button>
-                    <div className="sideboard-time">0:45</div>
+                    <div className="sideboard-time"> {secondsTime} </div>
                 </div>
             </div>
 

@@ -14,7 +14,7 @@ const JOIN_MSGS = ['SESSION_ALREADY_IN_LOBBY', 'SUCCESS']
 export default function WaitingPage({ session, lobby, setStarted }) {
 
     const navigate = useNavigate();
-    const [info, setInfo] = useState({ players: 1, ready: false })
+    const [info, setInfo] = useState({ players: 1, ready: false, playersReady: 0})
 
     const readyButton = () => toggleReady(session, lobby, !info.ready)
 
@@ -36,11 +36,11 @@ export default function WaitingPage({ session, lobby, setStarted }) {
         const interval = setInterval(() => {
             getLobby(session, lobby)
             .then(res => {
-                if(res.playerCount == 2) {
+                if(res.playersReady == 2) {
                     setStarted(true);
                 }
                 
-                setInfo({ players: res.playerCount, ready: res.isPlayerReady })
+                setInfo({ players: res.playerCount, ready: res.isPlayerReady, playersReady: res.playersReady })
             })
             .catch(e => navigate('/'))
         }, pollSpeed);
@@ -67,7 +67,7 @@ export default function WaitingPage({ session, lobby, setStarted }) {
                 <div id={"left-banner-ad"}>Ad</div>
                 <div id={"right-banner-ad"}>Ad</div>
 
-                <h3 id="websocket-status"> status: {connectStatus} </h3>
+                <h3 id="websocket-status"> players ready: {info.playersReady} / 2 </h3>
                 <button disabled={!connected} onClick={readyButton} className="big-button" id="ready-button"> {readyButtonText} </button>
                 <button onClick={() => navigate('/')} className="big-button"> Leave </button>
             </div>

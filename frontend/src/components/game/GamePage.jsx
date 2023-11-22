@@ -11,20 +11,28 @@ import { getBoard } from '/src/api/v1/lobbies/boards/boards';
 export default function GamePage( {session, lobby} ) {
     
     const [fen, updateFen] = useState("8/8/8/8/8/8/8/8");
+    const [time, setTime] = useState(0);
 
+    const pollSpeed = 1000;
     useEffect(() => {
-        getBoard(session, lobby)
-            .then(e => e.fen.fen)
-            .then(updateFen)
+        const interval = setInterval(() => {
+            getBoard(session, lobby)
+            .then(e => {
+                updateFen(e.fen.fen)
+                setTime(e["time-left"])
+            })
             .catch(e => console.log(e));
-    },[])
+        }, pollSpeed);
+
+        return () => clearInterval(interval);
+    }, []);
 
 
     return (
         <div className="page-root" id="game-root">
             <MainNavBar />
             <div id="game-left"><ChessBoard fen={fen} /></div>
-            <div id="game-right"><SideBoard /></div>
+            <div id="game-right"><SideBoard time={time}/></div>
             <MainFooter hidden={true} />
         </div>
     );
