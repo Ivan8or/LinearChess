@@ -1,4 +1,4 @@
-export function resourcePathById(item) {
+export function itemResourcePath(item) {
     const name = assetName(item?.id)
     if (item?.type === "eval") {
         const path = `./assets/logic/cards/${name}.svg`

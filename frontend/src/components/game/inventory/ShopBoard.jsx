@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '/src/css/game/inventory/ShopBoard.css'
 
 import { viewShop, refreshShop, purchase } from '/src/api/v1/lobbies/shops/shops';
-import { resourcePathById } from '/src/api/util/assets';
+import { itemResourcePath } from '/src/api/util/assets';
 
 export default function ShopBoard({ session, lobby }) {
 
@@ -24,19 +24,19 @@ export default function ShopBoard({ session, lobby }) {
                     <button onClick={() => purchaseFromShopWindow(session, lobby, setShop, 0, nextSlot, setNextSlot)} >
                         Purchase
                     </button>
-                    <img width="60" height="60" draggable="false" src={resourcePathById(getItem(shop, 0))} alt={resourcePathById(getItem(shop, 0))}></img>
+                    <img width="60" height="60" draggable="false" src={itemResourcePath(getItem(shop, 0))}></img>
                 </div>
                 <div style={{ "color": "black" }}>
                     <button onClick={() => purchaseFromShopWindow(session, lobby, setShop, 1, nextSlot, setNextSlot)} >
                         Purchase
                     </button>
-                    <img width="60" height="60" draggable="false" src={resourcePathById(getItem(shop, 1))} alt={resourcePathById(getItem(shop, 1))}></img>
+                    <img width="60" height="60" draggable="false" src={itemResourcePath(getItem(shop, 1))}></img>
                 </div>
                 <div style={{ "color": "black" }}>
                     <button onClick={() => purchaseFromShopWindow(session, lobby, setShop, 2, nextSlot, setNextSlot)} >
                         Purchase
                     </button>
-                    <img width="60" height="60" draggable="false" src={resourcePathById(getItem(shop, 2))} alt={resourcePathById(getItem(shop, 2))}></img>
+                    <img width="60" height="60" draggable="false" src={itemResourcePath(getItem(shop, 2))}></img>
                 </div>
             </div>
             <div style={{ "color": "red" }} id="shop-stats">STATS

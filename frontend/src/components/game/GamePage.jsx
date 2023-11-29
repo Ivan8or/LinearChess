@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import MainNavBar from '/src/components/common/MainNavBar';
 import MainFooter from '/src/components/common/MainFooter';
@@ -9,6 +10,8 @@ import '/src/css/game/GamePage.css'
 import { getBoard } from '/src/api/v1/lobbies/boards/boards';
 
 export default function GamePage( {session, lobby} ) {
+
+    const navigate = useNavigate();
     
     const [fen, updateFen] = useState("8/8/8/8/8/8/8/8");
     const [time, setTime] = useState(0);
@@ -25,7 +28,7 @@ export default function GamePage( {session, lobby} ) {
                 setInv([e["my-inventory"], e["opp-inventory"]])
                 setSide(e["side"])
             })
-            .catch(e => console.log(e));
+            .catch(e => navigate('/'));
         }, pollSpeed);
 
         return () => clearInterval(interval);

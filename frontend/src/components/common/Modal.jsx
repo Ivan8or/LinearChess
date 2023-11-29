@@ -17,7 +17,7 @@ function turnOffModal(disable) {
 
 export default function Modal({ isOpen, disable, style, children }) {
 
-    useEffect(() => turnOffModal(disable), [disable]);
+    useEffect(() => turnOffModal(disable), [disable, isOpen]);
     if (!isOpen) return null;
 
     const contentStyle = {
@@ -30,7 +30,7 @@ export default function Modal({ isOpen, disable, style, children }) {
 
     return ReactDOM.createPortal(
         <>
-            <div id='modal-overlay' style={overlayStyle}></div>
+            <div id='modal-overlay' style={overlayStyle} onClick={disable}></div>
             <div id='modal-content' style={contentStyle}>
                 {children}
             </div>
