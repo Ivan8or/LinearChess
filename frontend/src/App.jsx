@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import LobbyPage from '/src/components/lobby/LobbyPage'
 import HomePage from '/src/components/home/HomePage'
 
-import useSession from "/src/components/hooks/useSession";
+import useSession from "/src/components/common/hooks/useSession";
 
 import '/src/css/common/App.css'
 
